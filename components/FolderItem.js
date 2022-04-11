@@ -41,7 +41,7 @@ const FolderItem = ({onSelect, id, title }) => {
             onPress={onSelect}
             onLongPress={() => onRemoveFolder(id)}
         >
-            <Image source={image1}/>
+            <Image style={styles.img} source={image1}/>
             <View style={styles.titleBox}>
                 <Text style={styles.insideText}>{title.toUpperCase()}</Text>
             </View>
@@ -53,23 +53,26 @@ export default FolderItem;
 
 const styles = StyleSheet.create({
     box: {
-        marginHorizontal: 5,
-        marginTop: 10,
-        width: 120,
-        height: 120,
+        marginHorizontal: 10,
+        marginTop: 15,
+        width: 110,
+        height: 100,
         backgroundColor: 'white',
         borderWidth: 1,
         borderColor: 'black',
     },
     titleBox: {
-        position: "absolute",
-
-        left: "5%",
-        bottom: 2
+        marginBottom: 20,
+        backgroundColor: 'black',
+        borderWidth: 2
 
     },
+    img: {
+        maxWidth: 108,
+        maxHeight: 80
+    },
     insideText: {
-        color: 'black',
+        color: 'white',
         fontSize: 12,
         fontFamily: 'Qanelas-Bold',
     },

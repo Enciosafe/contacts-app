@@ -1,5 +1,6 @@
 import React from 'react';
-import {View, Text, StyleSheet, Pressable} from "react-native";
+import {View, Text, StyleSheet, Pressable, Image} from "react-native";
+
 
 const StartScreen = ({navigation}) => {
 
@@ -7,16 +8,22 @@ const StartScreen = ({navigation}) => {
         navigation.navigate('Folders')
     }
 
+    const img = require('../assets/img/logo.png')
 
     return (
-        <View style={styles.container}>
+        <>
             <Pressable
-                style={({ pressed }) => [styles.button, pressed && styles.pressed ]}
+                style={({ pressed }) =>[styles.container, pressed && styles.pressed ]}
                 onPress={enterHandler}
             >
-                <Text style={styles.text}>ENTER</Text>
+                <View>
+                    <Image source={img} resizeMode='repeat' width='30%'/>
+                </View>
             </Pressable>
-        </View>
+
+        </>
+
+
 
     );
 };
@@ -28,17 +35,12 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'yellow'
+        // backgroundColor: 'black'
     },
     text: {
         fontSize: 25,
         fontWeight: 'bold',
         color: 'yellow'
-    },
-    button: {
-        backgroundColor: "blue",
-        padding: 15,
-        borderRadius: 15,
     },
     pressed: {
         opacity: 0.7,
