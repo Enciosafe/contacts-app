@@ -1,12 +1,17 @@
 import React, {useState} from 'react';
 import {View, TextInput, StyleSheet, Text} from "react-native";
 import OutlinedButton from "../Ui/OutlinedButton";
+import {useDispatch} from "react-redux";
+import {addFolderAction} from "../store/foldersReducer";
+
 
 
 
 const NewFolder = ({navigation}) => {
+    const dispatch = useDispatch()
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
+
 
     const changeTitleHandler = (enteredText) => {
         setTitle(enteredText)
@@ -21,8 +26,16 @@ const NewFolder = ({navigation}) => {
     }
 
     const createFolderHandler = () => {
+        const folder = {
+            id: new Date().toString() + Math.random().toString(),
+            title,
+            description
+
+        }
+        dispatch(addFolderAction(folder))
         navigation.navigate('Folders')
     }
+
 
     return (
         <View style={styles.container}>

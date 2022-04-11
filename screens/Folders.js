@@ -1,11 +1,17 @@
-import React from 'react';
-import {folders} from '../data/dummy'
-
+import React, {useEffect} from 'react';
 import FolderItem from "../components/FolderItem";
-import {FlatList, ScrollView, StyleSheet} from "react-native";
+import {FlatList, StyleSheet} from "react-native";
+import {useSelector} from "react-redux";
+
 
 
 const Folders = () => {
+    const folders = useSelector(state => state.folders.folders)
+
+    useEffect(() => {
+        console.log(folders)
+    }, [folders]);
+
 
     const renderItem = ({item}) => (
         <FolderItem

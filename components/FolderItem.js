@@ -1,16 +1,34 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Pressable, StyleSheet, Text, View} from "react-native";
 import {useNavigation} from "@react-navigation/native";
+import {useDispatch} from "react-redux";
+import {removeFolderAction} from "../store/foldersReducer";
 
-const FolderItem = ({id, title, description}) => {
+
+const FolderItem = ({id, title }) => {
+
+    const dispatch = useDispatch()
 
     const navigation = useNavigation()
+
+    const onRemoveFolder = (id) => {
+
+        dispatch(removeFolderAction(id))
+        console.log('llooooong')
+        console.log(id)
+    }
+
 
     const onOpenContactHandler = () => {
         navigation.navigate('Contacts')
     }
     return (
-        <Pressable style={({pressed}) => [styles.box, pressed && styles.pressed]} onPress={onOpenContactHandler}>
+        <Pressable
+            style={({pressed}) => [styles.box, pressed && styles.pressed]}
+            onPress={onOpenContactHandler}
+            delayLongPress={1000}
+            onLongPress={() => onRemoveFolder(id)}
+        >
             <View style={styles.titleBox}>
                 <Text style={styles.insideText}>{title}</Text>
             </View>
