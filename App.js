@@ -9,13 +9,37 @@ import StartScreen from "./screens/StartScreen";
 import ContactDetails from "./screens/ContactDetails";
 import {store} from './store/index'
 import { Provider } from 'react-redux'
+import AppLoading from 'expo-app-loading'
+import * as Font from 'expo-font'
+import {useEffect, useState} from "react";
 
 const Stack = createNativeStackNavigator()
 
+let customFonts = {
+    'Qanelas-Regular': require('./assets/fonts/Qanelas-Regular.ttf'),
+    'Qanelas-Bold': require('./assets/fonts/Qanelas-Bold.ttf')
+}
+
 
 export default function App() {
-  return (
-    <>
+    const [isFontLoaded, setIsFontLoaded] = useState(false);
+
+    const loadFonts = async () => {
+        await Font.loadAsync(customFonts);
+        setIsFontLoaded(true)
+    }
+
+    useEffect(() => {
+        loadFonts()
+    }, [loadFonts]);
+
+
+    if(!isFontLoaded) {
+        return <AppLoading/>
+    }
+
+    return (
+        <>
       <Provider store={store}>
           <StatusBar style="auto" />
           <NavigationContainer>
@@ -29,15 +53,25 @@ export default function App() {
                       name='Folders'
                       component={Folders}
                       options={({ navigation }) => ({
-                          title: 'Folders',
+                          title: '',
+                          headerTitleStyle: {
+                              fontFamily: 'Qanelas-Regular'
+                          },
+                          // headerStyle: {
+                          //     backgroundColor: '#fff'
+                          // },
+                          headerTransparent: true,
                           headerRight: ({tintColor}) => (
                               <IconButton
                                   icon="add"
-                                  size={35}
+                                  size={15}
                                   color={tintColor}
                                   onPress={() => navigation.navigate('NewFolder')}
                               />
-                          ),})}
+                          ),
+                          headerBackTitleVisible: false,
+                          headerTintColor: 'black'
+                      })}
                   />
                   <Stack.Screen name='Contacts' component={Contacts}/>
                   <Stack.Screen name='ContactDetails' component={ContactDetails}/>

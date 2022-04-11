@@ -5,19 +5,22 @@ import {useSelector} from "react-redux";
 
 
 
-const Folders = () => {
+const Folders = ({navigation}) => {
     const folders = useSelector(state => state.folders.folders)
-
-    useEffect(() => {
-        console.log(folders)
-    }, [folders]);
-
 
     const renderItem = ({item}) => (
         <FolderItem
             id={item.id}
             title={item.title}
             description={item.description}
+            onSelect={() => {
+                navigation.navigate({
+                    routeName:'Contacts',
+                    params: {
+                        contactId: item.id
+                    }
+                })
+            }}
         />
     )
 
@@ -26,6 +29,7 @@ const Folders = () => {
             data={folders}
             renderItem={renderItem}
             numColumns={3}
+            style={styles.container}
         />
 
     );
@@ -35,7 +39,7 @@ export default Folders;
 
 const styles = StyleSheet.create({
     container: {
-        flexDirection: 'row'
+        marginTop: 100,
     }
 })
 

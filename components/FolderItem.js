@@ -1,21 +1,34 @@
-import React, {useEffect} from 'react';
-import {Pressable, StyleSheet, Text, View} from "react-native";
+import React from 'react';
+import {Alert, Pressable, StyleSheet, Text, View, Image} from "react-native";
 import {useNavigation} from "@react-navigation/native";
 import {useDispatch} from "react-redux";
 import {removeFolderAction} from "../store/foldersReducer";
+import image from "../assets/img/switz.png";
 
 
-const FolderItem = ({id, title }) => {
 
+
+const FolderItem = ({onSelect, id, title }) => {
+
+    const image1 = require('../assets/img/switz.png')
+    const image2 = require('../assets/img/ukraine.png')
     const dispatch = useDispatch()
 
     const navigation = useNavigation()
 
     const onRemoveFolder = (id) => {
-
-        dispatch(removeFolderAction(id))
-        console.log('llooooong')
-        console.log(id)
+        Alert.alert('Удаление папки', 'Уверены что хотите удалить эту папку?',[
+            {
+                text: "Нет",
+                onPress: () => Alert.alert("Не удаляем"),
+                style: "default",
+            },
+            {
+                text: "Удалить",
+                onPress: () => dispatch(removeFolderAction(id)),
+                style: "default"
+            }
+        ])
     }
 
 
@@ -25,12 +38,12 @@ const FolderItem = ({id, title }) => {
     return (
         <Pressable
             style={({pressed}) => [styles.box, pressed && styles.pressed]}
-            onPress={onOpenContactHandler}
-            delayLongPress={1000}
+            onPress={onSelect}
             onLongPress={() => onRemoveFolder(id)}
         >
+            <Image source={image1}/>
             <View style={styles.titleBox}>
-                <Text style={styles.insideText}>{title}</Text>
+                <Text style={styles.insideText}>{title.toUpperCase()}</Text>
             </View>
         </Pressable>
     );
@@ -45,20 +58,20 @@ const styles = StyleSheet.create({
         width: 120,
         height: 120,
         backgroundColor: 'white',
-        borderWidth: 3,
+        borderWidth: 1,
         borderColor: 'black',
-        borderRadius: 15,
-
     },
     titleBox: {
-        marginTop: 80,
-        backgroundColor: 'gray',
-        opacity: .5,
+        position: "absolute",
+
+        left: "5%",
+        bottom: 2
+
     },
     insideText: {
-        textAlign: 'center',
         color: 'black',
-        fontSize: 16,
+        fontSize: 12,
+        fontFamily: 'Qanelas-Bold',
     },
     pressed: {
         opacity: .7,
