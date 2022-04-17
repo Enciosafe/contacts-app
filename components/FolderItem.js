@@ -13,7 +13,6 @@ const FolderItem = ({id, title, onSelect }) => {
     const image2 = require('../assets/img/ukraine.png')
     const dispatch = useDispatch()
 
-    const navigation = useNavigation()
 
     const onRemoveFolder = (id) => {
         Alert.alert('Удаление папки', 'Уверены что хотите удалить эту папку?',[
@@ -31,9 +30,6 @@ const FolderItem = ({id, title, onSelect }) => {
     }
 
 
-    // const onOpenContactHandler = (id) => {
-    //     navigation.navigate('ContactsList')
-    // }
     return (
         <Pressable
             style={({pressed}) => [styles.box, pressed && styles.pressed]}
@@ -47,6 +43,7 @@ const FolderItem = ({id, title, onSelect }) => {
         </Pressable>
     );
 };
+
 
 export default FolderItem;
 

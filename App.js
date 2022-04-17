@@ -13,7 +13,7 @@ import AppLoading from 'expo-app-loading'
 import * as Font from 'expo-font'
 import {useEffect, useState} from "react";
 import ContactsList from "./screens/ContactsList";
-import ContactTestScreen from "./screens/ContactTestScreen";
+
 
 const Stack = createNativeStackNavigator()
 
@@ -72,7 +72,28 @@ export default function App() {
                           headerTintColor: 'black'
                       })}
                   />
-                  <Stack.Screen name='ContactsList' component={ContactsList}/>
+                  <Stack.Screen
+                      name='ContactsList'
+                      component={ContactsList}
+                      options={({ route , navigation}) => ({
+                          title: route.params.contactTitle,
+                          headerTitleStyle: {
+                              fontFamily: 'Qanelas-Bold'
+                          },
+                          headerRight: ({tintColor}) => (
+                              <IconButton
+                                  icon="add"
+                                  size={15}
+                                  color={tintColor}
+                                  onPress={() => navigation.navigate('NewFolder')}
+                              />
+                          ),
+                          headerTransparent: true,
+                          headerBackTitleVisible: false,
+                          headerTintColor: 'black'
+                      })}
+
+                  />
                   <Stack.Screen name='ContactDetails' component={ContactDetails}/>
                   <Stack.Screen
                       name='NewFolder'

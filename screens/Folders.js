@@ -5,7 +5,7 @@ import {useSelector} from "react-redux";
 
 
 
-const Folders = ({navigation}) => {
+const Folders = ({route, navigation}) => {
     const folders = useSelector(state => state.folders.folders)
 
     const renderItem = (itemData) => {
@@ -33,6 +33,7 @@ const Folders = ({navigation}) => {
 
     );
 };
+
 
 export default Folders;
 
