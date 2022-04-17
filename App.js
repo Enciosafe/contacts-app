@@ -2,7 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import {NavigationContainer} from "@react-navigation/native";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import Folders from "./screens/Folders";
-import Contacts from "./screens/Contacts";
+
 import IconButton from "./Ui/IconButton";
 import NewFolder from "./screens/NewFolder";
 import StartScreen from "./screens/StartScreen";
@@ -12,6 +12,8 @@ import { Provider } from 'react-redux'
 import AppLoading from 'expo-app-loading'
 import * as Font from 'expo-font'
 import {useEffect, useState} from "react";
+import ContactsList from "./screens/ContactsList";
+import ContactTestScreen from "./screens/ContactTestScreen";
 
 const Stack = createNativeStackNavigator()
 
@@ -57,9 +59,6 @@ export default function App() {
                           headerTitleStyle: {
                               fontFamily: 'Qanelas-Regular'
                           },
-                          // headerStyle: {
-                          //     backgroundColor: '#fff'
-                          // },
                           headerTransparent: true,
                           headerRight: ({tintColor}) => (
                               <IconButton
@@ -73,7 +72,7 @@ export default function App() {
                           headerTintColor: 'black'
                       })}
                   />
-                  <Stack.Screen name='Contacts' component={Contacts}/>
+                  <Stack.Screen name='ContactsList' component={ContactsList}/>
                   <Stack.Screen name='ContactDetails' component={ContactDetails}/>
                   <Stack.Screen
                       name='NewFolder'

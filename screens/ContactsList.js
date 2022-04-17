@@ -3,8 +3,12 @@ import {View, Text, StyleSheet, FlatList} from "react-native";
 import ContactItem from "../components/ContactItem";
 import {contacts} from "../data/dummy";
 
-const Contacts = ({route}) => {
-    const contId = route.params.contactId
+const ContactsList = ({route}) => {
+
+
+     console.log('params',route.params)
+
+
 
     const renderItem = ({item}) => (
         <ContactItem
@@ -16,7 +20,6 @@ const Contacts = ({route}) => {
 
     return (
         <>
-            <Text>{contId}</Text>
             <FlatList
                 data={contacts}
                 renderItem={renderItem}
@@ -27,4 +30,5 @@ const Contacts = ({route}) => {
     );
 };
 
-export default Contacts;
+
+export default ContactsList;

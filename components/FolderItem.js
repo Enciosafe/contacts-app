@@ -3,12 +3,11 @@ import {Alert, Pressable, StyleSheet, Text, View, Image} from "react-native";
 import {useNavigation} from "@react-navigation/native";
 import {useDispatch} from "react-redux";
 import {removeFolderAction} from "../store/foldersReducer";
-import image from "../assets/img/switz.png";
 
 
 
 
-const FolderItem = ({onSelect, id, title }) => {
+const FolderItem = ({id, title, onSelect }) => {
 
     const image1 = require('../assets/img/switz.png')
     const image2 = require('../assets/img/ukraine.png')
@@ -32,9 +31,9 @@ const FolderItem = ({onSelect, id, title }) => {
     }
 
 
-    const onOpenContactHandler = () => {
-        navigation.navigate('Contacts')
-    }
+    // const onOpenContactHandler = (id) => {
+    //     navigation.navigate('ContactsList')
+    // }
     return (
         <Pressable
             style={({pressed}) => [styles.box, pressed && styles.pressed]}

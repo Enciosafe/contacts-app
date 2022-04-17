@@ -8,21 +8,20 @@ import {useSelector} from "react-redux";
 const Folders = ({navigation}) => {
     const folders = useSelector(state => state.folders.folders)
 
-    const renderItem = ({item}) => (
-        <FolderItem
-            id={item.id}
-            title={item.title}
-            description={item.description}
+    const renderItem = (itemData) => {
+        return <FolderItem
+            id={itemData.item.id}
+            title={itemData.item.title}
             onSelect={() => {
-                navigation.navigate({
-                    routeName:'Contacts',
-                    params: {
-                        contactId: item.id
-                    }
+                navigation.navigate('ContactsList', {
+                        contactId: itemData.item.id,
+                        contactTitle: itemData.item.title
                 })
             }}
         />
-    )
+    }
+
+
 
     return (
         <FlatList
@@ -42,4 +41,6 @@ const styles = StyleSheet.create({
         marginTop: 100,
     }
 })
+
+
 
