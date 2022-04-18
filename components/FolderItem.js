@@ -9,7 +9,6 @@ import {removeFolderAction} from "../store/foldersReducer";
 const FolderItem = ({id, title, onSelect }) => {
 
     const image1 = require('../assets/img/switz.png')
-    const image2 = require('../assets/img/ukraine.png')
     const dispatch = useDispatch()
 
 

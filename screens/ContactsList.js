@@ -9,15 +9,14 @@ const ContactsList = ({route}) => {
     const contacts = useSelector(state => state.contacts.contacts)
     const filteredContacts = contacts.filter((contact) => contact.folderId === insideFolderId)
 
-    console.log(filteredContacts)
-
 
     const renderItem = ({item}) => (
         <ContactItem
-            id={item.id}
-            name={item.name}
-            photo={item.photo}
-            email={item.email}
+            props={item}
+            // id={item.id}
+            // name={item.name}
+            // photo={item.photo}
+            // email={item.email}
         />
     )
 
@@ -39,6 +38,7 @@ export default ContactsList;
 
 const styles = StyleSheet.create({
     container: {
+        width: '100%',
         marginTop: 100,
     }
 })

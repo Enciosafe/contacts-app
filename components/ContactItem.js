@@ -1,23 +1,47 @@
 import React from 'react';
-import {View, StyleSheet, Text, Image} from "react-native";
+import {View, StyleSheet, Text, Image, Pressable, Alert} from "react-native";
+import {useDispatch} from "react-redux";
+import {removeContactAction} from "../store/contactsReducer";
+import {useNavigation} from "@react-navigation/native";
 
 
 
-const ContactItem = ({id, name, email, photo}) => {
-    console.log(photo)
+const ContactItem = ({props}) => {
+    const dispatch = useDispatch()
+    const navigation = useNavigation()
 
+    const onRemoveContact = (id) => {
+        Alert.alert('Удаление контакта', 'Уверены что хотите удалить этот контакт?',[
+            {
+                text: "Нет",
+                onPress: () => Alert.alert("Не удаляем"),
+                style: "default",
+            },
+            {
+                text: "Удалить",
+                onPress: () => dispatch(removeContactAction(id)),
+                style: "default"
+            }
+        ])
+    }
 
-    // const picture = require(photo)
+    const contactDetailsHandler = () => {
+        navigation.navigate('ContactDetails')
+    }
 
     return (
-        <View style={styles.container}>
+        <Pressable
+            style={({pressed}) => [styles.container, pressed && styles.pressed]}
+            onPress={contactDetailsHandler}
+            onLongPress={() => onRemoveContact(id)}
+        >
             <View style={styles.imagePreview}>
-                <Image style={styles.image} source={{uri: photo}}/>
+                <Image style={styles.image} source={{uri: props.photo}}/>
                 <View style={styles.textContainer}>
-                    <Text style={styles.text}>{name}</Text>
+                    <Text style={styles.text}>{props.name}</Text>
                 </View>
             </View>
-        </View>
+        </Pressable>
     );
 };
 
@@ -51,6 +75,9 @@ const styles = StyleSheet.create({
     image: {
         width: '100%',
         height: '100%'
+    },
+    pressed: {
+        opacity: .7,
     }
 })
 
