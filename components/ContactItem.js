@@ -2,17 +2,22 @@ import React from 'react';
 import {View, StyleSheet, Text, Image} from "react-native";
 
 
-const ContactItem = ({id, name, address, email, facebook, instagram, phone, telegram, twitter, imageUrl}) => {
+
+const ContactItem = ({id, name, email, photo}) => {
+    console.log(photo)
+
+
+    // const picture = require(photo)
+
     return (
         <View style={styles.container}>
-            <View>
-                <Image sourse={{uri: imageUrl}}/>
-            </View>
-            <View style={styles.box}>
-                <Text style={styles.text}>{name}</Text>
+            <View style={styles.imagePreview}>
+                <Image style={styles.image} source={{uri: photo}}/>
+                <View style={styles.textContainer}>
+                    <Text style={styles.text}>{name}</Text>
+                </View>
             </View>
         </View>
-
     );
 };
 
@@ -20,24 +25,32 @@ export default ContactItem;
 
 const styles = StyleSheet.create({
     container: {
-        paddingVertical: 10,
-        margin: 8,
-        flex: 1,
-        alignItems: 'center',
-        width: 100,
-        height: 110,
-        backgroundColor: 'white',
-        borderRadius: 100,
+        marginHorizontal: 15
     },
-    box: {
-        marginHorizontal: 5,
-        borderWidth: 3,
-        borderColor: 'black',
-        borderRadius: 15,
-    },
-
     text: {
-        marginTop: 70
+        fontFamily: 'Qanelas-Bold',
+        textAlign: 'center',
+        fontSize: 16,
+        color: 'white'
+    },
+    imagePreview: {
+        width: 150,
+        height: 150,
+        marginHorizontal: 10,
+        marginVertical: 8,
+        backgroundColor: 'black',
+        borderRadius: 100,
+        overflow: "hidden",
+    },
+    textContainer: {
+        backgroundColor: 'black',
+        paddingBottom: 10,
+        opacity: .6,
+        bottom: 30,
+    },
+    image: {
+        width: '100%',
+        height: '100%'
     }
 })
 

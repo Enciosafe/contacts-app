@@ -79,8 +79,8 @@ export default function App() {
                       component={ContactsList}
                       options={({ route , navigation}) => ({
                           title: route.params.contactTitle,
-                          headerTitleStyle: {
-                              fontFamily: 'Qanelas-Bold'
+                          headerStyle: {
+                              fontFamily: 'Qanelas-Bold',
                           },
                           headerRight: ({tintColor}) => (
                               <IconButton

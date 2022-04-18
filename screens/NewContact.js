@@ -5,6 +5,7 @@ import 'react-native-get-random-values';
 import { v4 as uuidv4 } from 'uuid';
 import {useDispatch} from "react-redux";
 import {addContactAction} from "../store/contactsReducer";
+import ImagePicker from "../components/ImagePicker";
 
 
 const NewContact = ({route, navigation}) => {
@@ -13,6 +14,7 @@ const NewContact = ({route, navigation}) => {
     const [foldId, setFoldId] = useState('')
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
+    const [photo, setPhoto] = useState('')
 
 
 
@@ -28,13 +30,17 @@ const NewContact = ({route, navigation}) => {
     const changeEmailHandler = (enteredText) => {
         setEmail(enteredText)
     }
+    const changePhotoHandler = (enteredUrl) => {
+        setPhoto(enteredUrl)
+    }
 
     const createContactHandler = () => {
         const newContact = {
             folderId: foldId,
             id: uuidv4(),
-            name,
-            email
+            name: name.toUpperCase(),
+            email,
+            photo
         }
         dispatch(addContactAction(newContact))
         navigation.goBack()
@@ -62,6 +68,17 @@ const NewContact = ({route, navigation}) => {
                     onChangeText={changeEmailHandler}
                     style={[styles.input, styles.text]}
                 />
+            </View>
+            <View>
+                <Text style={styles.text}>PHOTO</Text>
+                <TextInput
+                    value={photo}
+                    onChangeText={changePhotoHandler}
+                    style={[styles.input, styles.text]}
+                />
+            </View>
+            <View>
+                <ImagePicker pictureHandler={changePhotoHandler}/>
             </View>
 
             <View style={[styles.actions, styles.text]}>

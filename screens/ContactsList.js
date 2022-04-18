@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, StyleSheet, FlatList} from "react-native";
+import {StyleSheet, FlatList} from "react-native";
 import ContactItem from "../components/ContactItem";
 import {useSelector} from "react-redux";
 
@@ -9,12 +9,15 @@ const ContactsList = ({route}) => {
     const contacts = useSelector(state => state.contacts.contacts)
     const filteredContacts = contacts.filter((contact) => contact.folderId === insideFolderId)
 
+    console.log(filteredContacts)
+
 
     const renderItem = ({item}) => (
         <ContactItem
             id={item.id}
             name={item.name}
-            imageUrl={item.imageUrl}
+            photo={item.photo}
+            email={item.email}
         />
     )
 
@@ -30,16 +33,6 @@ const ContactsList = ({route}) => {
 
     );
 };
-
-ContactsList.navigationOptions = ({route}) => {
-    const { contactTitle } = route.params
-    const { contactId } = route.params
-    console.log(contactId)
-
-    return {
-        headerTitle: {contactTitle}
-    }
-}
 
 
 export default ContactsList;

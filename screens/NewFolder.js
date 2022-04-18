@@ -28,7 +28,7 @@ const NewFolder = ({navigation}) => {
     const createFolderHandler = () => {
         const folder = {
             id: new Date().toString() + Math.random().toString(),
-            title,
+            title: title.toUpperCase(),
             description
 
         }

@@ -37,7 +37,7 @@ const FolderItem = ({id, title, onSelect }) => {
         >
             <Image style={styles.img} source={image1}/>
             <View style={styles.titleBox}>
-                <Text style={styles.insideText}>{title.toUpperCase()}</Text>
+                <Text style={styles.insideText}>{title}</Text>
             </View>
         </Pressable>
     );
