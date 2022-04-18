@@ -40,24 +40,24 @@ const NewFolder = ({navigation}) => {
     return (
         <View style={styles.container}>
             <View>
-                <Text>Title</Text>
+                <Text style={styles.text}>НАЗВАНИЕ</Text>
                 <TextInput
                     value={title}
                     onChangeText={changeTitleHandler}
-                    style={styles.input}
+                    style={[styles.input, styles.text]}
                 />
             </View>
             <View>
-                <Text>Description</Text>
+                <Text style={styles.text}>ОПИСАНИЕ</Text>
                 <TextInput
                     value={description}
                     onChangeText={changeDescriptionHandler}
-                    style={styles.input}
+                    style={[styles.input, styles.text]}
                 />
             </View>
-            <View style={styles.actions}>
-                <OutlinedButton icon="folder-open-outline" onPress={createFolderHandler} >CREATE</OutlinedButton>
-                <OutlinedButton icon="cut-outline" onPress={cancelHandler} >CANCEL</OutlinedButton>
+            <View style={[styles.actions, styles.text]}>
+                <OutlinedButton icon="folder-open-outline" onPress={createFolderHandler} >СОЗДАТЬ</OutlinedButton>
+                <OutlinedButton icon="cut-outline" onPress={cancelHandler} >ОТМЕНИТЬ</OutlinedButton>
             </View>
         </View>
 
@@ -83,5 +83,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-around',
         alignItems: 'center'
+    },
+    text: {
+        fontFamily: 'Qanelas-Regular',
     }
 })

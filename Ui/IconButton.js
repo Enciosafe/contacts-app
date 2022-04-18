@@ -4,7 +4,7 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import {Text, View} from "react-native";
 
 
-const IconButton = ({icon, size, color, onPress}) => {
+const IconButton = ({icon, size, color, onPress, buttonText}) => {
     return (
         <Pressable
             style={({ pressed }) => [styles.button, pressed && styles.pressed ]}
@@ -16,7 +16,7 @@ const IconButton = ({icon, size, color, onPress}) => {
                     size={size}
                     color={color}
                 />
-                <Text style={styles.text}>СОЗДАТЬ НОВУЮ ПАПКУ</Text>
+                <Text style={styles.text}>{buttonText}</Text>
             </View>
         </Pressable>
     );

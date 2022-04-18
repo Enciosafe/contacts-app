@@ -1,6 +1,5 @@
 import React from 'react';
 import {Alert, Pressable, StyleSheet, Text, View, Image} from "react-native";
-import {useNavigation} from "@react-navigation/native";
 import {useDispatch} from "react-redux";
 import {removeFolderAction} from "../store/foldersReducer";
 

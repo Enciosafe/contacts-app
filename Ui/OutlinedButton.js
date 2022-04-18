@@ -43,6 +43,7 @@ const styles = StyleSheet.create({
         marginRight: 6,
     },
     text: {
-        color: 'black'
+        color: 'black',
+        fontFamily: 'Qanelas-Regular',
     }
 })

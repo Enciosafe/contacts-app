@@ -13,6 +13,7 @@ import AppLoading from 'expo-app-loading'
 import * as Font from 'expo-font'
 import {useEffect, useState} from "react";
 import ContactsList from "./screens/ContactsList";
+import NewContact from "./screens/NewContact";
 
 
 const Stack = createNativeStackNavigator()
@@ -62,6 +63,7 @@ export default function App() {
                           headerTransparent: true,
                           headerRight: ({tintColor}) => (
                               <IconButton
+                                  buttonText='СОЗДАТЬ НОВУЮ ПАПКУ'
                                   icon="add"
                                   size={15}
                                   color={tintColor}
@@ -82,10 +84,13 @@ export default function App() {
                           },
                           headerRight: ({tintColor}) => (
                               <IconButton
+                                  buttonText='ДОБАВИТЬ КОНТАКТ'
                                   icon="add"
                                   size={15}
                                   color={tintColor}
-                                  onPress={() => navigation.navigate('NewFolder')}
+                                  onPress={() => navigation.navigate('NewContact', {
+                                      folderId: route.params.contactId
+                                  })}
                               />
                           ),
                           headerTransparent: true,
@@ -94,11 +99,26 @@ export default function App() {
                       })}
 
                   />
+                  <Stack.Screen
+                      name='NewContact'
+                      component={NewContact}
+                      options={{
+                          title: 'НОВЫЙ КОНТАКТ',
+                          headerTitleStyle: {
+                              fontFamily: 'Qanelas-Regular'
+                          },
+                          presentation: "modal",
+                      }}
+                  />
                   <Stack.Screen name='ContactDetails' component={ContactDetails}/>
                   <Stack.Screen
                       name='NewFolder'
                       component={NewFolder}
                       options={{
+                          title: 'НОВАЯ ПАПКА',
+                          headerTitleStyle: {
+                              fontFamily: 'Qanelas-Regular'
+                          },
                           presentation: "modal",
                       }}/>
               </Stack.Navigator>
