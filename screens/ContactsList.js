@@ -13,10 +13,6 @@ const ContactsList = ({route}) => {
     const renderItem = ({item}) => (
         <ContactItem
             props={item}
-            // id={item.id}
-            // name={item.name}
-            // photo={item.photo}
-            // email={item.email}
         />
     )
 
@@ -25,7 +21,7 @@ const ContactsList = ({route}) => {
             <FlatList
                 data={filteredContacts}
                 renderItem={renderItem}
-                numColumns={3}
+                numColumns={2}
                 style={styles.container}
             />
         </>

@@ -26,14 +26,16 @@ const ContactItem = ({props}) => {
     }
 
     const contactDetailsHandler = () => {
-        navigation.navigate('ContactDetails')
+        navigation.navigate('ContactDetails', {
+            props: props
+        })
     }
 
     return (
         <Pressable
             style={({pressed}) => [styles.container, pressed && styles.pressed]}
             onPress={contactDetailsHandler}
-            onLongPress={() => onRemoveContact(id)}
+            onLongPress={() => onRemoveContact(props.id)}
         >
             <View style={styles.imagePreview}>
                 <Image style={styles.image} source={{uri: props.photo}}/>

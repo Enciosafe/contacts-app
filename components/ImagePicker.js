@@ -42,9 +42,9 @@ const ImagePicker = ({pictureHandler}) => {
 
     return (
         <View>
-            <View style={styles.imagePreview}>
+            {pickedImage && (<View style={styles.imagePreview}>
                 {imagePreview}
-            </View>
+            </View>)}
             <OutlinedButton icon='camera' onPress={takeImageHandler}>ФОТО</OutlinedButton>
         </View>
     );

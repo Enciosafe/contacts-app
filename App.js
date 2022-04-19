@@ -100,6 +100,16 @@ export default function App() {
 
                   />
                   <Stack.Screen
+                      name='ContactDetails'
+                      component={ContactDetails}
+                      options={{
+                          title: 'ДETAЛИ',
+                          headerTitleStyle: {
+                              fontFamily: 'Qanelas-Regular'
+                          },
+                      }}
+                  />
+                  <Stack.Screen
                       name='NewContact'
                       component={NewContact}
                       options={{
@@ -110,7 +120,6 @@ export default function App() {
                           presentation: "modal",
                       }}
                   />
-                  <Stack.Screen name='ContactDetails' component={ContactDetails}/>
                   <Stack.Screen
                       name='NewFolder'
                       component={NewFolder}

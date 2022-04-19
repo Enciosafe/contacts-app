@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, StyleSheet, TextInput, } from "react-native";
+import {View, Text, StyleSheet, TextInput } from "react-native";
 import OutlinedButton from "../Ui/OutlinedButton";
 import 'react-native-get-random-values';
 import { v4 as uuidv4 } from 'uuid';
@@ -14,7 +14,8 @@ const NewContact = ({route, navigation}) => {
     const [foldId, setFoldId] = useState('')
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
-    const [photo, setPhoto] = useState('')
+    const [photo, setPhoto] = useState('');
+    const [instagram, setInstagram] = useState('')
 
 
 
@@ -33,6 +34,9 @@ const NewContact = ({route, navigation}) => {
     const changePhotoHandler = (enteredUrl) => {
         setPhoto(enteredUrl)
     }
+    const changeInstagramHandler = (enteredAcc) => {
+        setInstagram(enteredAcc)
+    }
 
     const createContactHandler = () => {
         const newContact = {
@@ -40,7 +44,8 @@ const NewContact = ({route, navigation}) => {
             id: uuidv4(),
             name: name.toUpperCase(),
             email,
-            photo
+            photo,
+            instagram: instagram.toLowerCase()
         }
         dispatch(addContactAction(newContact))
         navigation.goBack()
@@ -70,15 +75,25 @@ const NewContact = ({route, navigation}) => {
                 />
             </View>
             <View>
-                <Text style={styles.text}>PHOTO</Text>
+                <Text style={styles.text}>INSTAGRAM ACCOUNT</Text>
                 <TextInput
-                    value={photo}
-                    onChangeText={changePhotoHandler}
+                    value={instagram}
+                    onChangeText={changeInstagramHandler}
                     style={[styles.input, styles.text]}
                 />
             </View>
+
             <View>
+                <Text style={styles.text}>PHOTO</Text>
                 <ImagePicker pictureHandler={changePhotoHandler}/>
+            </View>
+            <View>
+
+                {/*<TextInput*/}
+                {/*    value={photo}*/}
+                {/*    onChangeText={changePhotoHandler}*/}
+                {/*    style={[styles.input, styles.text]}*/}
+                {/*/>*/}
             </View>
 
             <View style={[styles.actions, styles.text]}>
