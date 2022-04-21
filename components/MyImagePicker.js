@@ -3,7 +3,7 @@ import {Alert, Image, StyleSheet, Text, View} from "react-native";
 import {launchCameraAsync, useCameraPermissions, PermissionStatus } from "expo-image-picker";
 import OutlinedButton from "../Ui/OutlinedButton";
 
-const ImagePicker = ({pictureHandler}) => {
+const MyImagePicker = ({pictureHandler}) => {
     const [pickedImage, setPickedImage] = useState();
     const [cameraPermissionInformation, requestPermission] = useCameraPermissions()
 
@@ -50,7 +50,7 @@ const ImagePicker = ({pictureHandler}) => {
     );
 };
 
-export default ImagePicker;
+export default MyImagePicker;
 
 const styles = StyleSheet.create({
     imagePreview: {

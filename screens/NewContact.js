@@ -1,11 +1,13 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, StyleSheet, TextInput } from "react-native";
+import {View, Text, StyleSheet, TextInput, Image} from "react-native";
 import OutlinedButton from "../Ui/OutlinedButton";
 import 'react-native-get-random-values';
 import { v4 as uuidv4 } from 'uuid';
 import {useDispatch} from "react-redux";
 import {addContactAction} from "../store/contactsReducer";
-import ImagePicker from "../components/ImagePicker";
+import * as ImagePicker from 'expo-image-picker';
+import MyImagePicker from "../components/MyImagePicker";
+
 
 
 const NewContact = ({route, navigation}) => {
@@ -14,7 +16,9 @@ const NewContact = ({route, navigation}) => {
     const [foldId, setFoldId] = useState('')
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
-    const [photo, setPhoto] = useState('');
+    const [photo, setPhoto] = useState(null);
+    const [image, setImage] = useState(null)
+
     const [instagram, setInstagram] = useState('')
 
 
@@ -22,6 +26,17 @@ const NewContact = ({route, navigation}) => {
     useEffect(() => {
        setFoldId(incomeFolderId)
     }, [incomeFolderId]);
+
+    const pickImageFromRollHandler = async () => {
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            allowsEditing: false
+        })
+
+        if(!result.cancelled) {
+            setImage(result.uri)
+        }
+    }
 
 
 
@@ -39,13 +54,16 @@ const NewContact = ({route, navigation}) => {
     }
 
     const createContactHandler = () => {
+        if(!photo) {
+            setPhoto(require('../assets/img/switz.png'))
+        }
         const newContact = {
             folderId: foldId,
             id: uuidv4(),
             name: name.toUpperCase(),
             email,
-            photo,
-            instagram: instagram.toLowerCase()
+            photo: photo | image,
+            instagram: instagram
         }
         dispatch(addContactAction(newContact))
         navigation.goBack()
@@ -85,20 +103,12 @@ const NewContact = ({route, navigation}) => {
 
             <View>
                 <Text style={styles.text}>PHOTO</Text>
-                <ImagePicker pictureHandler={changePhotoHandler}/>
+                <MyImagePicker pictureHandler={changePhotoHandler}/>
             </View>
-            <View>
-
-                {/*<TextInput*/}
-                {/*    value={photo}*/}
-                {/*    onChangeText={changePhotoHandler}*/}
-                {/*    style={[styles.input, styles.text]}*/}
-                {/*/>*/}
-            </View>
-
             <View style={[styles.actions, styles.text]}>
                 <OutlinedButton icon="folder-open-outline" onPress={createContactHandler} >СОЗДАТЬ</OutlinedButton>
                 <OutlinedButton icon="cut-outline" onPress={cancelHandler} >ОТМЕНИТЬ</OutlinedButton>
+                <OutlinedButton icon="image-outline" onPress={pickImageFromRollHandler}>ОБЛОЖКА</OutlinedButton>
             </View>
         </View>
 

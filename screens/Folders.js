@@ -12,6 +12,7 @@ const Folders = ({route, navigation}) => {
         return <FolderItem
             id={itemData.item.id}
             title={itemData.item.title}
+            image={itemData.item.image}
             onSelect={() => {
                 navigation.navigate('ContactsList', {
                         contactId: itemData.item.id,

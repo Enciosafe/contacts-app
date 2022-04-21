@@ -25,7 +25,7 @@ export default OutlinedButton;
 
 const styles = StyleSheet.create({
     button: {
-        paddingHorizontal: 12,
+        paddingHorizontal: 6,
         paddingVertical: 6,
         margin: 4,
         flexDirection: 'row',

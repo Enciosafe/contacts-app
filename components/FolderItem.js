@@ -6,10 +6,10 @@ import {removeFolderAction} from "../store/foldersReducer";
 
 
 
-const FolderItem = ({id, title, onSelect }) => {
+const FolderItem = ({id, title, image, onSelect }) => {
 
-    const image1 = require('../assets/img/switz.png')
     const dispatch = useDispatch()
+
 
 
     const onRemoveFolder = (id) => {
@@ -30,13 +30,15 @@ const FolderItem = ({id, title, onSelect }) => {
 
     return (
         <Pressable
-            style={({pressed}) => [styles.box, pressed && styles.pressed]}
+            style={({pressed}) => [styles.container, pressed && styles.pressed]}
             onPress={onSelect}
             onLongPress={() => onRemoveFolder(id)}
         >
-            <Image style={styles.img} source={image1}/>
-            <View style={styles.titleBox}>
-                <Text style={styles.insideText}>{title}</Text>
+            <View style={styles.folderContainer}>
+                <Image style={styles.image} source={{uri: image}}/>
+                <View style={styles.textContainer}>
+                    <Text style={styles.text}>{title}</Text>
+                </View>
             </View>
         </Pressable>
     );
@@ -46,32 +48,35 @@ const FolderItem = ({id, title, onSelect }) => {
 export default FolderItem;
 
 const styles = StyleSheet.create({
-    box: {
-        marginHorizontal: 10,
-        marginTop: 15,
-        width: 110,
-        height: 100,
-        backgroundColor: 'white',
-        borderWidth: 1,
-        borderColor: 'black',
+    container: {
+        marginHorizontal: 15
     },
-    titleBox: {
-        marginBottom: 20,
-        backgroundColor: 'black',
-        borderWidth: 2
-
-    },
-    img: {
-        maxWidth: 108,
-        maxHeight: 80
-    },
-    insideText: {
-        color: 'white',
-        fontSize: 12,
+    text: {
         fontFamily: 'Qanelas-Bold',
+        textAlign: 'center',
+        fontSize: 16,
+        color: 'white'
+    },
+    folderContainer: {
+        width: 150,
+        height: 150,
+        marginHorizontal: 10,
+        marginVertical: 8,
+        backgroundColor: 'black',
+        borderRadius: 20,
+        overflow: "hidden",
+    },
+    textContainer: {
+        backgroundColor: 'black',
+        paddingBottom: 10,
+        opacity: .6,
+        bottom: 30,
+    },
+    image: {
+        width: '100%',
+        height: '100%'
     },
     pressed: {
         opacity: .7,
-        backgroundColor: 'black'
     }
 })

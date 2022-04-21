@@ -6,6 +6,7 @@ import * as Linking from 'expo-linking';
 const ContactDetails = ({route}) => {
     const {email, name, photo, instagram} = route.params.props
 
+
     return (
         <View style={styles.container}>
             <View>
@@ -13,12 +14,12 @@ const ContactDetails = ({route}) => {
             </View>
             <Text style={[styles.text]}>{name}</Text>
             <Pressable onPress={() => {Linking.openURL(`mailto:${email}`)}}>
-                <Text style={[styles.text, styles.email]}>{email}</Text>
+                <Text style={[styles.text, styles.email]}>{email.toLowerCase()}</Text>
             </Pressable>
 
             <Pressable
                 style={({ pressed }) => [styles.button, pressed && styles.pressed ]}
-                onPress={() => {Linking.openURL(`http://instagram.com/${instagram}`);}}
+                onPress={() => {Linking.openURL(instagram);}}
             >
                 <View>
                     <Ionicons
@@ -48,7 +49,8 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         width:  250,
         height: 250,
-        borderRadius: 200
+        borderRadius: 200,
+        backgroundColor: 'black'
     },
     text: {
         marginTop: 10,
