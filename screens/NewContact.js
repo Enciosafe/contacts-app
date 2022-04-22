@@ -16,11 +16,14 @@ const NewContact = ({route, navigation}) => {
     const dispatch = useDispatch()
     const [foldId, setFoldId] = useState('')
     const [name, setName] = useState('');
+    const [description, setDescription] = useState('')
+    const [phone, setPhone] = useState('')
     const [email, setEmail] = useState('');
     const [photo, setPhoto] = useState(null);
     const [image, setImage] = useState(null)
-
+    const [telegram, setTelegram] = useState('')
     const [instagram, setInstagram] = useState('')
+    const [whatsUp, setWhatsUp] = useState('')
 
 
 
@@ -44,8 +47,14 @@ const NewContact = ({route, navigation}) => {
     const changeNameHandler = (enteredText) => {
         setName(enteredText)
     }
+    const changeDescHandler = (enteredText) => {
+        setDescription(enteredText)
+    }
     const changeEmailHandler = (enteredText) => {
         setEmail(enteredText)
+    }
+    const changePhoneHandler = (enteredNumber) => {
+        setPhone(enteredNumber)
     }
     const changePhotoHandler = (enteredUrl) => {
         setPhoto(enteredUrl)
@@ -53,7 +62,12 @@ const NewContact = ({route, navigation}) => {
     const changeInstagramHandler = (enteredAcc) => {
         setInstagram(enteredAcc)
     }
-
+    const changeTelegramHandler = (enteredAcc) => {
+        setTelegram(enteredAcc)
+    }
+    const changeWhatsUpHandler = (enteredAcc) => {
+        setWhatsUp(enteredAcc)
+    }
     const createContactHandler = () => {
         if(!photo) {
             setPhoto(require('../assets/img/switz.png'))
@@ -62,9 +76,13 @@ const NewContact = ({route, navigation}) => {
             folderId: foldId,
             id: uuidv4(),
             name: name.toUpperCase(),
+            description: description.toLowerCase(),
             email,
+            phone,
             photo: photo || image,
-            instagram: instagram
+            instagram: instagram,
+            telegram: telegram.slice(1),
+            whatsUp
         }
         dispatch(addContactAction(newContact))
         navigation.goBack()
@@ -86,18 +104,51 @@ const NewContact = ({route, navigation}) => {
                 />
             </View>
             <View>
+                <Text style={styles.text}>ТЕЛЕФОН</Text>
+                <TextInput
+                    value={phone}
+                    onChangeText={changePhoneHandler}
+                    style={[styles.input, styles.text]}
+                />
+            </View>
+            <View>
                 <Text style={styles.text}>EMAIL</Text>
                 <TextInput
+                    type='email'
                     value={email}
                     onChangeText={changeEmailHandler}
                     style={[styles.input, styles.text]}
                 />
             </View>
             <View>
-                <Text style={styles.text}>INSTAGRAM ACCOUNT</Text>
+                <Text style={styles.text}>INSTAGRAM (ссылка)</Text>
                 <TextInput
                     value={instagram}
                     onChangeText={changeInstagramHandler}
+                    style={[styles.input, styles.text]}
+                />
+            </View>
+            <View>
+                <Text style={styles.text}>ИМЯ ПОЛЬЗОВАТЕЛЯ TELEGRAM (включая @)</Text>
+                <TextInput
+                    value={telegram}
+                    onChangeText={changeTelegramHandler}
+                    style={[styles.input, styles.text]}
+                />
+            </View>
+            <View>
+                <Text style={styles.text}>НОМЕР WHATSUP (только цифры)</Text>
+                <TextInput
+                    value={whatsUp}
+                    onChangeText={changeWhatsUpHandler}
+                    style={[styles.input, styles.text]}
+                />
+            </View>
+            <View>
+                <Text style={styles.text}>ПОМЕТКА</Text>
+                <TextInput
+                    value={description}
+                    onChangeText={changeDescHandler}
                     style={[styles.input, styles.text]}
                 />
             </View>
@@ -150,8 +201,8 @@ const styles = StyleSheet.create({
         right: '25%'
     },
     imagePreview: {
-        width: '100%',
-        height: 300,
+        width: 100,
+        height: 100,
         marginVertical: 8,
         justifyContent: 'center',
         alignItems: 'center',

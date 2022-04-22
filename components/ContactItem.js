@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     text: {
         fontFamily: 'Qanelas-Bold',
         textAlign: 'center',
-        fontSize: 16,
+        fontSize: 10,
         color: 'white'
     },
     imagePreview: {

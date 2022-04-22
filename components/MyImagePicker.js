@@ -54,8 +54,8 @@ export default MyImagePicker;
 
 const styles = StyleSheet.create({
     imagePreview: {
-        width: '100%',
-        height: 300,
+        width: 100,
+        height: 100,
         marginVertical: 8,
         justifyContent: 'center',
         alignItems: 'center',
