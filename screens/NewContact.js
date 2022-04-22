@@ -10,6 +10,7 @@ import MyImagePicker from "../components/MyImagePicker";
 
 
 
+
 const NewContact = ({route, navigation}) => {
     const incomeFolderId = route.params.folderId
     const dispatch = useDispatch()
@@ -30,7 +31,7 @@ const NewContact = ({route, navigation}) => {
     const pickImageFromRollHandler = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
-            allowsEditing: false
+            allowsEditing: true
         })
 
         if(!result.cancelled) {
@@ -62,7 +63,7 @@ const NewContact = ({route, navigation}) => {
             id: uuidv4(),
             name: name.toUpperCase(),
             email,
-            photo: photo | image,
+            photo: photo || image,
             instagram: instagram
         }
         dispatch(addContactAction(newContact))
@@ -103,12 +104,14 @@ const NewContact = ({route, navigation}) => {
 
             <View>
                 <Text style={styles.text}>PHOTO</Text>
-                <MyImagePicker pictureHandler={changePhotoHandler}/>
+                {image && <Image source={{ uri: image }} style={styles.imagePreview} />}
+                {!image ? <MyImagePicker pictureHandler={changePhotoHandler}/> : null }
+                {!photo ? <OutlinedButton icon="image-outline" onPress={pickImageFromRollHandler}>ВЫБРАТЬ ИЗ ГАЛЕРЕИ</OutlinedButton> : null}
             </View>
             <View style={[styles.actions, styles.text]}>
                 <OutlinedButton icon="folder-open-outline" onPress={createContactHandler} >СОЗДАТЬ</OutlinedButton>
                 <OutlinedButton icon="cut-outline" onPress={cancelHandler} >ОТМЕНИТЬ</OutlinedButton>
-                <OutlinedButton icon="image-outline" onPress={pickImageFromRollHandler}>ОБЛОЖКА</OutlinedButton>
+
             </View>
         </View>
 
@@ -137,7 +140,24 @@ const styles = StyleSheet.create({
     },
     text: {
         fontFamily: 'Qanelas-Regular',
-    }
+    },
+    image: {
+        borderWidth: 1,
+        width: 200,
+        height: 200,
+        position: 'absolute',
+        top: '150%',
+        right: '25%'
+    },
+    imagePreview: {
+        width: '100%',
+        height: 300,
+        marginVertical: 8,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'black',
+        borderRadius: 4
+    },
 })
 
 
