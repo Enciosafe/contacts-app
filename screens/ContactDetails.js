@@ -87,7 +87,8 @@ const styles = StyleSheet.create({
     desc: {
         marginTop: 0,
         fontFamily: 'Qanelas-Regular',
-        fontSize: 15
+        fontSize: 15,
+        marginHorizontal: 50,
     },
     phone: {
         marginTop: 50,

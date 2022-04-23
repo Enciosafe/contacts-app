@@ -13,14 +13,14 @@ const FolderItem = ({id, title, image, onSelect }) => {
 
 
     const onRemoveFolder = (id) => {
-        Alert.alert('Удаление папки', 'Уверены что хотите удалить эту папку?',[
+        Alert.alert('Remove folder', 'Are u sure to delete this folder?',[
             {
-                text: "Нет",
-                onPress: () => Alert.alert("Не удаляем"),
+                text: "NO",
+                onPress: () => Alert.alert("Don't delete"),
                 style: "default",
             },
             {
-                text: "Удалить",
+                text: "REMOVE",
                 onPress: () => dispatch(removeFolderAction(id)),
                 style: "default"
             }

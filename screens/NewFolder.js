@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, TextInput, StyleSheet, Text, Image} from "react-native";
+import {View, TextInput, StyleSheet, Text, Image, Alert} from "react-native";
 import OutlinedButton from "../Ui/OutlinedButton";
 import {useDispatch} from "react-redux";
 import {addFolderAction} from "../store/foldersReducer";
@@ -29,10 +29,6 @@ const NewFolder = ({navigation}) => {
         setTitle(enteredText)
     }
 
-    const changeDescriptionHandler = (enteredText) => {
-        setDescription(enteredText)
-    }
-
     const cancelHandler = () => {
         navigation.navigate('Folders')
     }
@@ -50,6 +46,11 @@ const NewFolder = ({navigation}) => {
             description
 
         }
+        if(!title) {
+            Alert.alert('Please enter the name')
+            navigation.navigate('Folders')
+            return
+        }
         dispatch(addFolderAction(folder))
         navigation.navigate('Folders')
     }
@@ -58,7 +59,7 @@ const NewFolder = ({navigation}) => {
     return (
         <View style={styles.container}>
             <View>
-                <Text style={styles.text}>НАЗВАНИЕ</Text>
+                <Text style={styles.text}>FOLDER NAME</Text>
                 <TextInput
                     value={title}
                     onChangeText={changeTitleHandler}
@@ -66,9 +67,9 @@ const NewFolder = ({navigation}) => {
                 />
             </View>
             <View style={[styles.actions, styles.text]}>
-                <OutlinedButton icon="folder-open-outline" onPress={createFolderHandler} >СОЗДАТЬ</OutlinedButton>
-                <OutlinedButton icon="cut-outline" onPress={cancelHandler} >ОТМЕНИТЬ</OutlinedButton>
-                <OutlinedButton icon="image-outline" onPress={pickImageFromRollHandler}>ОБЛОЖКА</OutlinedButton>
+                <OutlinedButton icon="folder-open-outline" onPress={createFolderHandler} >CREATE</OutlinedButton>
+                <OutlinedButton icon="cut-outline" onPress={cancelHandler} >CANCEL</OutlinedButton>
+                <OutlinedButton icon="image-outline" onPress={pickImageFromRollHandler}>PICTURE</OutlinedButton>
                     {image && <Image source={{ uri: image }} style={styles.image} />}
             </View>
         </View>

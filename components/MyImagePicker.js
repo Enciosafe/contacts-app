@@ -13,7 +13,7 @@ const MyImagePicker = ({pictureHandler}) => {
             return permissionResponse.granted
         }
         if(cameraPermissionInformation.status === PermissionStatus.DENIED) {
-            Alert.alert('Нет разрешения на использование камеры', 'Нужно его дать, чтобы сохранить снимок в качестве контакта')
+            Alert.alert('Do not have permission to use camera', 'U need to approve it for use picture')
             return false
         }
         return true
@@ -45,7 +45,7 @@ const MyImagePicker = ({pictureHandler}) => {
             {pickedImage && (<View style={styles.imagePreview}>
                 {imagePreview}
             </View>)}
-            <OutlinedButton icon='camera' onPress={takeImageHandler}>ФОТО</OutlinedButton>
+            <OutlinedButton icon='camera' onPress={takeImageHandler}>MAKE PHOTO</OutlinedButton>
         </View>
     );
 };

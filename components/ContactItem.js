@@ -11,14 +11,14 @@ const ContactItem = ({props}) => {
     const navigation = useNavigation()
 
     const onRemoveContact = (id) => {
-        Alert.alert('Удаление контакта', 'Уверены что хотите удалить этот контакт?',[
+        Alert.alert('delete', 'Are u sure to remove this contact?',[
             {
-                text: "Нет",
-                onPress: () => Alert.alert("Не удаляем"),
+                text: "NO",
+                onPress: () => Alert.alert("Don't delete"),
                 style: "default",
             },
             {
-                text: "Удалить",
+                text: "REMOVE",
                 onPress: () => dispatch(removeContactAction(id)),
                 style: "default"
             }

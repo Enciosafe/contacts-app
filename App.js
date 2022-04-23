@@ -14,9 +14,14 @@ import * as Font from 'expo-font'
 import {useEffect, useState} from "react";
 import ContactsList from "./screens/ContactsList";
 import NewContact from "./screens/NewContact";
+import 'react-native-gesture-handler'
+
 
 
 const Stack = createNativeStackNavigator()
+
+
+
 
 let customFonts = {
     'Qanelas-Regular': require('./assets/fonts/Qanelas-Regular.ttf'),
@@ -46,7 +51,11 @@ export default function App() {
       <Provider store={store}>
           <StatusBar style="auto" />
           <NavigationContainer>
-              <Stack.Navigator>
+              <Stack.Navigator
+                  screenOptions={{
+                      headerTintColor: 'black',
+                  }}
+              >
                   <Stack.Screen
                       name='Start'
                       component={StartScreen}
@@ -63,7 +72,7 @@ export default function App() {
                           headerTransparent: true,
                           headerRight: ({tintColor}) => (
                               <IconButton
-                                  buttonText='СОЗДАТЬ НОВУЮ ПАПКУ'
+                                  buttonText='CREATE NEW FOLDER'
                                   icon="add"
                                   size={15}
                                   color={tintColor}
@@ -84,7 +93,7 @@ export default function App() {
                           },
                           headerRight: ({tintColor}) => (
                               <IconButton
-                                  buttonText='ДОБАВИТЬ КОНТАКТ'
+                                  buttonText='ADD NEW CONTACT'
                                   icon="add"
                                   size={15}
                                   color={tintColor}
@@ -103,7 +112,7 @@ export default function App() {
                       name='ContactDetails'
                       component={ContactDetails}
                       options={{
-                          title: 'ДETAЛИ',
+                          title: 'DETAILS',
                           headerTitleStyle: {
                               fontFamily: 'Qanelas-Regular'
                           },
@@ -113,7 +122,7 @@ export default function App() {
                       name='NewContact'
                       component={NewContact}
                       options={{
-                          title: 'НОВЫЙ КОНТАКТ',
+                          title: 'NEW CONTACT',
                           headerTitleStyle: {
                               fontFamily: 'Qanelas-Regular'
                           },
@@ -124,7 +133,7 @@ export default function App() {
                       name='NewFolder'
                       component={NewFolder}
                       options={{
-                          title: 'НОВАЯ ПАПКА',
+                          title: 'NEW FOLDER',
                           headerTitleStyle: {
                               fontFamily: 'Qanelas-Regular'
                           },

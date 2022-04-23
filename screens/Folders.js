@@ -28,7 +28,7 @@ const Folders = ({route, navigation}) => {
         <FlatList
             data={folders}
             renderItem={renderItem}
-            numColumns={3}
+            numColumns={2}
             style={styles.container}
         />
 

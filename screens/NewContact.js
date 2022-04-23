@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, StyleSheet, TextInput, Image} from "react-native";
+import {View, Text, StyleSheet, TextInput, Image, Alert} from "react-native";
 import OutlinedButton from "../Ui/OutlinedButton";
 import 'react-native-get-random-values';
 import { v4 as uuidv4 } from 'uuid';
@@ -15,16 +15,28 @@ const NewContact = ({route, navigation}) => {
     const incomeFolderId = route.params.folderId
     const dispatch = useDispatch()
     const [foldId, setFoldId] = useState('')
-    const [name, setName] = useState('');
-    const [description, setDescription] = useState('')
-    const [phone, setPhone] = useState('')
-    const [email, setEmail] = useState('');
+
     const [photo, setPhoto] = useState(null);
     const [image, setImage] = useState(null)
-    const [telegram, setTelegram] = useState('')
-    const [instagram, setInstagram] = useState('')
-    const [whatsUp, setWhatsUp] = useState('')
+    const [inputValues, setInputValues] = useState({
+        name: '',
+        description: '',
+        phone: '',
+        email: '',
+        instagram: '',
+        telegram: '',
+        whatsUp: '',
+        image: ''
+    })
 
+    const inputChangedHandler = (inputIdentifier, enteredValue) => {
+        setInputValues((currentInputValues) => {
+            return {
+                ...currentInputValues,
+            [inputIdentifier]: enteredValue
+            }
+        })
+    }
 
 
     useEffect(() => {
@@ -42,32 +54,10 @@ const NewContact = ({route, navigation}) => {
         }
     }
 
-
-
-    const changeNameHandler = (enteredText) => {
-        setName(enteredText)
-    }
-    const changeDescHandler = (enteredText) => {
-        setDescription(enteredText)
-    }
-    const changeEmailHandler = (enteredText) => {
-        setEmail(enteredText)
-    }
-    const changePhoneHandler = (enteredNumber) => {
-        setPhone(enteredNumber)
-    }
     const changePhotoHandler = (enteredUrl) => {
         setPhoto(enteredUrl)
     }
-    const changeInstagramHandler = (enteredAcc) => {
-        setInstagram(enteredAcc)
-    }
-    const changeTelegramHandler = (enteredAcc) => {
-        setTelegram(enteredAcc)
-    }
-    const changeWhatsUpHandler = (enteredAcc) => {
-        setWhatsUp(enteredAcc)
-    }
+
     const createContactHandler = () => {
         if(!photo) {
             setPhoto(require('../assets/img/switz.png'))
@@ -75,14 +65,18 @@ const NewContact = ({route, navigation}) => {
         const newContact = {
             folderId: foldId,
             id: uuidv4(),
-            name: name.toUpperCase(),
-            description: description.toLowerCase(),
-            email,
-            phone,
+            name: inputValues['name'].toUpperCase(),
+            description: inputValues['description'].toLowerCase(),
+            email: inputValues['email'],
+            phone: inputValues['phone'],
             photo: photo || image,
-            instagram: instagram,
-            telegram: telegram.slice(1),
-            whatsUp
+            instagram: inputValues['instagram'],
+            telegram: inputValues['telegram'].slice(1),
+            whatsUp: inputValues['whatsUp']
+        }
+        if(!inputValues['name']) {
+            Alert.alert('Please enter the name')
+            return
         }
         dispatch(addContactAction(newContact))
         navigation.goBack()
@@ -96,72 +90,84 @@ const NewContact = ({route, navigation}) => {
     return (
         <View style={styles.container}>
             <View>
-                <Text style={styles.text}>ФИО</Text>
                 <TextInput
-                    value={name}
-                    onChangeText={changeNameHandler}
+                    autocomplete={true}
+                    placeholder='NAME'
+                    maxLength={25}
+                    value={inputValues['name']}
+                    onChangeText={inputChangedHandler.bind(this, 'name')}
                     style={[styles.input, styles.text]}
                 />
             </View>
             <View>
-                <Text style={styles.text}>ТЕЛЕФОН</Text>
                 <TextInput
-                    value={phone}
-                    onChangeText={changePhoneHandler}
+                    placeholder='PHONE'
+                    maxLength={25}
+                    keyboardType='phone-pad'
+                    value={inputValues['phone']}
+                    onChangeText={inputChangedHandler.bind(this, 'phone')}
                     style={[styles.input, styles.text]}
                 />
             </View>
             <View>
-                <Text style={styles.text}>EMAIL</Text>
                 <TextInput
-                    type='email'
-                    value={email}
-                    onChangeText={changeEmailHandler}
+                    autocomplete={true}
+                    placeholder='EMAIL'
+                    maxLength={25}
+                    value={inputValues['email']}
+                    onChangeText={inputChangedHandler.bind(this, 'email')}
                     style={[styles.input, styles.text]}
                 />
             </View>
             <View>
-                <Text style={styles.text}>INSTAGRAM (ссылка)</Text>
                 <TextInput
-                    value={instagram}
-                    onChangeText={changeInstagramHandler}
+                    keyboardType='url'
+                    placeholder='INSTAGRAM (link)'
+                    value={inputValues['instagram']}
+                    onChangeText={inputChangedHandler.bind(this, 'instagram')}
                     style={[styles.input, styles.text]}
                 />
             </View>
             <View>
-                <Text style={styles.text}>ИМЯ ПОЛЬЗОВАТЕЛЯ TELEGRAM (включая @)</Text>
                 <TextInput
-                    value={telegram}
-                    onChangeText={changeTelegramHandler}
+                    autocomplete={true}
+                    placeholder='USER NAME TELEGRAM (include "@")'
+                    maxLength={25}
+                    value={inputValues['telegram']}
+                    onChangeText={inputChangedHandler.bind(this, 'telegram')}
                     style={[styles.input, styles.text]}
                 />
             </View>
             <View>
-                <Text style={styles.text}>НОМЕР WHATSUP (только цифры)</Text>
                 <TextInput
-                    value={whatsUp}
-                    onChangeText={changeWhatsUpHandler}
+                    keyboardType='phone-pad'
+                    placeholder='WHATSAPP NUMBER (just numbers)'
+                    maxLength={25}
+                    value={inputValues['whatsUp']}
+                    onChangeText={inputChangedHandler.bind(this, 'whatsUp')}
                     style={[styles.input, styles.text]}
                 />
             </View>
             <View>
-                <Text style={styles.text}>ПОМЕТКА</Text>
                 <TextInput
-                    value={description}
-                    onChangeText={changeDescHandler}
+                    autocomplete={true}
+                    placeholder='ADDITIONAL NOTE'
+                    maxLength={200}
+                    value={inputValues['description']}
+                    onChangeText={inputChangedHandler.bind(this, 'description')}
                     style={[styles.input, styles.text]}
                 />
             </View>
 
             <View>
-                <Text style={styles.text}>PHOTO</Text>
+                <Text style={styles.text}>MAKE PHOTO</Text>
                 {image && <Image source={{ uri: image }} style={styles.imagePreview} />}
                 {!image ? <MyImagePicker pictureHandler={changePhotoHandler}/> : null }
-                {!photo ? <OutlinedButton icon="image-outline" onPress={pickImageFromRollHandler}>ВЫБРАТЬ ИЗ ГАЛЕРЕИ</OutlinedButton> : null}
+                {!photo ? <OutlinedButton icon="image-outline" onPress={pickImageFromRollHandler}>TAKE FROM GALLERY</OutlinedButton> : null}
             </View>
             <View style={[styles.actions, styles.text]}>
-                <OutlinedButton icon="folder-open-outline" onPress={createContactHandler} >СОЗДАТЬ</OutlinedButton>
-                <OutlinedButton icon="cut-outline" onPress={cancelHandler} >ОТМЕНИТЬ</OutlinedButton>
+                <OutlinedButton icon="folder-open-outline" onPress={createContactHandler} >CREATE</OutlinedButton>
+                <OutlinedButton icon="cut-outline" onPress={cancelHandler} >CANCEL</OutlinedButton>
 
             </View>
         </View>
