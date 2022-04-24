@@ -2,6 +2,7 @@ import React from 'react';
 import {Alert, Pressable, StyleSheet, Text, View, Image} from "react-native";
 import {useDispatch} from "react-redux";
 import {removeFolderAction} from "../store/foldersReducer";
+import {deleteFolderFromStore} from "../util/http";
 
 
 
@@ -9,6 +10,11 @@ import {removeFolderAction} from "../store/foldersReducer";
 const FolderItem = ({id, title, image, onSelect }) => {
 
     const dispatch = useDispatch()
+
+    const onRemoveFolderAction = async (id) => {
+        await deleteFolderFromStore(id)
+        dispatch(removeFolderAction(id))
+    }
 
 
 
@@ -21,7 +27,7 @@ const FolderItem = ({id, title, image, onSelect }) => {
             },
             {
                 text: "REMOVE",
-                onPress: () => dispatch(removeFolderAction(id)),
+                onPress: () => onRemoveFolderAction(id),
                 style: "default"
             }
         ])

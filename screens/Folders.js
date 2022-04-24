@@ -1,12 +1,30 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import FolderItem from "../components/FolderItem";
 import {FlatList, StyleSheet} from "react-native";
 import {useSelector} from "react-redux";
+import {fetchFolders} from "../util/http";
+import {setFolderAction} from "../store/foldersReducer";
 
 
-
-const Folders = ({route, navigation}) => {
+const Folders = ({navigation}) => {
     const folders = useSelector(state => state.folders.folders)
+    const [fetchedFolders, setFetchedFolders] = useState([])
+
+
+    useEffect(() => {
+        const getFolders = async () => {
+           const folders =  await fetchFolders()
+            setFetchedFolders(folders)
+        }
+        getFolders()
+        setFolderAction(folders)
+        return () => {
+
+        }
+    }, [fetchedFolders])
+
+
+
 
     const renderItem = (itemData) => {
         return <FolderItem
@@ -23,10 +41,9 @@ const Folders = ({route, navigation}) => {
     }
 
 
-
     return (
         <FlatList
-            data={folders}
+            data={fetchedFolders}
             renderItem={renderItem}
             numColumns={2}
             style={styles.container}

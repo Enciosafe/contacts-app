@@ -1,13 +1,32 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {StyleSheet, FlatList} from "react-native";
 import ContactItem from "../components/ContactItem";
 import {useSelector} from "react-redux";
+import {fetchContacts} from "../util/http";
+import {setContactAction} from "../store/contactsReducer";
 
 const ContactsList = ({route}) => {
-
     const insideFolderId = route.params.contactId
     const contacts = useSelector(state => state.contacts.contacts)
-    const filteredContacts = contacts.filter((contact) => contact.folderId === insideFolderId)
+    const [fetchedContacts, setFetchedContacts] = useState([]);
+
+    useEffect(() => {
+        const getContacts = async () => {
+            const contacts = await fetchContacts()
+             setFetchedContacts(contacts)
+        }
+        getContacts()
+        setContactAction(contacts)
+        return () => {
+
+        }
+    }, [fetchedContacts])
+
+
+
+    const filteredContacts = fetchedContacts.filter((contact) => contact.folderId === insideFolderId)
+
+
 
 
     const renderItem = ({item}) => (

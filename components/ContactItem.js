@@ -3,12 +3,19 @@ import {View, StyleSheet, Text, Image, Pressable, Alert} from "react-native";
 import {useDispatch} from "react-redux";
 import {removeContactAction} from "../store/contactsReducer";
 import {useNavigation} from "@react-navigation/native";
+import {deleteContactFromStore} from "../util/http";
+
 
 
 
 const ContactItem = ({props}) => {
     const dispatch = useDispatch()
     const navigation = useNavigation()
+
+    const onRemoveContactAction = async (id) => {
+        await deleteContactFromStore(id)
+        dispatch(removeContactAction(id))
+    }
 
     const onRemoveContact = (id) => {
         Alert.alert('delete', 'Are u sure to remove this contact?',[
@@ -19,7 +26,7 @@ const ContactItem = ({props}) => {
             },
             {
                 text: "REMOVE",
-                onPress: () => dispatch(removeContactAction(id)),
+                onPress: () => onRemoveContactAction(id),
                 style: "default"
             }
         ])

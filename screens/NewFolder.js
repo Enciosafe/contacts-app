@@ -4,6 +4,7 @@ import OutlinedButton from "../Ui/OutlinedButton";
 import {useDispatch} from "react-redux";
 import {addFolderAction} from "../store/foldersReducer";
 import * as ImagePicker from 'expo-image-picker';
+import {addFolderToStore} from "../util/http";
 
 
 
@@ -11,7 +12,6 @@ import * as ImagePicker from 'expo-image-picker';
 const NewFolder = ({navigation}) => {
     const dispatch = useDispatch()
     const [title, setTitle] = useState('')
-    const [description, setDescription] = useState('')
     const [image, setImage] = useState(null);
 
     const pickImageFromRollHandler = async () => {
@@ -40,11 +40,8 @@ const NewFolder = ({navigation}) => {
         }
 
         const folder = {
-            id: new Date().toString() + Math.random().toString(),
             title: title.toUpperCase(),
-            image: image,
-            description
-
+            image: image
         }
         if(!title) {
             Alert.alert('Please enter the name')
@@ -52,6 +49,8 @@ const NewFolder = ({navigation}) => {
             return
         }
         dispatch(addFolderAction(folder))
+        addFolderToStore(folder)
+
         navigation.navigate('Folders')
     }
 

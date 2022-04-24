@@ -2,11 +2,11 @@ import React, {useEffect, useState} from 'react';
 import {View, Text, StyleSheet, TextInput, Image, Alert} from "react-native";
 import OutlinedButton from "../Ui/OutlinedButton";
 import 'react-native-get-random-values';
-import { v4 as uuidv4 } from 'uuid';
 import {useDispatch} from "react-redux";
 import {addContactAction} from "../store/contactsReducer";
 import * as ImagePicker from 'expo-image-picker';
 import MyImagePicker from "../components/MyImagePicker";
+import {addContactToStore} from "../util/http";
 
 
 
@@ -64,7 +64,6 @@ const NewContact = ({route, navigation}) => {
         }
         const newContact = {
             folderId: foldId,
-            id: uuidv4(),
             name: inputValues['name'].toUpperCase(),
             description: inputValues['description'].toLowerCase(),
             email: inputValues['email'],
@@ -79,6 +78,7 @@ const NewContact = ({route, navigation}) => {
             return
         }
         dispatch(addContactAction(newContact))
+        addContactToStore(newContact)
         navigation.goBack()
     }
 
