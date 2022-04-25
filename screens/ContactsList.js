@@ -11,14 +11,17 @@ const ContactsList = ({route}) => {
     const [fetchedContacts, setFetchedContacts] = useState([]);
 
     useEffect(() => {
+        let isMounted = true;
         const getContacts = async () => {
             const contacts = await fetchContacts()
-             setFetchedContacts(contacts)
+            if(isMounted) {
+                setFetchedContacts(contacts)
+            }
         }
         getContacts()
         setContactAction(contacts)
         return () => {
-
+            isMounted = false
         }
     }, [fetchedContacts])
 

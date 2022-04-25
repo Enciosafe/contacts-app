@@ -12,14 +12,17 @@ const Folders = ({navigation}) => {
 
 
     useEffect(() => {
+        let isMounted = true;
         const getFolders = async () => {
            const folders =  await fetchFolders()
-            setFetchedFolders(folders)
+            if(isMounted) {
+                setFetchedFolders(folders)
+            }
         }
         getFolders()
         setFolderAction(folders)
         return () => {
-
+            isMounted = false
         }
     }, [fetchedFolders])
 
