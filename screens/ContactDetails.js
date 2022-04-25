@@ -2,6 +2,7 @@ import React from 'react';
 import {View, Text, StyleSheet, Image, Pressable} from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import * as Linking from 'expo-linking';
+import NeuMorph from "../Ui/NeuMorph";
 
 const ContactDetails = ({route}) => {
     const {email, name, photo, instagram, telegram, whatsUp, phone, description} = route.params.props
@@ -9,9 +10,11 @@ const ContactDetails = ({route}) => {
 
     return (
         <View style={styles.container}>
-            <View>
-                <Image style={styles.image} source={{uri: photo}}/>
-            </View>
+            <Pressable style={styles.photoPlateContainer}>
+                <NeuMorph size={300}>
+                    <Image style={styles.image} source={{uri: photo}}/>
+                </NeuMorph>
+            </Pressable>
             <Text style={[styles.text]}>{name}</Text>
             <Text style={[styles.text, styles.desc]}> {description} </Text>
             <Pressable onPress={() => {Linking.openURL(`tel:${phone}`)}}>
@@ -27,37 +30,37 @@ const ContactDetails = ({route}) => {
                     style={({ pressed }) => [styles.button, pressed && styles.pressed ]}
                     onPress={() => {Linking.openURL(instagram);}}
                 >
-                    <View>
+                    <NeuMorph size={60}>
                         <Ionicons
                             name='logo-instagram'
                             size={40}
-                            color='black'
+                            color='#58585DFF'
                         />
-                    </View>
+                    </NeuMorph>
                 </Pressable>
                 <Pressable
                     style={({ pressed }) => [styles.button, pressed && styles.pressed ]}
                     onPress={() => {Linking.openURL(`https://t.me/${telegram}`);}}
                 >
-                    <View>
+                    <NeuMorph size={60}>
                         <Ionicons
                             name="paper-plane-outline"
                             size={40}
-                            color='black'
+                            color='#58585DFF'
                         />
-                    </View>
+                    </NeuMorph>
                 </Pressable>
                 <Pressable
                     style={({ pressed }) => [styles.button, pressed && styles.pressed ]}
                     onPress={() => {Linking.openURL(`https://wa.me/${whatsUp}`);}}
                 >
-                    <View>
+                    <NeuMorph size={60}>
                         <Ionicons
                             name="logo-whatsapp"
                             size={40}
-                            color='black'
+                            color='#58585DFF'
                         />
-                    </View>
+                    </NeuMorph>
                 </Pressable>
             </View>
         </View>
@@ -68,21 +71,25 @@ export default ContactDetails;
 
 const styles = StyleSheet.create({
     container: {
+        flex: 1,
         alignItems: 'center',
+        backgroundColor: "#ebecef",
+    },
+    photoPlateContainer: {
         marginTop: 50,
     },
     image: {
-        borderColor: 'gray',
-        borderWidth: 1,
-        width:  250,
-        height: 250,
-        borderRadius: 200,
+        borderColor: '#e2e2e7',
+        borderWidth: 10,
+        width:  300,
+        height: 300,
+        borderRadius: 150,
         backgroundColor: 'black'
     },
     text: {
         marginTop: 20,
         fontFamily: 'Qanelas-Bold',
-        fontSize: 22
+        fontSize: 27
     },
     desc: {
         marginTop: 0,
@@ -104,7 +111,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row'
     },
     button: {
-        marginTop: 150,
+        marginTop: 100,
         marginHorizontal: 5,
         justifyContent: 'center',
         alignItems: 'center'
