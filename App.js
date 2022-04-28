@@ -15,10 +15,13 @@ import {useEffect, useState} from "react";
 import ContactsList from "./screens/ContactsList";
 import NewContact from "./screens/NewContact";
 import 'react-native-gesture-handler'
+import LoginScreen from "./screens/auth/LoginScreen";
+import RegisterScreen from "./screens/auth/RegisterScreen";
 
 
 
 const Stack = createNativeStackNavigator()
+const AuthStack = createNativeStackNavigator()
 
 
 
@@ -30,6 +33,7 @@ let customFonts = {
 
 
 export default function App() {
+    const [isAuth, setIsAuth] = useState(false)
     const [isFontLoaded, setIsFontLoaded] = useState(false);
 
     const loadFonts = async () => {
@@ -45,6 +49,30 @@ export default function App() {
     if(!isFontLoaded) {
         return <AppLoading/>
     }
+
+    if(!isAuth) {
+        return (
+            <>
+                <Provider store={store}>
+                    <StatusBar style='auto'/>
+                    <NavigationContainer>
+                        <AuthStack.Navigator
+                            screenOptions={{
+                                headerTintColor: 'black',
+                                headerShown: false
+                            }}
+                        >
+                            <AuthStack.Screen name='Login' component={LoginScreen}/>
+                            <AuthStack.Screen name='Register' component={RegisterScreen}/>
+
+                        </AuthStack.Navigator>
+                    </NavigationContainer>
+                </Provider>
+            </>
+        )
+    }
+
+
 
     return (
         <>

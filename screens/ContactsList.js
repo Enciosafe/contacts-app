@@ -4,22 +4,27 @@ import ContactItem from "../components/ContactItem";
 import {useSelector} from "react-redux";
 import {fetchContacts} from "../util/http";
 import {setContactAction} from "../store/contactsReducer";
+import LoadingOverlay from "../Ui/LoadingOverlay";
 
 const ContactsList = ({route}) => {
     const insideFolderId = route.params.contactId
     const contacts = useSelector(state => state.contacts.contacts)
     const [fetchedContacts, setFetchedContacts] = useState([]);
+    const [isFetching, setIsFetching] = useState(true)
 
     useEffect(() => {
         let isMounted = true;
         const getContacts = async () => {
+            setIsFetching(true)
             const contacts = await fetchContacts()
+
             if(isMounted) {
                 setFetchedContacts(contacts)
             }
         }
-        getContacts()
         setContactAction(contacts)
+        getContacts()
+        setIsFetching(false)
         return () => {
             isMounted = false
         }
@@ -27,9 +32,12 @@ const ContactsList = ({route}) => {
 
 
 
+
     const filteredContacts = fetchedContacts.filter((contact) => contact.folderId === insideFolderId)
 
-
+    if(isFetching) {
+        return <LoadingOverlay/>
+    }
 
 
     const renderItem = ({item}) => (

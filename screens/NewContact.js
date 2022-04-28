@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, StyleSheet, TextInput, Image, Alert} from "react-native";
+import {View, Text, StyleSheet, TextInput, Image, Alert, Platform, KeyboardAvoidingView, Keyboard, TouchableWithoutFeedback} from "react-native";
 import OutlinedButton from "../Ui/OutlinedButton";
 import 'react-native-get-random-values';
 import {useDispatch} from "react-redux";
@@ -88,89 +88,96 @@ const NewContact = ({route, navigation}) => {
     }
 
     return (
-        <View style={styles.container}>
-            <View>
-                <TextInput
-                    autocomplete={true}
-                    placeholder='NAME'
-                    maxLength={25}
-                    value={inputValues['name']}
-                    onChangeText={inputChangedHandler.bind(this, 'name')}
-                    style={[styles.input, styles.text]}
-                />
-            </View>
-            <View>
-                <TextInput
-                    placeholder='PHONE'
-                    maxLength={25}
-                    keyboardType='phone-pad'
-                    value={inputValues['phone']}
-                    onChangeText={inputChangedHandler.bind(this, 'phone')}
-                    style={[styles.input, styles.text]}
-                />
-            </View>
-            <View>
-                <TextInput
-                    autocomplete={true}
-                    placeholder='EMAIL'
-                    maxLength={25}
-                    value={inputValues['email']}
-                    onChangeText={inputChangedHandler.bind(this, 'email')}
-                    style={[styles.input, styles.text]}
-                />
-            </View>
-            <View>
-                <TextInput
-                    keyboardType='url'
-                    placeholder='INSTAGRAM (link)'
-                    value={inputValues['instagram']}
-                    onChangeText={inputChangedHandler.bind(this, 'instagram')}
-                    style={[styles.input, styles.text]}
-                />
-            </View>
-            <View>
-                <TextInput
-                    autocomplete={true}
-                    placeholder='USER NAME TELEGRAM (include "@")'
-                    maxLength={25}
-                    value={inputValues['telegram']}
-                    onChangeText={inputChangedHandler.bind(this, 'telegram')}
-                    style={[styles.input, styles.text]}
-                />
-            </View>
-            <View>
-                <TextInput
-                    keyboardType='phone-pad'
-                    placeholder='WHATSAPP NUMBER (just numbers)'
-                    maxLength={25}
-                    value={inputValues['whatsUp']}
-                    onChangeText={inputChangedHandler.bind(this, 'whatsUp')}
-                    style={[styles.input, styles.text]}
-                />
-            </View>
-            <View>
-                <TextInput
-                    autocomplete={true}
-                    placeholder='ADDITIONAL NOTE'
-                    maxLength={200}
-                    value={inputValues['description']}
-                    onChangeText={inputChangedHandler.bind(this, 'description')}
-                    style={[styles.input, styles.text]}
-                />
-            </View>
+        <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+            <KeyboardAvoidingView
+                style={styles.container}
+                behavior={Platform.OS === "ios" ? "padding" : "height"}
+                keyboardVerticalOffset={2}
+            >
+                <View>
+                    <TextInput
+                        autocomplete={true}
+                        placeholder='NAME'
+                        maxLength={25}
+                        value={inputValues['name']}
+                        onChangeText={inputChangedHandler.bind(this, 'name')}
+                        style={[styles.input, styles.text]}
+                    />
+                </View>
+                <View>
+                    <TextInput
+                        placeholder='PHONE'
+                        maxLength={25}
+                        keyboardType='phone-pad'
+                        value={inputValues['phone']}
+                        onChangeText={inputChangedHandler.bind(this, 'phone')}
+                        style={[styles.input, styles.text]}
+                    />
+                </View>
+                <View>
+                    <TextInput
+                        autocomplete={true}
+                        placeholder='EMAIL'
+                        maxLength={25}
+                        value={inputValues['email']}
+                        onChangeText={inputChangedHandler.bind(this, 'email')}
+                        style={[styles.input, styles.text]}
+                    />
+                </View>
+                <View>
+                    <TextInput
+                        keyboardType='url'
+                        placeholder='INSTAGRAM (link)'
+                        value={inputValues['instagram']}
+                        onChangeText={inputChangedHandler.bind(this, 'instagram')}
+                        style={[styles.input, styles.text]}
+                    />
+                </View>
+                <View>
+                    <TextInput
+                        autocomplete={true}
+                        placeholder='USER NAME TELEGRAM (include "@")'
+                        maxLength={25}
+                        value={inputValues['telegram']}
+                        onChangeText={inputChangedHandler.bind(this, 'telegram')}
+                        style={[styles.input, styles.text]}
+                    />
+                </View>
+                <View>
+                    <TextInput
+                        keyboardType='phone-pad'
+                        placeholder='WHATSAPP NUMBER (just numbers)'
+                        maxLength={25}
+                        value={inputValues['whatsUp']}
+                        onChangeText={inputChangedHandler.bind(this, 'whatsUp')}
+                        style={[styles.input, styles.text]}
+                    />
+                </View>
+                <View>
+                    <TextInput
+                        autocomplete={true}
+                        placeholder='ADDITIONAL NOTE'
+                        maxLength={200}
+                        value={inputValues['description']}
+                        onChangeText={inputChangedHandler.bind(this, 'description')}
+                        style={[styles.input, styles.text]}
+                    />
+                </View>
 
-            <View>
-                <Text style={styles.text}>MAKE PHOTO</Text>
-                {image && <Image source={{ uri: image }} style={styles.imagePreview} />}
-                {!image ? <MyImagePicker pictureHandler={changePhotoHandler}/> : null }
-                {!photo ? <OutlinedButton icon="image-outline" onPress={pickImageFromRollHandler}>TAKE FROM GALLERY</OutlinedButton> : null}
-            </View>
-            <View style={[styles.actions, styles.text]}>
-                <OutlinedButton icon="folder-open-outline" onPress={createContactHandler} >CREATE</OutlinedButton>
-                <OutlinedButton icon="cut-outline" onPress={cancelHandler} >CANCEL</OutlinedButton>
+                <View>
+                    <Text style={styles.text}>MAKE PHOTO</Text>
+                    {image && <Image source={{ uri: image }} style={styles.imagePreview} />}
+                    {!image ? <MyImagePicker pictureHandler={changePhotoHandler}/> : null }
+                    {!photo ? <OutlinedButton icon="image-outline" onPress={pickImageFromRollHandler}>TAKE FROM GALLERY</OutlinedButton> : null}
+                </View>
+                <View style={[styles.actions, styles.text]}>
+                    <OutlinedButton icon="folder-open-outline" onPress={createContactHandler} >CREATE</OutlinedButton>
+                    <OutlinedButton icon="cut-outline" onPress={cancelHandler} >CANCEL</OutlinedButton>
 
-            </View>
-        </View>
+                </View>
+            </KeyboardAvoidingView>
+        </TouchableWithoutFeedback>
+
 
     );
 };

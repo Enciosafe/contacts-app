@@ -4,27 +4,35 @@ import {FlatList, StyleSheet} from "react-native";
 import {useSelector} from "react-redux";
 import {fetchFolders} from "../util/http";
 import {setFolderAction} from "../store/foldersReducer";
+import LoadingOverlay from "../Ui/LoadingOverlay";
 
 
 const Folders = ({navigation}) => {
     const folders = useSelector(state => state.folders.folders)
+    const [isFetching, setIsFetching] = useState(false)
     const [fetchedFolders, setFetchedFolders] = useState([])
 
 
     useEffect(() => {
         let isMounted = true;
         const getFolders = async () => {
+            setIsFetching(true)
            const folders =  await fetchFolders()
             if(isMounted) {
                 setFetchedFolders(folders)
             }
         }
-        getFolders()
         setFolderAction(folders)
+        getFolders()
+        setIsFetching(false)
         return () => {
             isMounted = false
         }
     }, [fetchedFolders])
+
+    if(isFetching) {
+        return <LoadingOverlay/>
+    }
 
 
 

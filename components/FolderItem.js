@@ -1,21 +1,20 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Alert, Pressable, StyleSheet, Text, View, Image} from "react-native";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {removeFolderAction} from "../store/foldersReducer";
 import {deleteFolderFromStore} from "../util/http";
+import LoadingOverlay from "../Ui/LoadingOverlay";
 
 
 
 
 const FolderItem = ({id, title, image, onSelect }) => {
-
     const dispatch = useDispatch()
 
     const onRemoveFolderAction = async (id) => {
         await deleteFolderFromStore(id)
         dispatch(removeFolderAction(id))
     }
-
 
 
     const onRemoveFolder = (id) => {
