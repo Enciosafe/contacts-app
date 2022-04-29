@@ -12,7 +12,7 @@ import OutlinedButton from "../../Ui/OutlinedButton";
 
 
 const initialState = {
-    name: '',
+    nickName: '',
     email: '',
     password: ''
 }
@@ -35,8 +35,8 @@ const RegisterScreen = ({navigation}) => {
                     <TextInput
                         style={styles.input}
                         placeholder='NAME'
-                        value={state.email}
-                        onChangeText={(value) => setState((prevState) => ({...prevState, name: value }))}
+                        value={state.nickName}
+                        onChangeText={(value) => setState((prevState) => ({...prevState, nickName: value }))}
                     />
                 </View>
                 <View style={styles.form}>
