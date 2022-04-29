@@ -1,8 +1,9 @@
 import {combineReducers} from "redux";
 import {foldersReducer} from "./foldersReducer";
 import {contactsReducer} from "./contactsReducer";
-import {authSlice} from "./authReducer";
-const {createStore} = require("redux");
+import {authSlice} from "./auth/authReducer";
+const {createStore, applyMiddleware} = require("redux");
+import thunk from 'redux-thunk'
 
 const rootReducer = combineReducers({
     folders: foldersReducer,
@@ -10,4 +11,4 @@ const rootReducer = combineReducers({
     [authSlice.name]: authSlice.reducer
 })
 
-export const store = createStore(rootReducer)
+export const store = createStore(rootReducer, applyMiddleware(thunk))

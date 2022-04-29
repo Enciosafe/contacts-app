@@ -4,10 +4,11 @@ import {
     StyleSheet,
     TextInput,
     Platform,
-    KeyboardAvoidingView,
     TouchableWithoutFeedback, Keyboard, Text, Pressable
 } from "react-native";
 import OutlinedButton from "../../Ui/OutlinedButton";
+import {authSignUpUser} from '../../store/auth/authOperations'
+import {useDispatch} from "react-redux";
 
 
 
@@ -18,10 +19,13 @@ const initialState = {
 }
 
 const RegisterScreen = ({navigation}) => {
+    const dispatch = useDispatch()
     const [state, setState] = useState(initialState);
 
     const onSubmitHandle = () => {
-        setState(initialState)
+        dispatch(authSignUpUser(state))
+        Keyboard.dismiss()
+        // setState(initialState)
     }
 
     return (

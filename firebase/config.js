@@ -1,7 +1,7 @@
+import * as firebase from "firebase";
+import 'firebase/auth'
 
 
-import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
 
 
 const firebaseConfig = {
@@ -16,5 +16,7 @@ const firebaseConfig = {
 };
 
 
-const app = initializeApp(firebaseConfig);
-export const auth = getAuth(app);
+firebase.initializeApp(firebaseConfig);
+
+
+export default firebase
