@@ -24,7 +24,6 @@ const RegisterScreen = ({navigation}) => {
 
     const onSubmitHandle = () => {
         dispatch(authSignUpUser(state))
-        navigation.navigate('Login')
     }
 
     return (
