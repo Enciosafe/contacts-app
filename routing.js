@@ -8,6 +8,7 @@ import ContactDetails from "./screens/ContactDetails";
 import NewContact from "./screens/NewContact";
 import NewFolder from "./screens/NewFolder";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
+import Profile from "./screens/Profile";
 
 const Stack = createNativeStackNavigator()
 const AuthStack = createNativeStackNavigator()
@@ -35,6 +36,10 @@ export const useRoute = (isAuth) => {
                         name='Start'
                         component={StartScreen}
                         options={{headerShown: false}}
+                    />
+                    <Stack.Screen
+                        name='Profile'
+                        component={Profile}
                     />
                     <Stack.Screen
                         name='Folders'

@@ -1,27 +1,38 @@
 import React from 'react';
-import {View, Text, StyleSheet, Pressable, Image} from "react-native";
+import {View, StyleSheet} from "react-native";
+import OutlinedButton from "../Ui/OutlinedButton";
+import {useDispatch} from "react-redux";
+import {authSignOutUser} from "../store/auth/authOperations";
+import db from '../firebase/config'
+
 
 
 const StartScreen = ({navigation}) => {
+   const dispatch =  useDispatch()
 
     const enterHandler = () => {
         navigation.navigate('Folders')
     }
 
-    const img = require('../assets/img/logo.png')
+    const profileHandler = () => {
+        navigation.navigate('Profile')
+    }
+
+    const signOutHandler = () => {
+       // await db.auth().signOut()
+       //  navigation.navigate('Login')
+
+        dispatch(authSignOutUser())
+   }
+
 
     return (
-        <>
-            <Pressable
-                style={({ pressed }) =>[styles.container, pressed && styles.pressed ]}
-                onPress={enterHandler}
-            >
-                <View>
-                    <Image source={img} resizeMode='repeat' width='30%'/>
-                </View>
-            </Pressable>
+        <View style={styles.container}>
+            <OutlinedButton icon="enter-outline" onPress={enterHandler}  >   ENTER   </OutlinedButton>
+            <OutlinedButton icon="man-outline" onPress={profileHandler}  > PROFILE  </OutlinedButton>
+            <OutlinedButton icon="log-out-outline" onPress={signOutHandler}  >SIGN OUT</OutlinedButton>
 
-        </>
+        </View>
 
 
 
@@ -34,8 +45,14 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center',
+        alignItems: 'center'
     },
+    image: {
+        flex: 1,
+        // justifyContent: 'center'
+        width: '100%'
+    },
+
     text: {
         fontSize: 25,
         fontWeight: 'bold',
