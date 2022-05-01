@@ -7,6 +7,8 @@ import * as Font from 'expo-font'
 import {useEffect, useState} from "react";
 import 'react-native-gesture-handler'
 import {useRoute} from "./routing";
+import db from './firebase/config'
+
 
 
 let customFonts = {
@@ -15,9 +17,13 @@ let customFonts = {
 }
 
 export default function App() {
-    const [isAuth, setIsAuth] = useState(false)
     const [isFontLoaded, setIsFontLoaded] = useState(false);
-    const routing = useRoute(false)
+    const [user, setUser] = useState(null)
+    // const [isAuth, setIsAuth] = useState(false)
+
+    db.auth().onAuthStateChanged((user) => setUser(user) )
+    const routing = useRoute(user)
+
 
     const loadFonts = async () => {
         await Font.loadAsync(customFonts);

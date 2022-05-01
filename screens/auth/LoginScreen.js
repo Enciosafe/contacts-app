@@ -8,6 +8,8 @@ import {
     TouchableWithoutFeedback, Keyboard, Pressable, Text
 } from "react-native";
 import OutlinedButton from "../../Ui/OutlinedButton";
+import {useDispatch} from "react-redux";
+import {authSignInUser} from "../../store/auth/authOperations";
 
 
 
@@ -17,10 +19,11 @@ const initialState = {
 }
 
 const LoginScreen = ({navigation}) => {
+    const dispatch = useDispatch()
     const [state, setState] = useState(initialState);
 
     const onSubmitHandle = () => {
-        console.log(state)
+        dispatch(authSignInUser(state))
         setState(initialState)
     }
 

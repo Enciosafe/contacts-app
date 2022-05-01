@@ -4,7 +4,7 @@ import {
     StyleSheet,
     TextInput,
     Platform,
-    TouchableWithoutFeedback, Keyboard, Text, Pressable
+    TouchableWithoutFeedback, Keyboard, Text, Pressable, KeyboardAvoidingView
 } from "react-native";
 import OutlinedButton from "../../Ui/OutlinedButton";
 import {authSignUpUser} from '../../store/auth/authOperations'
@@ -24,8 +24,7 @@ const RegisterScreen = ({navigation}) => {
 
     const onSubmitHandle = () => {
         dispatch(authSignUpUser(state))
-        Keyboard.dismiss()
-        // setState(initialState)
+        navigation.navigate('Login')
     }
 
     return (
