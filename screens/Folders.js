@@ -8,9 +8,11 @@ import LoadingOverlay from "../Ui/LoadingOverlay";
 
 
 const Folders = ({navigation}) => {
-    const folders = useSelector(state => state.folders.folders)
+    const foldersState = useSelector(state => state.folders.folders)
     const [isFetching, setIsFetching] = useState(false)
     const [fetchedFolders, setFetchedFolders] = useState([])
+    const {userId} = useSelector(state => state.auth)
+    const filteredFolders = fetchedFolders.filter(folder => folder.idFromUser === userId)
 
 
     useEffect(() => {
@@ -18,17 +20,17 @@ const Folders = ({navigation}) => {
         const getFolders = async () => {
             setIsFetching(true)
            const folders =  await fetchFolders()
+            setIsFetching(false)
             if(isMounted) {
                 setFetchedFolders(folders)
             }
+            setFolderAction(foldersState)
         }
-        setFolderAction(folders)
         getFolders()
-        setIsFetching(false)
         return () => {
             isMounted = false
         }
-    }, [fetchedFolders])
+    }, [foldersState])
 
     if(isFetching) {
         return <LoadingOverlay/>
@@ -39,6 +41,7 @@ const Folders = ({navigation}) => {
 
     const renderItem = (itemData) => {
         return <FolderItem
+            idFromUser={itemData.item.idFromUser}
             id={itemData.item.id}
             title={itemData.item.title}
             image={itemData.item.image}
@@ -54,7 +57,7 @@ const Folders = ({navigation}) => {
 
     return (
         <FlatList
-            data={fetchedFolders}
+            data={filteredFolders}
             renderItem={renderItem}
             numColumns={2}
             style={styles.container}

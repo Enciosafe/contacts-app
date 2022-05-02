@@ -24,6 +24,7 @@ export const fetchFolders = async () => {
     const foldersList = []
     for(const key in response.data) {
         const folderObj = {
+            idFromUser: response.data[key].idFromUser,
             id: key,
             image: response.data[key].image,
             title: response.data[key].title

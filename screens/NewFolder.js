@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {View, TextInput, StyleSheet, Text, Image, Alert} from "react-native";
 import OutlinedButton from "../Ui/OutlinedButton";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {addFolderAction} from "../store/foldersReducer";
 import * as ImagePicker from 'expo-image-picker';
 import {addFolderToStore} from "../util/http";
@@ -10,6 +10,7 @@ import {addFolderToStore} from "../util/http";
 
 
 const NewFolder = ({navigation}) => {
+    const {userId} = useSelector(state => state.auth)
     const dispatch = useDispatch()
     const [title, setTitle] = useState('')
     const [image, setImage] = useState(null);
@@ -40,6 +41,7 @@ const NewFolder = ({navigation}) => {
         }
 
         const folder = {
+            idFromUser: userId,
             title: title.toUpperCase(),
             image: image
         }
@@ -50,7 +52,6 @@ const NewFolder = ({navigation}) => {
         }
         dispatch(addFolderAction(folder))
         addFolderToStore(folder)
-
         navigation.navigate('Folders')
     }
 
