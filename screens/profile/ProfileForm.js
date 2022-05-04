@@ -1,20 +1,24 @@
-import React, {useEffect, useState} from 'react';
-import {View, Text, StyleSheet, TextInput, Image, Alert, Platform, KeyboardAvoidingView, Keyboard, TouchableWithoutFeedback} from "react-native";
-import OutlinedButton from "../Ui/OutlinedButton";
-import 'react-native-get-random-values';
-import {useDispatch} from "react-redux";
-import {addContactAction} from "../store/contactsReducer";
-import * as ImagePicker from 'expo-image-picker';
-import MyImagePicker from "../components/MyImagePicker";
-import {addContactToStore} from "../util/http";
+import React, {useContext, useState} from 'react';
+import {
+    View,
+    StyleSheet,
+    TextInput,
+    Platform,
+    KeyboardAvoidingView,
+    TouchableWithoutFeedback,
+    Keyboard, Text, Image, Alert
+} from 'react-native'
+import MyImagePicker from "../../components/MyImagePicker";
+import OutlinedButton from "../../Ui/OutlinedButton";
+import * as ImagePicker from "expo-image-picker";
+import {useSelector} from "react-redux";
+import {useNavigation} from "@react-navigation/native";
 
+const ProfileForm = () => {
 
+    const {userId} = useSelector(state => state.auth)
+    const navigation = useNavigation()
 
-
-const NewContact = ({route, navigation}) => {
-    const incomeFolderId = route.params.folderId
-    const dispatch = useDispatch()
-    const [foldId, setFoldId] = useState('')
 
     const [photo, setPhoto] = useState(null);
     const [image, setImage] = useState(null)
@@ -30,19 +34,15 @@ const NewContact = ({route, navigation}) => {
         image: ''
     })
 
+
     const inputChangedHandler = (inputIdentifier, enteredValue) => {
         setInputValues((currentInputValues) => {
             return {
                 ...currentInputValues,
-            [inputIdentifier]: enteredValue
+                [inputIdentifier]: enteredValue
             }
         })
     }
-
-
-    useEffect(() => {
-       setFoldId(incomeFolderId)
-    }, [incomeFolderId]);
 
     const pickImageFromRollHandler = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
@@ -59,12 +59,13 @@ const NewContact = ({route, navigation}) => {
         setPhoto(enteredUrl)
     }
 
-    const createContactHandler = () => {
-        if(!photo) {
-            setPhoto(require('../assets/img/switz.png'))
-        }
-        const newContact = {
-            folderId: foldId,
+    const cancelHandler = () => {
+        navigation.goBack()
+    }
+
+    const createInfoHandler = () => {
+        const newData = {
+            userId: userId,
             name: inputValues['name'].toUpperCase(),
             description: inputValues['description'].toLowerCase(),
             email: inputValues['email'],
@@ -79,26 +80,21 @@ const NewContact = ({route, navigation}) => {
             Alert.alert('Please enter the name')
             return
         }
-        dispatch(addContactAction(newContact))
-        addContactToStore(newContact)
-        navigation.goBack()
+        console.log(newData)
+        navigation.navigate('Profile')
     }
 
 
-    const cancelHandler = () => {
-        navigation.goBack()
-    }
+
 
     return (
         <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
             <KeyboardAvoidingView
                 style={styles.container}
-                behavior={Platform.OS === "ios" ? "padding" : "height"}
-                keyboardVerticalOffset={2}
-            >
+                behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+                keyboardVerticalOffset={2}>
                 <View>
                     <TextInput
-                        autocomplete={true}
                         placeholder='NAME'
                         maxLength={25}
                         value={inputValues['name']}
@@ -181,8 +177,9 @@ const NewContact = ({route, navigation}) => {
                     {!image ? <MyImagePicker pictureHandler={changePhotoHandler}/> : null }
                     {!photo ? <OutlinedButton icon="image-outline" onPress={pickImageFromRollHandler}>TAKE FROM GALLERY</OutlinedButton> : null}
                 </View>
+
                 <View style={[styles.actions, styles.text]}>
-                    <OutlinedButton icon="folder-open-outline" onPress={createContactHandler} >CREATE</OutlinedButton>
+                    <OutlinedButton icon="folder-open-outline" onPress={createInfoHandler} >CREATE</OutlinedButton>
                     <OutlinedButton icon="cut-outline" onPress={cancelHandler} >CANCEL</OutlinedButton>
 
                 </View>
@@ -191,7 +188,7 @@ const NewContact = ({route, navigation}) => {
     );
 };
 
-export default NewContact;
+export default ProfileForm;
 
 const styles = StyleSheet.create({
     container: {
@@ -205,11 +202,6 @@ const styles = StyleSheet.create({
         fontSize: 16,
         backgroundColor: 'white',
         borderRadius: 5,
-    },
-    actions: {
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        alignItems: 'center'
     },
     text: {
         fontFamily: 'Qanelas-Regular',
@@ -231,6 +223,9 @@ const styles = StyleSheet.create({
         backgroundColor: 'black',
         borderRadius: 4
     },
+    actions: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        alignItems: 'center'
+    },
 })
-
-

@@ -53,6 +53,7 @@ export const fetchContacts = async () => {
             instagram: response.data[key].instagram,
             telegram: response.data[key].telegram,
             whatsUp: response.data[key].whatsUp,
+            facebook: response.data[key].facebook
         }
         contactsList.push(contactObj)
     }

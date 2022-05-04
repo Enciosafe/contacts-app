@@ -1,7 +1,6 @@
 import React from 'react';
-import {StyleSheet, SafeAreaView, Text, View} from "react-native";
+import {StyleSheet, View} from "react-native";
 
-const gray = '#91A1BD'
 
 const NeuMorph = ({children, size, style}) => {
     return (

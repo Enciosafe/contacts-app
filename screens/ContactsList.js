@@ -12,6 +12,7 @@ const ContactsList = ({route}) => {
     const [fetchedContacts, setFetchedContacts] = useState([]);
     const [isFetching, setIsFetching] = useState(true)
 
+
     useEffect(() => {
         let isMounted = true;
         const getContacts = async () => {
@@ -28,9 +29,7 @@ const ContactsList = ({route}) => {
         return () => {
             isMounted = false
         }
-    }, [fetchedContacts])
-
-
+    }, [contacts])
 
 
     const filteredContacts = fetchedContacts.filter((contact) => contact.folderId === insideFolderId)

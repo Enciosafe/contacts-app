@@ -5,7 +5,7 @@ import * as Linking from 'expo-linking';
 import NeuMorph from "../Ui/NeuMorph";
 
 const ContactDetails = ({route}) => {
-    const {email, name, photo, instagram, telegram, whatsUp, phone, description} = route.params.props
+    const {email, name, photo, instagram, telegram, whatsUp, facebook, phone, description} = route.params.props
 
 
     return (
@@ -34,7 +34,7 @@ const ContactDetails = ({route}) => {
                         <Ionicons
                             name='logo-instagram'
                             size={40}
-                            color='#58585DFF'
+                            color='tomato'
                         />
                     </NeuMorph>
                 </Pressable>
@@ -46,7 +46,7 @@ const ContactDetails = ({route}) => {
                         <Ionicons
                             name="paper-plane-outline"
                             size={40}
-                            color='#58585DFF'
+                            color='lightblue'
                         />
                     </NeuMorph>
                 </Pressable>
@@ -58,7 +58,19 @@ const ContactDetails = ({route}) => {
                         <Ionicons
                             name="logo-whatsapp"
                             size={40}
-                            color='#58585DFF'
+                            color='green'
+                        />
+                    </NeuMorph>
+                </Pressable>
+                <Pressable
+                    style={({ pressed }) => [styles.button, pressed && styles.pressed ]}
+                    onPress={() => {Linking.openURL(facebook);}}
+                >
+                    <NeuMorph size={60}>
+                        <Ionicons
+                            name='logo-facebook'
+                            size={40}
+                            color='blue'
                         />
                     </NeuMorph>
                 </Pressable>
