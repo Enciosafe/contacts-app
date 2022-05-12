@@ -3,6 +3,10 @@ import axios from "axios";
 
 const BASE_URL = 'https://swizzcontactapp-default-rtdb.europe-west1.firebasedatabase.app'
 
+
+
+
+
 export const addFolderToStore = (newFolder) => {
     axios.post(
         `${BASE_URL}/folders.json`,
@@ -34,6 +38,8 @@ export const fetchFolders = async () => {
 
     return foldersList
 }
+
+
 
 export const fetchContacts = async () => {
     const response = await axios.get(
@@ -72,6 +78,38 @@ export const deleteContactFromStore =(id) => {
     return axios.delete(
         `${BASE_URL}/contacts/${id}.json`,
     )
+}
+
+export const addUserDataToStore = (userData) => {
+    axios.post(
+        `${BASE_URL}/userData.json`,
+        userData
+    )
+}
+
+export const fetchUserData = async () => {
+    const response = await axios.get(
+        `${BASE_URL}/userData.json`
+    )
+
+    const userDataList = []
+    for(const key in response.data) {
+        const userDataObj = {
+            idFromUser: response.data[key].idFromUser,
+            id: key,
+            name: response.data[key].name,
+            description: response.data[key].description,
+            email: response.data[key].email,
+            phone: response.data[key].phone,
+            photo: response.data[key].photo,
+            instagram: response.data[key].instagram,
+            telegram: response.data[key].telegram,
+            whatsUp: response.data[key].whatsUp,
+            facebook: response.data[key].facebook
+        }
+        userDataList.push(userDataObj)
+    }
+    return userDataList
 }
 
 

@@ -1,36 +1,23 @@
 
 
 const defaultState = {
-    userId: '',
-    name: '',
-    description: '',
-    phone: '',
-    email: '',
-    instagram: '',
-    telegram: '',
-    whatsUp: '',
-    facebook: '',
-    image: ''
+    userData: []
 }
 
-const SAVE_INFO = 'SAVE_INFO'
+const ADD_USERDATA = 'ADD_USERDATA'
+const SET_USERDATA = 'SET_USERDATA'
 
 export const userInfoReducer = (state = defaultState, action) => {
     switch (action.type) {
-        case SAVE_INFO:
-            return {
-                ...state,
-                userId: action.payload,
-                name: action.payload,
-                description: action.payload,
-                phone: action.payload,
-                email: action.payload ,
-                instagram: action.payload,
-                telegram: '',
-                whatsUp: '',
-                facebook: '',
-                image: '',
-
-            }
+        case ADD_USERDATA:
+            return {...state, userData: [...state.userData, action.payload]}
+        case SET_USERDATA:
+            return action.payload
+        default:
+            return state
     }
 }
+
+
+export const addUserInfoAction = (payload) => ({type: ADD_USERDATA, payload})
+export const setUserInfoAction = (payload) => ({type: SET_USERDATA, payload})

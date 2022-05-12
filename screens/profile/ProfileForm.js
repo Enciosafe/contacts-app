@@ -11,13 +11,16 @@ import {
 import MyImagePicker from "../../components/MyImagePicker";
 import OutlinedButton from "../../Ui/OutlinedButton";
 import * as ImagePicker from "expo-image-picker";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {useNavigation} from "@react-navigation/native";
+import {addUserInfoAction} from "../../store/userInfoReducer";
+import {addUserDataToStore} from "../../util/http";
 
 const ProfileForm = () => {
 
     const {userId} = useSelector(state => state.auth)
     const navigation = useNavigation()
+    const dispatch = useDispatch()
 
 
     const [photo, setPhoto] = useState(null);
@@ -64,8 +67,8 @@ const ProfileForm = () => {
     }
 
     const createInfoHandler = () => {
-        const newData = {
-            userId: userId,
+        const newUserData = {
+            idFromUser: userId,
             name: inputValues['name'].toUpperCase(),
             description: inputValues['description'].toLowerCase(),
             email: inputValues['email'],
@@ -80,8 +83,9 @@ const ProfileForm = () => {
             Alert.alert('Please enter the name')
             return
         }
-        console.log(newData)
-        navigation.navigate('Profile')
+        dispatch(addUserInfoAction(newUserData))
+        addUserDataToStore(newUserData)
+        navigation.navigate('Start')
     }
 
 
@@ -96,6 +100,7 @@ const ProfileForm = () => {
                 <View>
                     <TextInput
                         placeholder='NAME'
+                        placeholderTextColor='lightgray'
                         maxLength={25}
                         value={inputValues['name']}
                         onChangeText={inputChangedHandler.bind(this, 'name')}
@@ -105,6 +110,7 @@ const ProfileForm = () => {
                 <View>
                     <TextInput
                         placeholder='PHONE'
+                        placeholderTextColor='lightgray'
                         maxLength={25}
                         keyboardType='phone-pad'
                         value={inputValues['phone']}
@@ -116,6 +122,7 @@ const ProfileForm = () => {
                     <TextInput
                         autocomplete={true}
                         placeholder='EMAIL'
+                        placeholderTextColor='lightgray'
                         maxLength={25}
                         value={inputValues['email']}
                         onChangeText={inputChangedHandler.bind(this, 'email')}
@@ -126,6 +133,7 @@ const ProfileForm = () => {
                     <TextInput
                         keyboardType='url'
                         placeholder='INSTAGRAM (link)'
+                        placeholderTextColor='lightgray'
                         value={inputValues['instagram']}
                         onChangeText={inputChangedHandler.bind(this, 'instagram')}
                         style={[styles.input, styles.text]}
@@ -135,6 +143,7 @@ const ProfileForm = () => {
                     <TextInput
                         autocomplete={true}
                         placeholder='USER NAME TELEGRAM (include "@")'
+                        placeholderTextColor='lightgray'
                         maxLength={25}
                         value={inputValues['telegram']}
                         onChangeText={inputChangedHandler.bind(this, 'telegram')}
@@ -145,6 +154,7 @@ const ProfileForm = () => {
                     <TextInput
                         keyboardType='phone-pad'
                         placeholder='WHATSAPP NUMBER (just numbers)'
+                        placeholderTextColor='lightgray'
                         maxLength={25}
                         value={inputValues['whatsUp']}
                         onChangeText={inputChangedHandler.bind(this, 'whatsUp')}
@@ -155,6 +165,7 @@ const ProfileForm = () => {
                     <TextInput
                         keyboardType='url'
                         placeholder='FACEBOOK (link)'
+                        placeholderTextColor='lightgray'
                         value={inputValues['facebook']}
                         onChangeText={inputChangedHandler.bind(this, 'facebook')}
                         style={[styles.input, styles.text]}
@@ -164,6 +175,7 @@ const ProfileForm = () => {
                     <TextInput
                         autocomplete={true}
                         placeholder='ADDITIONAL NOTE'
+                        placeholderTextColor='lightgray'
                         maxLength={200}
                         value={inputValues['description']}
                         onChangeText={inputChangedHandler.bind(this, 'description')}

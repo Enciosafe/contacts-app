@@ -15,6 +15,7 @@ const Folders = ({navigation}) => {
     const filteredFolders = fetchedFolders.filter(folder => folder.idFromUser === userId)
 
 
+
     useEffect(() => {
         let isMounted = true;
         const getFolders = async () => {
@@ -24,7 +25,7 @@ const Folders = ({navigation}) => {
             if(isMounted) {
                 setFetchedFolders(folders)
             }
-            setFolderAction(foldersState)
+            setFolderAction(folders)
         }
         getFolders()
         return () => {

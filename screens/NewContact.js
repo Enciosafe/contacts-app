@@ -100,6 +100,7 @@ const NewContact = ({route, navigation}) => {
                     <TextInput
                         autocomplete={true}
                         placeholder='NAME'
+                        placeholderTextColor='lightgray'
                         maxLength={25}
                         value={inputValues['name']}
                         onChangeText={inputChangedHandler.bind(this, 'name')}
@@ -109,6 +110,7 @@ const NewContact = ({route, navigation}) => {
                 <View>
                     <TextInput
                         placeholder='PHONE'
+                        placeholderTextColor='lightgray'
                         maxLength={25}
                         keyboardType='phone-pad'
                         value={inputValues['phone']}
@@ -120,6 +122,7 @@ const NewContact = ({route, navigation}) => {
                     <TextInput
                         autocomplete={true}
                         placeholder='EMAIL'
+                        placeholderTextColor='lightgray'
                         maxLength={25}
                         value={inputValues['email']}
                         onChangeText={inputChangedHandler.bind(this, 'email')}
@@ -130,6 +133,7 @@ const NewContact = ({route, navigation}) => {
                     <TextInput
                         keyboardType='url'
                         placeholder='INSTAGRAM (link)'
+                        placeholderTextColor='lightgray'
                         value={inputValues['instagram']}
                         onChangeText={inputChangedHandler.bind(this, 'instagram')}
                         style={[styles.input, styles.text]}
@@ -139,6 +143,7 @@ const NewContact = ({route, navigation}) => {
                     <TextInput
                         autocomplete={true}
                         placeholder='USER NAME TELEGRAM (include "@")'
+                        placeholderTextColor='lightgray'
                         maxLength={25}
                         value={inputValues['telegram']}
                         onChangeText={inputChangedHandler.bind(this, 'telegram')}
@@ -149,6 +154,7 @@ const NewContact = ({route, navigation}) => {
                     <TextInput
                         keyboardType='phone-pad'
                         placeholder='WHATSAPP NUMBER (just numbers)'
+                        placeholderTextColor='lightgray'
                         maxLength={25}
                         value={inputValues['whatsUp']}
                         onChangeText={inputChangedHandler.bind(this, 'whatsUp')}
@@ -159,6 +165,7 @@ const NewContact = ({route, navigation}) => {
                     <TextInput
                         keyboardType='url'
                         placeholder='FACEBOOK (link)'
+                        placeholderTextColor='lightgray'
                         value={inputValues['facebook']}
                         onChangeText={inputChangedHandler.bind(this, 'facebook')}
                         style={[styles.input, styles.text]}
@@ -168,6 +175,7 @@ const NewContact = ({route, navigation}) => {
                     <TextInput
                         autocomplete={true}
                         placeholder='ADDITIONAL NOTE'
+                        placeholderTextColor='lightgray'
                         maxLength={200}
                         value={inputValues['description']}
                         onChangeText={inputChangedHandler.bind(this, 'description')}
@@ -213,6 +221,7 @@ const styles = StyleSheet.create({
     },
     text: {
         fontFamily: 'Qanelas-Regular',
+        color: 'black'
     },
     image: {
         borderWidth: 1,

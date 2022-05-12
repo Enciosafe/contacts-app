@@ -38,6 +38,7 @@ const LoginScreen = ({navigation}) => {
                     <TextInput
                         style={styles.input}
                         placeholder='EMAIL'
+                        placeholderTextColor='gray'
                         value={state.email}
                         onChangeText={(value) => setState((prevState) => ({...prevState, email: value }))}
                     />
@@ -47,6 +48,7 @@ const LoginScreen = ({navigation}) => {
                         value={state.password}
                         style={styles.input}
                         placeholder='PASSWORD'
+                        placeholderTextColor='gray'
                         secureTextEntry
                         onChangeText={(value) => setState((prevState) => ({...prevState, password: value }))}/>
                 </View>

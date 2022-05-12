@@ -37,6 +37,7 @@ const RegisterScreen = ({navigation}) => {
                     <TextInput
                         style={styles.input}
                         placeholder='NAME'
+                        placeholderTextColor='gray'
                         value={state.nickName}
                         onChangeText={(value) => setState((prevState) => ({...prevState, nickName: value }))}
                     />
@@ -45,6 +46,7 @@ const RegisterScreen = ({navigation}) => {
                     <TextInput
                         style={styles.input}
                         placeholder='EMAIL'
+                        placeholderTextColor='gray'
                         value={state.email}
                         onChangeText={(value) => setState((prevState) => ({...prevState, email: value }))}
                     />
@@ -54,6 +56,7 @@ const RegisterScreen = ({navigation}) => {
                         value={state.password}
                         style={styles.input}
                         placeholder='PASSWORD'
+                        placeholderTextColor='gray'
                         secureTextEntry
                         onChangeText={(value) => setState((prevState) => ({...prevState, password: value }))}/>
                 </View>
