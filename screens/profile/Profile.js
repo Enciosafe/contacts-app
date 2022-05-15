@@ -42,9 +42,7 @@ const Profile = () => {
     }
 
 
-
-
-    if(!isUser) {
+    if(!isUser || filteredUserData.length === 0) {
         return (
             <ProfileForm/>
         )

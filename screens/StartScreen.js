@@ -19,10 +19,7 @@ const StartScreen = ({navigation}) => {
     }
 
     const signOutHandler = () => {
-       // await db.auth().signOut()
-       //  navigation.navigate('Login')
-
-        dispatch(authSignOutUser())
+       dispatch(authSignOutUser())
    }
 
 
@@ -30,7 +27,7 @@ const StartScreen = ({navigation}) => {
         <View style={styles.container}>
             <OutlinedButton icon="enter-outline" onPress={enterHandler}  >   ENTER   </OutlinedButton>
             <OutlinedButton icon="man-outline" onPress={profileHandler}  > PROFILE  </OutlinedButton>
-            <OutlinedButton icon="log-out-outline" onPress={signOutHandler}  >SIGN OUT</OutlinedButton>
+            <OutlinedButton icon="log-out-outline" onPress={signOutHandler}  > LOGOUT </OutlinedButton>
 
         </View>
 

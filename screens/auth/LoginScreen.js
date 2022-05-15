@@ -13,6 +13,7 @@ import {authSignInUser} from "../../store/auth/authOperations";
 
 
 
+
 const initialState = {
     email: '',
     password: ''
@@ -27,39 +28,40 @@ const LoginScreen = ({navigation}) => {
         setState(initialState)
     }
 
+
     return (
         <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-            <KeyboardAvoidingView
-                style={styles.container}
-                behavior={Platform.OS === "ios" ? "padding" : "height"}
-                keyboardVerticalOffset={2}
-            >
-                <View style={styles.form}>
-                    <TextInput
-                        style={styles.input}
-                        placeholder='EMAIL'
-                        placeholderTextColor='gray'
-                        value={state.email}
-                        onChangeText={(value) => setState((prevState) => ({...prevState, email: value }))}
-                    />
-                </View>
-                <View style={styles.form}>
-                    <TextInput
-                        value={state.password}
-                        style={styles.input}
-                        placeholder='PASSWORD'
-                        placeholderTextColor='gray'
-                        secureTextEntry
-                        onChangeText={(value) => setState((prevState) => ({...prevState, password: value }))}/>
-                </View>
-                <OutlinedButton icon='arrow-forward-outline' onPress={onSubmitHandle}>SIGN IN</OutlinedButton>
-                <Pressable onPress={() => navigation.navigate('Register')} >
-                    <Text style={styles.button}
-                    >
-                        go 2 sign up
-                     </Text>
-                </Pressable>
-            </KeyboardAvoidingView>
+                <KeyboardAvoidingView
+                    style={styles.container}
+                    behavior={Platform.OS === "ios" ? "padding" : "height"}
+                    keyboardVerticalOffset={2}
+                >
+                    <View style={styles.form}>
+                        <TextInput
+                            style={styles.input}
+                            placeholder='EMAIL'
+                            placeholderTextColor='gray'
+                            value={state.email}
+                            onChangeText={(value) => setState((prevState) => ({...prevState, email: value }))}
+                        />
+                    </View>
+                    <View style={styles.form}>
+                        <TextInput
+                            value={state.password}
+                            style={styles.input}
+                            placeholder='PASSWORD'
+                            placeholderTextColor='gray'
+                            secureTextEntry
+                            onChangeText={(value) => setState((prevState) => ({...prevState, password: value }))}/>
+                    </View>
+                    <OutlinedButton icon='arrow-forward-outline' onPress={onSubmitHandle}>LOGIN</OutlinedButton>
+                    <Pressable onPress={() => navigation.navigate('Register')} >
+                        <Text style={styles.button}
+                        >
+                            go 2 registration
+                        </Text>
+                    </Pressable>
+                </KeyboardAvoidingView>
         </TouchableWithoutFeedback>
     );
 };

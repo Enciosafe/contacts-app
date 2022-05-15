@@ -60,11 +60,11 @@ const RegisterScreen = ({navigation}) => {
                         secureTextEntry
                         onChangeText={(value) => setState((prevState) => ({...prevState, password: value }))}/>
                 </View>
-                <OutlinedButton icon='happy-outline' onPress={onSubmitHandle}>SIGN UP</OutlinedButton>
+                <OutlinedButton icon='happy-outline' onPress={onSubmitHandle}>REGISTRATION</OutlinedButton>
                 <Pressable onPress={() => navigation.navigate('Login')} >
                     <Text style={styles.button}
                     >
-                        already registered ? go 2 sign in
+                        already registered ? go 2 LOGIN
                     </Text>
                 </Pressable>
             </KeyboardAvoidingView>
