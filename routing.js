@@ -9,6 +9,7 @@ import NewContact from "./screens/NewContact";
 import NewFolder from "./screens/NewFolder";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import Profile from "./screens/profile/Profile";
+import {Colors} from "./assets/colors/Colors";
 
 const Stack = createNativeStackNavigator()
 const AuthStack = createNativeStackNavigator()
@@ -29,7 +30,10 @@ export const useRoute = (isAuth) => {
                 </AuthStack.Navigator>)
                 : (<Stack.Navigator
                     screenOptions={{
-                        headerTintColor: 'black',
+                        headerTintColor: Colors.accent,
+                        headerStyle: {
+                            backgroundColor: Colors.fill,
+                        },
                     }}
                 >
                     <Stack.Screen
@@ -40,6 +44,11 @@ export const useRoute = (isAuth) => {
                     <Stack.Screen
                         name='Profile'
                         component={Profile}
+                        options={{
+                            headerBackTitleStyle: {
+                                fontFamily: 'Qanelas-Regular'
+                            },
+                        }}
                     />
                     <Stack.Screen
                         name='Folders'
@@ -50,17 +59,20 @@ export const useRoute = (isAuth) => {
                                 fontFamily: 'Qanelas-Regular'
                             },
                             headerTransparent: true,
-                            headerRight: ({tintColor}) => (
+                            headerRight: () => (
                                 <IconButton
                                     buttonText='CREATE NEW FOLDER'
                                     icon="add"
                                     size={15}
-                                    color={tintColor}
+                                    color={Colors.fill}
                                     onPress={() => navigation.navigate('NewFolder')}
                                 />
                             ),
-                            headerBackTitleVisible: false,
-                            headerTintColor: 'black'
+                            headerBackTitleVisible: true,
+                            headerBackTitleStyle: {
+                                fontFamily: 'Qanelas-Regular'
+                            },
+                            headerTintColor: Colors.accent
                         })}
                     />
                     <Stack.Screen
@@ -70,6 +82,7 @@ export const useRoute = (isAuth) => {
                             title: route.params.contactTitle,
                             headerStyle: {
                                 fontFamily: 'Qanelas-Bold',
+                                backgroundColor: Colors.fill
                             },
                             headerRight: ({tintColor}) => (
                                 <IconButton
@@ -82,9 +95,8 @@ export const useRoute = (isAuth) => {
                                     })}
                                 />
                             ),
-                            headerTransparent: true,
-                            headerBackTitleVisible: false,
-                            headerTintColor: 'black'
+                            // headerTransparent: true,
+                            headerTintColor: Colors.accent
                         })}
 
                     />

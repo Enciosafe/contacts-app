@@ -5,6 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {addFolderAction} from "../store/foldersReducer";
 import * as ImagePicker from 'expo-image-picker';
 import {addFolderToStore} from "../util/http";
+import {Colors} from "../assets/colors/Colors";
 
 
 
@@ -81,15 +82,23 @@ export default NewFolder;
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: 10,
-        marginHorizontal: 20,
+        flex: 1,
+        paddingTop: 10,
+        paddingHorizontal: 20,
+        alignItems: 'center',
+        backgroundColor: Colors.fill,
+        borderWidth: 1,
+        borderLeftColor: Colors.accent,
+        borderRightColor: Colors.accent,
     },
     input: {
+        width: 300,
+        height: 50,
         marginVertical: 8,
         paddingHorizontal: 8,
         paddingVertical: 8,
         fontSize: 16,
-        backgroundColor: 'white',
+        backgroundColor: 'lightgray',
         borderRadius: 5,
     },
     actions: {
@@ -99,6 +108,8 @@ const styles = StyleSheet.create({
     },
     text: {
         fontFamily: 'Qanelas-Regular',
+        color: 'gray',
+        fontSize: 16
     },
     image: {
         borderWidth: 1,
@@ -106,6 +117,6 @@ const styles = StyleSheet.create({
         height: 200,
         position: 'absolute',
         top: '150%',
-        right: '25%'
+        right: '15%'
     }
 })

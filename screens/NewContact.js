@@ -7,6 +7,7 @@ import {addContactAction} from "../store/contactsReducer";
 import * as ImagePicker from 'expo-image-picker';
 import MyImagePicker from "../components/MyImagePicker";
 import {addContactToStore} from "../util/http";
+import {Colors} from "../assets/colors/Colors";
 
 
 
@@ -100,7 +101,7 @@ const NewContact = ({route, navigation}) => {
                     <TextInput
                         autocomplete={true}
                         placeholder='NAME'
-                        placeholderTextColor='lightgray'
+                        placeholderTextColor='gray'
                         maxLength={25}
                         value={inputValues['name']}
                         onChangeText={inputChangedHandler.bind(this, 'name')}
@@ -110,7 +111,7 @@ const NewContact = ({route, navigation}) => {
                 <View>
                     <TextInput
                         placeholder='PHONE'
-                        placeholderTextColor='lightgray'
+                        placeholderTextColor='gray'
                         maxLength={25}
                         keyboardType='phone-pad'
                         value={inputValues['phone']}
@@ -122,7 +123,7 @@ const NewContact = ({route, navigation}) => {
                     <TextInput
                         autocomplete={true}
                         placeholder='EMAIL'
-                        placeholderTextColor='lightgray'
+                        placeholderTextColor='gray'
                         maxLength={25}
                         value={inputValues['email']}
                         onChangeText={inputChangedHandler.bind(this, 'email')}
@@ -133,7 +134,7 @@ const NewContact = ({route, navigation}) => {
                     <TextInput
                         keyboardType='url'
                         placeholder='INSTAGRAM (link)'
-                        placeholderTextColor='lightgray'
+                        placeholderTextColor='gray'
                         value={inputValues['instagram']}
                         onChangeText={inputChangedHandler.bind(this, 'instagram')}
                         style={[styles.input, styles.text]}
@@ -143,7 +144,7 @@ const NewContact = ({route, navigation}) => {
                     <TextInput
                         autocomplete={true}
                         placeholder='USER NAME TELEGRAM (include "@")'
-                        placeholderTextColor='lightgray'
+                        placeholderTextColor='gray'
                         maxLength={25}
                         value={inputValues['telegram']}
                         onChangeText={inputChangedHandler.bind(this, 'telegram')}
@@ -154,7 +155,7 @@ const NewContact = ({route, navigation}) => {
                     <TextInput
                         keyboardType='phone-pad'
                         placeholder='WHATSAPP NUMBER (just numbers)'
-                        placeholderTextColor='lightgray'
+                        placeholderTextColor='gray'
                         maxLength={25}
                         value={inputValues['whatsUp']}
                         onChangeText={inputChangedHandler.bind(this, 'whatsUp')}
@@ -165,7 +166,7 @@ const NewContact = ({route, navigation}) => {
                     <TextInput
                         keyboardType='url'
                         placeholder='FACEBOOK (link)'
-                        placeholderTextColor='lightgray'
+                        placeholderTextColor='gray'
                         value={inputValues['facebook']}
                         onChangeText={inputChangedHandler.bind(this, 'facebook')}
                         style={[styles.input, styles.text]}
@@ -175,7 +176,7 @@ const NewContact = ({route, navigation}) => {
                     <TextInput
                         autocomplete={true}
                         placeholder='ADDITIONAL NOTE'
-                        placeholderTextColor='lightgray'
+                        placeholderTextColor='gray'
                         maxLength={200}
                         value={inputValues['description']}
                         onChangeText={inputChangedHandler.bind(this, 'description')}
@@ -203,15 +204,20 @@ export default NewContact;
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: 10,
-        marginHorizontal: 20,
+        paddingHorizontal: 40,
+        width: '100%',
+        height: '100%',
+        borderWidth: 1,
+        backgroundColor: Colors.fill,
+        borderLeftColor: Colors.accent,
+        borderRightColor: Colors.accent
     },
     input: {
         marginVertical: 8,
         paddingHorizontal: 8,
         paddingVertical: 8,
         fontSize: 16,
-        backgroundColor: 'white',
+        backgroundColor: Colors.input,
         borderRadius: 5,
     },
     actions: {

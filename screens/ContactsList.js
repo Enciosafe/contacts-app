@@ -5,6 +5,7 @@ import {useSelector} from "react-redux";
 import {fetchContacts} from "../util/http";
 import {setContactAction} from "../store/contactsReducer";
 import LoadingOverlay from "../Ui/LoadingOverlay";
+import {Colors} from "../assets/colors/Colors";
 
 const ContactsList = ({route}) => {
     const insideFolderId = route.params.contactId
@@ -64,6 +65,6 @@ export default ContactsList;
 const styles = StyleSheet.create({
     container: {
         width: '100%',
-        marginTop: 100,
+        backgroundColor: Colors.fill
     }
 })

@@ -7,7 +7,7 @@ import {Text, View} from "react-native";
 const IconButton = ({icon, size, color, onPress, buttonText}) => {
     return (
         <Pressable
-            style={({ pressed }) => [styles.button, pressed && styles.pressed ]}
+            style={styles.button}
             onPress={onPress}
         >
             <View style={styles.rightContainer}>
@@ -28,15 +28,16 @@ const styles = StyleSheet.create({
     button: {
         marginLeft: 10,
         justifyContent: 'center',
-        alignItems: 'center'
-    },
-    pressed: {
-        opacity: 1,
-        backgroundColor: 'gray'
+        alignItems: 'center',
+        backgroundColor: 'white',
+        opacity: 0.7,
+        borderWidth: 1,
+        borderColor: 'yellow'
+
     },
     rightContainer: {
         opacity: .7,
-        backgroundColor: 'lightgray',
+        backgroundColor: 'yellow',
         padding: 5,
         height: 30,
         flexDirection: 'row',

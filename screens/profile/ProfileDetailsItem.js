@@ -1,18 +1,19 @@
 import React from 'react';
 import {View, Text, StyleSheet, Image, TextInput, Share} from 'react-native'
 import OutlinedButton from "../../Ui/OutlinedButton";
+import {Colors} from "../../assets/colors/Colors";
 
 
 export const ProfileDetailsItem = ({name, email, facebook, instagram, telegram, whatsUp, phone, photo}) => {
 
         const sharedStr = `
-            NAME: ${name}
-            EMAIL: ${email}
-            PHONE: ${phone}
-            INSTAGRAM: ${instagram}
-            TELEGRAMM: ${telegram}
-            WHATSUP: ${whatsUp}
-            `
+        NAME: ${name}
+        EMAIL: ${email}
+        PHONE: ${phone}
+        INSTAGRAM: ${instagram}
+        TELEGRAMM: ${telegram}
+        WHATSUP: ${whatsUp}
+        `
 
 
         const onShare = async () => {
@@ -35,11 +36,11 @@ export const ProfileDetailsItem = ({name, email, facebook, instagram, telegram, 
                 <TextInput style={[styles.text, styles.name]} value={name}/>
             </View>
             <View style={styles.row}>
-                <Text>EMAIL:</Text>
+                <Text style={styles.title}>EMAIL:</Text>
                 <TextInput style={styles.text} value={email.toLowerCase()}/>
             </View>
             <View style={styles.row}>
-                <Text>TEL:</Text>
+                <Text style={styles.title}>TEL:</Text>
                 <TextInput style={styles.text} value={phone}/>
             </View>
             <View style={styles.row}>
@@ -49,11 +50,11 @@ export const ProfileDetailsItem = ({name, email, facebook, instagram, telegram, 
                 <TextInput style={styles.text} value={facebook}/>
             </View>
             <View style={styles.row}>
-                <Text>TELEGRAM:</Text>
+                <Text style={styles.title}>TELEGRAM:</Text>
                 <TextInput style={styles.text} value={telegram}/>
             </View>
             <View style={styles.row}>
-                <Text>WHATSUP:</Text>
+                <Text style={styles.title}>WHATSUP:</Text>
                 <TextInput style={styles.text} value={whatsUp}/>
             </View>
             <View style={{marginTop: 80}}>
@@ -70,16 +71,28 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     photo: {
+        marginTop: 5,
         width: '100%',
-        height: 300
+        height: 300,
+        borderWidth: 1,
+        borderRadius: 8
     },
     text: {
         fontFamily: 'Qanelas-Regular',
         fontSize: 18,
         marginTop: 10,
-        marginLeft: 3
+        marginLeft: 3,
+        color: 'white'
     },
     name: {
+        color: Colors.accent,
+        textAlign: "center",
+        width: 350,
+        marginHorizontal: 10,
+        padding: 5,
+        borderRadius: 5,
+        borderWidth: 1,
+        borderColor: Colors.primal,
         fontFamily: 'Qanelas-Bold',
         fontSize: 20
     },
@@ -87,6 +100,9 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'flex-end',
         justifyContent: 'center',
+    },
+    title: {
+        color: 'white'
     }
 })
 

@@ -7,6 +7,7 @@ import {fetchUserData} from "../../util/http";
 import {setUserInfoAction} from "../../store/userInfoReducer";
 import {ProfileDetailsItem} from "./ProfileDetailsItem";
 
+
 const Profile = () => {
     const userDataState = useSelector(state => state.userData.userData)
     const [fetchedUserData, setFetchedUserData] = useState([])
@@ -15,7 +16,6 @@ const Profile = () => {
     const [isFetching, setIsFetching] = useState(false)
     const filteredUserData = fetchedUserData.filter(data => data.idFromUser === userId)
 
-    console.log(filteredUserData)
 
 
 
@@ -50,7 +50,7 @@ const Profile = () => {
 
 
     return (
-        <ScrollView>
+        <ScrollView style={styles.container}>
             {filteredUserData.map(user => (
                 <ProfileDetailsItem
                     key={user.id}
@@ -73,8 +73,6 @@ export default Profile;
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
+       backgroundColor: 'black'
     }
 })

@@ -1,9 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {Alert, Pressable, StyleSheet, Text, View, Image} from "react-native";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {removeFolderAction} from "../store/foldersReducer";
 import {deleteFolderFromStore} from "../util/http";
-import LoadingOverlay from "../Ui/LoadingOverlay";
+import {Colors} from "../assets/colors/Colors";
 
 
 
@@ -60,21 +60,23 @@ const styles = StyleSheet.create({
         fontFamily: 'Qanelas-Bold',
         textAlign: 'center',
         fontSize: 16,
-        color: 'white'
+        color: Colors.accent
     },
     folderContainer: {
         width: 150,
         height: 150,
         marginHorizontal: 10,
         marginVertical: 8,
-        backgroundColor: 'black',
+        backgroundColor: Colors.primal,
         borderRadius: 20,
+        borderWidth: 1,
+        borderColor: Colors.accent,
         overflow: "hidden",
     },
     textContainer: {
-        backgroundColor: 'black',
+        backgroundColor: Colors.fill,
         paddingBottom: 10,
-        opacity: .6,
+        opacity: .8,
         bottom: 30,
     },
     image: {

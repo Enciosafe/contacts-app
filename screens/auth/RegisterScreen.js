@@ -9,6 +9,7 @@ import {
 import OutlinedButton from "../../Ui/OutlinedButton";
 import {authSignUpUser} from '../../store/auth/authOperations'
 import {useDispatch} from "react-redux";
+import LoadingIndicator from "../../components/LoadingIndicator";
 
 
 
@@ -33,6 +34,7 @@ const RegisterScreen = ({navigation}) => {
                 behavior={Platform.OS === "ios" ? "padding" : "height"}
                 keyboardVerticalOffset={2}
             >
+                <LoadingIndicator size={100}/>
                 <View style={styles.form}>
                     <TextInput
                         style={styles.input}
@@ -60,7 +62,9 @@ const RegisterScreen = ({navigation}) => {
                         secureTextEntry
                         onChangeText={(value) => setState((prevState) => ({...prevState, password: value }))}/>
                 </View>
-                <OutlinedButton icon='happy-outline' onPress={onSubmitHandle}>REGISTRATION</OutlinedButton>
+                <View style={styles.btnContainer}>
+                    <OutlinedButton icon='happy-outline' onPress={onSubmitHandle}>     [ REGISTRATION ]      </OutlinedButton>
+                </View>
                 <Pressable onPress={() => navigation.navigate('Login')} >
                     <Text style={styles.button}
                     >
@@ -78,25 +82,36 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
-        marginHorizontal: 80,
+        alignItems: 'center',
+        backgroundColor: 'black'
 
     },
     input: {
+        width: 300,
+        height: 50,
         paddingHorizontal: 6,
         paddingVertical: 6,
         margin: 4,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
+        borderRadius: 5,
         borderWidth: 1,
         borderColor: 'black',
         textAlign: 'center',
         fontFamily: 'Qanelas-Regular',
+        color: 'gray',
+        backgroundColor:'lightgray'
+    },
+    btnContainer: {
+        marginTop: 40
     },
     button: {
+        color: 'white',
         position: 'absolute',
         fontFamily: 'Qanelas-Regular',
         fontSize: 16,
-        top: 250
+        top: 120,
+        left: -110,
     }
 })

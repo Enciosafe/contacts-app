@@ -4,6 +4,7 @@ import {useDispatch} from "react-redux";
 import {removeContactAction} from "../store/contactsReducer";
 import {useNavigation} from "@react-navigation/native";
 import {deleteContactFromStore} from "../util/http";
+import {Colors} from "../assets/colors/Colors";
 
 
 
@@ -58,13 +59,17 @@ export default ContactItem;
 
 const styles = StyleSheet.create({
     container: {
-        marginHorizontal: 15
+        marginVertical: 20,
+        marginHorizontal: 15,
+        borderWidth: 1,
+        borderRadius: 100,
+        borderColor: Colors.accent
     },
     text: {
         fontFamily: 'Qanelas-Bold',
         textAlign: 'center',
         fontSize: 10,
-        color: 'white'
+        color: Colors.accent
     },
     imagePreview: {
         width: 150,
@@ -86,7 +91,7 @@ const styles = StyleSheet.create({
         height: '100%'
     },
     pressed: {
-        opacity: .7,
+        backgroundColor: Colors.accent
     }
 })
 

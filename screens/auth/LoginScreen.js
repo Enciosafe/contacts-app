@@ -10,6 +10,7 @@ import {
 import OutlinedButton from "../../Ui/OutlinedButton";
 import {useDispatch} from "react-redux";
 import {authSignInUser} from "../../store/auth/authOperations";
+import LoadingIndicator from "../../components/LoadingIndicator";
 
 
 
@@ -36,6 +37,7 @@ const LoginScreen = ({navigation}) => {
                     behavior={Platform.OS === "ios" ? "padding" : "height"}
                     keyboardVerticalOffset={2}
                 >
+                    <LoadingIndicator size={100}/>
                     <View style={styles.form}>
                         <TextInput
                             style={styles.input}
@@ -54,7 +56,13 @@ const LoginScreen = ({navigation}) => {
                             secureTextEntry
                             onChangeText={(value) => setState((prevState) => ({...prevState, password: value }))}/>
                     </View>
-                    <OutlinedButton icon='arrow-forward-outline' onPress={onSubmitHandle}>LOGIN</OutlinedButton>
+                    <View style={styles.btnContainer}>
+                        <OutlinedButton
+                            icon='arrow-forward-outline'
+                            onPress={onSubmitHandle}
+                        >            [ LOGIN ]                   </OutlinedButton>
+                    </View>
+
                     <Pressable onPress={() => navigation.navigate('Register')} >
                         <Text style={styles.button}
                         >
@@ -72,10 +80,13 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
-        marginHorizontal: 80,
+        backgroundColor: 'black',
+        alignItems: 'center'
 
     },
     input: {
+        width: 300,
+        height: 50,
         paddingHorizontal: 6,
         paddingVertical: 6,
         margin: 4,
@@ -83,15 +94,22 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         borderWidth: 1,
-        borderColor: 'black',
+        borderColor: 'white',
+        borderRadius: 5,
         textAlign: 'center',
         fontFamily: 'Qanelas-Regular',
+        color: 'gray',
+        backgroundColor:'lightgray'
+    },
+    btnContainer: {
+        marginTop: 40
     },
     button: {
+        color: 'white',
         position: 'absolute',
         fontFamily: 'Qanelas-Regular',
         fontSize: 16,
-        left: 60,
-        top: 270
+        left: -50,
+        top: 150
     }
 })

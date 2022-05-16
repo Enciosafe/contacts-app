@@ -7,6 +7,7 @@ import {setFolderAction} from "../store/foldersReducer";
 import LoadingOverlay from "../Ui/LoadingOverlay";
 
 
+
 const Folders = ({navigation}) => {
     const foldersState = useSelector(state => state.folders.folders)
     const [isFetching, setIsFetching] = useState(false)
@@ -49,7 +50,8 @@ const Folders = ({navigation}) => {
             onSelect={() => {
                 navigation.navigate('ContactsList', {
                         contactId: itemData.item.id,
-                        contactTitle: itemData.item.title
+                        contactTitle: itemData.item.title,
+                        contactPic: itemData.item.photo
                 })
             }}
         />
@@ -72,7 +74,8 @@ export default Folders;
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: 100,
+        marginTop: 90,
+        backgroundColor: 'black',
     }
 })
 

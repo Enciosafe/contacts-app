@@ -16,7 +16,6 @@ let customFonts = {
 
 export default function App() {
     const [isFontLoaded, setIsFontLoaded] = useState(false);
-    // const [isAuth, setIsAuth] = useState(false)
 
 
     const loadFonts = async () => {
@@ -35,7 +34,7 @@ export default function App() {
     return (
         <>
             <Provider store={store}>
-                <StatusBar style="auto" />
+                <StatusBar style="light" />
                 <Main/>
             </Provider>
         </>
