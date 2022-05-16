@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useState} from 'react';
 import {
     View,
     StyleSheet,
@@ -6,7 +6,7 @@ import {
     Platform,
     KeyboardAvoidingView,
     TouchableWithoutFeedback,
-    Keyboard, Text, Image, Alert
+    Keyboard, Image, Alert
 } from 'react-native'
 import MyImagePicker from "../../components/MyImagePicker";
 import OutlinedButton from "../../Ui/OutlinedButton";
@@ -15,6 +15,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {useNavigation} from "@react-navigation/native";
 import {addUserInfoAction} from "../../store/userInfoReducer";
 import {addUserDataToStore} from "../../util/http";
+import {Colors} from "../../assets/colors/Colors";
 
 const ProfileForm = () => {
 
@@ -100,7 +101,7 @@ const ProfileForm = () => {
                 <View>
                     <TextInput
                         placeholder='NAME'
-                        placeholderTextColor='lightgray'
+                        placeholderTextColor='gray'
                         maxLength={25}
                         value={inputValues['name']}
                         onChangeText={inputChangedHandler.bind(this, 'name')}
@@ -110,7 +111,7 @@ const ProfileForm = () => {
                 <View>
                     <TextInput
                         placeholder='PHONE'
-                        placeholderTextColor='lightgray'
+                        placeholderTextColor='gray'
                         maxLength={25}
                         keyboardType='phone-pad'
                         value={inputValues['phone']}
@@ -122,7 +123,7 @@ const ProfileForm = () => {
                     <TextInput
                         autocomplete={true}
                         placeholder='EMAIL'
-                        placeholderTextColor='lightgray'
+                        placeholderTextColor='gray'
                         maxLength={25}
                         value={inputValues['email']}
                         onChangeText={inputChangedHandler.bind(this, 'email')}
@@ -133,7 +134,7 @@ const ProfileForm = () => {
                     <TextInput
                         keyboardType='url'
                         placeholder='INSTAGRAM (link)'
-                        placeholderTextColor='lightgray'
+                        placeholderTextColor='gray'
                         value={inputValues['instagram']}
                         onChangeText={inputChangedHandler.bind(this, 'instagram')}
                         style={[styles.input, styles.text]}
@@ -143,7 +144,7 @@ const ProfileForm = () => {
                     <TextInput
                         autocomplete={true}
                         placeholder='USER NAME TELEGRAM (include "@")'
-                        placeholderTextColor='lightgray'
+                        placeholderTextColor='gray'
                         maxLength={25}
                         value={inputValues['telegram']}
                         onChangeText={inputChangedHandler.bind(this, 'telegram')}
@@ -154,7 +155,7 @@ const ProfileForm = () => {
                     <TextInput
                         keyboardType='phone-pad'
                         placeholder='WHATSAPP NUMBER (just numbers)'
-                        placeholderTextColor='lightgray'
+                        placeholderTextColor='gray'
                         maxLength={25}
                         value={inputValues['whatsUp']}
                         onChangeText={inputChangedHandler.bind(this, 'whatsUp')}
@@ -165,7 +166,7 @@ const ProfileForm = () => {
                     <TextInput
                         keyboardType='url'
                         placeholder='FACEBOOK (link)'
-                        placeholderTextColor='lightgray'
+                        placeholderTextColor='gray'
                         value={inputValues['facebook']}
                         onChangeText={inputChangedHandler.bind(this, 'facebook')}
                         style={[styles.input, styles.text]}
@@ -175,7 +176,7 @@ const ProfileForm = () => {
                     <TextInput
                         autocomplete={true}
                         placeholder='ADDITIONAL NOTE'
-                        placeholderTextColor='lightgray'
+                        placeholderTextColor='gray'
                         maxLength={200}
                         value={inputValues['description']}
                         onChangeText={inputChangedHandler.bind(this, 'description')}
@@ -183,8 +184,7 @@ const ProfileForm = () => {
                     />
                 </View>
 
-                <View>
-                    <Text style={styles.text}>MAKE PHOTO</Text>
+                <View style={{marginTop: 20}}>
                     {image && <Image source={{ uri: image }} style={styles.imagePreview} />}
                     {!image ? <MyImagePicker pictureHandler={changePhotoHandler}/> : null }
                     {!photo ? <OutlinedButton icon="image-outline" onPress={pickImageFromRollHandler}>TAKE FROM GALLERY</OutlinedButton> : null}
@@ -204,19 +204,22 @@ export default ProfileForm;
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: 10,
-        marginHorizontal: 20,
+        height: '100%',
+        paddingTop: 10,
+        paddingHorizontal: 20,
+        backgroundColor: Colors.fill
     },
     input: {
         marginVertical: 8,
         paddingHorizontal: 8,
         paddingVertical: 8,
         fontSize: 16,
-        backgroundColor: 'white',
+        backgroundColor: Colors.input,
         borderRadius: 5,
     },
     text: {
         fontFamily: 'Qanelas-Regular',
+        color: 'gray'
     },
     image: {
         borderWidth: 1,
@@ -232,7 +235,7 @@ const styles = StyleSheet.create({
         marginVertical: 8,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'black',
+        backgroundColor: Colors.fill,
         borderRadius: 4
     },
     actions: {
