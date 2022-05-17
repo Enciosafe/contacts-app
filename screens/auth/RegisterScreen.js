@@ -10,6 +10,7 @@ import OutlinedButton from "../../Ui/OutlinedButton";
 import {authSignUpUser} from '../../store/auth/authOperations'
 import {useDispatch} from "react-redux";
 import LoadingIndicator from "../../components/LoadingIndicator";
+import {Colors} from "../../assets/colors/Colors";
 
 
 
@@ -68,7 +69,8 @@ const RegisterScreen = ({navigation}) => {
                 <Pressable onPress={() => navigation.navigate('Login')} >
                     <Text style={styles.button}
                     >
-                        already registered ? go 2 LOGIN
+                        already registered?
+                        <Text style={{color: Colors.accent}}> go 2 login</Text>
                     </Text>
                 </Pressable>
             </KeyboardAvoidingView>
@@ -88,7 +90,7 @@ const styles = StyleSheet.create({
     },
     input: {
         width: 300,
-        height: 50,
+        height: 35,
         paddingHorizontal: 6,
         paddingVertical: 6,
         margin: 4,

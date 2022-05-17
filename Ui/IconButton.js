@@ -2,6 +2,7 @@ import React from 'react';
 import {Pressable, StyleSheet} from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import {Text, View} from "react-native";
+import {Colors} from "../assets/colors/Colors";
 
 
 const IconButton = ({icon, size, color, onPress, buttonText}) => {
@@ -29,15 +30,15 @@ const styles = StyleSheet.create({
         marginLeft: 10,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'white',
+        backgroundColor: Colors.primal,
         opacity: 0.7,
         borderWidth: 1,
-        borderColor: 'yellow'
+        borderColor: Colors.accent
 
     },
     rightContainer: {
         opacity: .7,
-        backgroundColor: 'yellow',
+        backgroundColor: Colors.accent,
         padding: 5,
         height: 30,
         flexDirection: 'row',

@@ -11,6 +11,7 @@ import OutlinedButton from "../../Ui/OutlinedButton";
 import {useDispatch} from "react-redux";
 import {authSignInUser} from "../../store/auth/authOperations";
 import LoadingIndicator from "../../components/LoadingIndicator";
+import {Colors} from "../../assets/colors/Colors";
 
 
 
@@ -66,7 +67,8 @@ const LoginScreen = ({navigation}) => {
                     <Pressable onPress={() => navigation.navigate('Register')} >
                         <Text style={styles.button}
                         >
-                            go 2 registration
+                            go 2
+                            <Text style={{color: Colors.accent}}> registration</Text>
                         </Text>
                     </Pressable>
                 </KeyboardAvoidingView>
@@ -86,7 +88,7 @@ const styles = StyleSheet.create({
     },
     input: {
         width: 300,
-        height: 50,
+        height: 35,
         paddingHorizontal: 6,
         paddingVertical: 6,
         margin: 4,
@@ -95,7 +97,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         borderWidth: 1,
         borderColor: 'white',
-        borderRadius: 5,
+        borderRadius: 10,
         textAlign: 'center',
         fontFamily: 'Qanelas-Regular',
         color: 'gray',

@@ -1,9 +1,9 @@
 import * as React from 'react';
 import {View, StyleSheet} from 'react-native'
-import { MotiView } from 'moti'
-import { Colors } from '../assets/colors/Colors';
+import {MotiImage, MotiView} from 'moti'
 
 const LoadingIndicator = ({size}: {size: number}) => {
+
     return (
         <View style={styles.container}>
             <MotiView
@@ -38,35 +38,27 @@ const LoadingIndicator = ({size}: {size: number}) => {
                     shadowOpacity: 1,
                     shadowRadius: 10
             }}>
-            <MotiView
-                from={{
-                    shadowOpacity: 0.5,
-                    rotate: 0,
-                    borderWidth: 0.5,
-                }}
-                animate={{
-                    shadowOpacity: 1,
-                    rotate: 90,
-                    borderWidth: 1,
-                }}
-                transition={{
-                    type: 'timing',
-                    duration: 5000,
-                    loop: true,
-                }}
-                style={{
-                    width: size,
-                    borderWidth: size / 40,
-                    borderColor: Colors.accent,
-                    shadowColor: Colors.accent,
-                    shadowOffset: {width: 0, height: 0},
-                    shadowOpacity: 1,
-                    shadowRadius: 2,
-                    position: 'absolute',
-                    bottom: size / 2
-                }}
-            >
-            </MotiView>
+                <View style={styles.imgContainer}>
+                    <MotiImage
+                        style={{
+                            width: 227,
+                            height: 200,
+                        }}
+                        from={{
+                            rotate: "0deg",
+                        }}
+                        animate={{
+                            rotate: "360deg",
+                        }}
+                        transition={{
+                            loop: true,
+                            repeatReverse: false,
+                            type: "timing",
+                            duration: 2000,
+                        }}
+                        source={require("./../assets/img/transparentLogo.png")}
+                    />
+                </View>
             </MotiView>
         </View>
 
@@ -82,5 +74,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: 'black',
         marginBottom: 100
+    },
+    imgContainer: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        padding: 8,
     }
 })

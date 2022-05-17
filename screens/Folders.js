@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import FolderItem from "../components/FolderItem";
-import {FlatList, StyleSheet} from "react-native";
+import {FlatList, StyleSheet, View} from "react-native";
 import {useSelector} from "react-redux";
 import {fetchFolders} from "../util/http";
 import {setFolderAction} from "../store/foldersReducer";
-import LoadingOverlay from "../Ui/LoadingOverlay";
+import LoadingIndicator from "../components/LoadingIndicator";
+import {Colors} from "../assets/colors/Colors";
 
 
 
@@ -35,7 +36,12 @@ const Folders = ({navigation}) => {
     }, [foldersState])
 
     if(isFetching) {
-        return <LoadingOverlay/>
+        return (
+            <View style={{flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: Colors.fill}}>
+                <LoadingIndicator size={100}/>
+            </View>
+        )
+
     }
 
 

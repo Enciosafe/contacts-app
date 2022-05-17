@@ -1,6 +1,7 @@
 import React from 'react';
 import {Pressable, Text, StyleSheet} from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import {Colors} from "../assets/colors/Colors";
 
 
 const OutlinedButton = ({onPress, icon, children}) => {
@@ -12,7 +13,7 @@ const OutlinedButton = ({onPress, icon, children}) => {
             <Ionicons
                 name={icon}
                 size={18}
-                color='yellow'
+                color={Colors.accent}
                 style={styles.icon}
             />
             <Text style={styles.text}>{children}</Text>
@@ -26,7 +27,7 @@ export default OutlinedButton;
 const styles = StyleSheet.create({
     button: {
         height: 40,
-        borderRadius: 5,
+        borderRadius: 15,
         paddingHorizontal: 6,
         paddingVertical: 6,
         margin: 4,
@@ -34,7 +35,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         borderWidth: 1,
-        borderColor: 'white',
+        borderColor: Colors.primal,
 
     },
     icon: {
@@ -46,6 +47,6 @@ const styles = StyleSheet.create({
     },
     pressed: {
         opacity: 0.7,
-        backgroundColor: 'yellow',
+        backgroundColor: Colors.accent,
     }
 })

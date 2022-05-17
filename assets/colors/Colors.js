@@ -1,6 +1,6 @@
 export const Colors = {
     primal: 'white',
-    accent: 'yellow',
+    accent: 'deepskyblue',
     fill: 'black',
     input: 'lightgray'
 }
