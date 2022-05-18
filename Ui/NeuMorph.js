@@ -1,5 +1,6 @@
 import React from 'react';
 import {StyleSheet, View} from "react-native";
+import {Colors} from "../assets/colors/Colors";
 
 
 const NeuMorph = ({children, size, style}) => {
@@ -23,28 +24,28 @@ export default NeuMorph;
 
 const styles = StyleSheet.create({
     inner: {
-        backgroundColor: "#e3eaf3",
+        backgroundColor: Colors.primal,
         alignItems: 'center',
         justifyContent: 'center',
-        borderColor: "#E2ECFD",
+        borderColor: Colors.primal,
         borderWidth: 1
     },
     topShadow: {
         shadowOffset: {
-            width: -6,
-            height: -6
+            width: -2,
+            height: -2
         },
         shadowOpacity: 1,
-        shadowRadius: 6,
-        shadowColor: "#fffcfc"
+        shadowRadius: 2,
+        shadowColor: Colors.accent
     },
     bottomShadow: {
         shadowOffset: {
-            width: 6,
-            height: 6
+            width: 2,
+            height: 2
         },
         shadowOpacity: 1,
-        shadowRadius: 6,
-        shadowColor: "#c0c2ce"
+        shadowRadius: 2,
+        shadowColor: Colors.accent
     }
 })

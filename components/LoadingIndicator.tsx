@@ -3,7 +3,6 @@ import {View, StyleSheet} from 'react-native'
 import {MotiImage, MotiView} from 'moti'
 
 const LoadingIndicator = ({size}: {size: number}) => {
-
     return (
         <View style={styles.container}>
             <MotiView

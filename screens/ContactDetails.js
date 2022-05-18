@@ -1,16 +1,21 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, Text, StyleSheet, Image, Pressable} from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import * as Linking from 'expo-linking';
 import NeuMorph from "../Ui/NeuMorph";
+import {Colors} from "../assets/colors/Colors";
+import {PulsaringCircle} from "../components/PulsaringCircle";
 
 const ContactDetails = ({route}) => {
     const {email, name, photo, instagram, telegram, whatsUp, facebook, phone, description} = route.params.props
 
 
+
+
     return (
         <View style={styles.container}>
             <Pressable style={styles.photoPlateContainer}>
+                <PulsaringCircle size={300}/>
                 <NeuMorph size={300}>
                     <Image style={styles.image} source={{uri: photo}}/>
                 </NeuMorph>
@@ -30,49 +35,49 @@ const ContactDetails = ({route}) => {
                     style={({ pressed }) => [styles.button, pressed && styles.pressed ]}
                     onPress={() => {Linking.openURL(instagram);}}
                 >
-                    <NeuMorph size={60}>
+                    <View>
                         <Ionicons
                             name='logo-instagram'
                             size={40}
-                            color='tomato'
+                            color={Colors.accent}
                         />
-                    </NeuMorph>
+                    </View>
                 </Pressable>
                 <Pressable
                     style={({ pressed }) => [styles.button, pressed && styles.pressed ]}
                     onPress={() => {Linking.openURL(`https://t.me/${telegram}`);}}
                 >
-                    <NeuMorph size={60}>
+                    <View>
                         <Ionicons
                             name="paper-plane-outline"
                             size={40}
-                            color='lightblue'
+                            color={Colors.accent}
                         />
-                    </NeuMorph>
+                    </View>
                 </Pressable>
                 <Pressable
                     style={({ pressed }) => [styles.button, pressed && styles.pressed ]}
                     onPress={() => {Linking.openURL(`https://wa.me/${whatsUp}`);}}
                 >
-                    <NeuMorph size={60}>
+                    <View>
                         <Ionicons
                             name="logo-whatsapp"
                             size={40}
-                            color='green'
+                            color={Colors.accent}
                         />
-                    </NeuMorph>
+                    </View>
                 </Pressable>
                 <Pressable
                     style={({ pressed }) => [styles.button, pressed && styles.pressed ]}
                     onPress={() => {Linking.openURL(facebook);}}
                 >
-                    <NeuMorph size={60}>
+                    <View>
                         <Ionicons
                             name='logo-facebook'
                             size={40}
-                            color='blue'
+                            color={Colors.accent}
                         />
-                    </NeuMorph>
+                    </View>
                 </Pressable>
             </View>
         </View>
@@ -85,14 +90,14 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
-        backgroundColor: "#ebecef",
+        backgroundColor: Colors.fill,
     },
     photoPlateContainer: {
         marginTop: 50,
     },
     image: {
-        borderColor: '#e2e2e7',
-        borderWidth: 10,
+        borderColor: Colors.primal,
+        borderWidth: 1,
         width:  300,
         height: 300,
         borderRadius: 150,
@@ -101,29 +106,43 @@ const styles = StyleSheet.create({
     text: {
         marginTop: 20,
         fontFamily: 'Qanelas-Bold',
-        fontSize: 27
+        fontSize: 27,
+        color: Colors.primal
     },
     desc: {
         marginTop: 0,
         fontFamily: 'Qanelas-Regular',
         fontSize: 15,
         marginHorizontal: 50,
+        color: Colors.primal
     },
     phone: {
         marginTop: 50,
         fontFamily: 'Qanelas-Regular',
-        fontSize: 30
+        fontSize: 30,
+        color: Colors.accent
     },
     email: {
         marginTop: 0,
         fontFamily: 'Qanelas-Regular',
-        fontSize: 18
+        fontSize: 18,
+        color: Colors.primal,
+        marginBottom: 100
     },
     buttonContainer: {
-        flexDirection: 'row'
+        paddingBottom: 10,
+        paddingTop: 10,
+        paddingHorizontal: 50,
+        flexDirection: 'row',
+        borderWidth: 1,
+        borderBottomColor: Colors.fill,
+        borderLeftColor: Colors.primal,
+        borderRightColor: Colors.primal,
+        borderTopColor: Colors.fill,
+        borderRadius: 15,
+
     },
     button: {
-        marginTop: 100,
         marginHorizontal: 5,
         justifyContent: 'center',
         alignItems: 'center'

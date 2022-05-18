@@ -30,7 +30,7 @@ const ContactsList = ({route}) => {
         return () => {
             isMounted = false
         }
-    }, [contacts])
+    }, [fetchedContacts])
 
 
     const filteredContacts = fetchedContacts.filter((contact) => contact.folderId === insideFolderId)
