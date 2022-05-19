@@ -95,7 +95,6 @@ export const useRoute = (isAuth) => {
                                     })}
                                 />
                             ),
-                            // headerTransparent: true,
                             headerTintColor: Colors.accent
                         })}
 

@@ -2,13 +2,15 @@ import React from 'react';
 import {Alert, Pressable, StyleSheet, Text, View, Image} from "react-native";
 import {useDispatch} from "react-redux";
 import {removeFolderAction} from "../store/foldersReducer";
-import {deleteFolderFromStore} from "../util/http";
+import {deleteFolderFromStore, updateFolderFromStore} from "../util/http";
 import {Colors} from "../assets/colors/Colors";
+import {useNavigation} from "@react-navigation/native";
 
 
 
 
 const FolderItem = ({id, title, image, onSelect }) => {
+    const navigation = useNavigation()
     const dispatch = useDispatch()
 
     const onRemoveFolderAction = async (id) => {
@@ -17,17 +19,31 @@ const FolderItem = ({id, title, image, onSelect }) => {
     }
 
 
-    const onRemoveFolder = (id) => {
-        Alert.alert('Remove folder', 'Are u sure to delete this folder?',[
+    const onChangeFolderAction = async (id) => {
+       navigation.navigate('NewFolder', {
+           folderId: id,
+           folderTitle: title,
+           folderImage: image
+       })
+    }
+
+
+    const onChangeFolder = (id) => {
+        Alert.alert('Change folder', 'How are u want to change this folder?',[
             {
-                text: "NO",
-                onPress: () => Alert.alert("Don't delete"),
-                style: "default",
+                text: "Nothing",
+                onPress: () => Alert.alert("OKAY"),
+                style: "cancel",
             },
             {
-                text: "REMOVE",
-                onPress: () => onRemoveFolderAction(id),
+                text: "Change name or/and pic",
+                onPress: () => onChangeFolderAction(id),
                 style: "default"
+            },
+            {
+                text: "Remove",
+                onPress: () => onRemoveFolderAction(id),
+                style: "destructive"
             }
         ])
     }
@@ -37,7 +53,7 @@ const FolderItem = ({id, title, image, onSelect }) => {
         <Pressable
             style={({pressed}) => [styles.container, pressed && styles.pressed]}
             onPress={onSelect}
-            onLongPress={() => onRemoveFolder(id)}
+            onLongPress={() => onChangeFolder(id)}
         >
             <View style={styles.folderContainer}>
                 <Image style={styles.image} source={{uri: image}}/>

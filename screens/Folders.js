@@ -23,13 +23,14 @@ const Folders = ({navigation}) => {
         const getFolders = async () => {
             setIsFetching(true)
            const folders =  await fetchFolders()
-            setIsFetching(false)
+
             if(isMounted) {
                 setFetchedFolders(folders)
             }
             setFolderAction(folders)
         }
         getFolders()
+        setIsFetching(false)
         return () => {
             isMounted = false
         }

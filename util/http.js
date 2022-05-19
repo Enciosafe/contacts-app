@@ -5,8 +5,6 @@ const BASE_URL = 'https://swizzcontactapp-default-rtdb.europe-west1.firebasedata
 
 
 
-
-
 export const addFolderToStore = (newFolder) => {
     axios.post(
         `${BASE_URL}/folders.json`,
@@ -18,6 +16,13 @@ export const deleteFolderFromStore =(id) => {
     return axios.delete(
         `${BASE_URL}/folders/${id}.json`,
         )
+}
+
+export const updateFolderToStore = (id, updatedFolder) => {
+    return axios.patch(
+        `${BASE_URL}/folders/${id}.json`,
+        updatedFolder
+    )
 }
 
 export const fetchFolders = async () => {
