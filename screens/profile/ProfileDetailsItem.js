@@ -2,9 +2,12 @@ import React from 'react';
 import {View, Text, StyleSheet, Image, TextInput, Share} from 'react-native'
 import OutlinedButton from "../../Ui/OutlinedButton";
 import {Colors} from "../../assets/colors/Colors";
+import {useNavigation} from "@react-navigation/native";
 
 
-export const ProfileDetailsItem = ({name, email, facebook, instagram, telegram, whatsUp, phone, photo}) => {
+export const ProfileDetailsItem = ({id, name, email, facebook, instagram, telegram, whatsUp, phone, photo}) => {
+
+        const navigation = useNavigation()
 
         const sharedStr = `
         NAME: ${name}
@@ -27,9 +30,21 @@ export const ProfileDetailsItem = ({name, email, facebook, instagram, telegram, 
             }
         };
 
+        const onChangeFolderAction = async (id) => {
+        navigation.navigate('ProfileUpdate', {
+            id: id,
+            name: name,
+            email: email,
+            facebook: facebook,
+            instagram: instagram,
+            telegram: telegram,
+            whatsUp: whatsUp,
+            phone: phone,
+            photo: photo
+        })
+        }
 
-
-    return (
+        return (
         <View style={styles.container}>
             <Image style={styles.photo} source={{uri: photo}}/>
             <View>
@@ -57,8 +72,13 @@ export const ProfileDetailsItem = ({name, email, facebook, instagram, telegram, 
                 <Text style={styles.title}>WHATSUP:</Text>
                 <TextInput style={styles.text} value={whatsUp}/>
             </View>
-            <View style={{marginTop: 80}}>
-                <OutlinedButton onPress={onShare} icon={'send-outline'}>SHARED TO</OutlinedButton>
+            <View style={{flexDirection: 'row', marginTop: 80}}>
+                <View>
+                    <OutlinedButton onPress={onShare} icon={'send-outline'}>[ SHARED TO ]</OutlinedButton>
+                </View>
+                <View>
+                    <OutlinedButton onPress={() => onChangeFolderAction(id)} icon={'push-outline'}>  [ UPDATE ]   </OutlinedButton>
+                </View>
             </View>
         </View>
     );

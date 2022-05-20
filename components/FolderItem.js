@@ -2,7 +2,7 @@ import React from 'react';
 import {Alert, Pressable, StyleSheet, Text, View, Image} from "react-native";
 import {useDispatch} from "react-redux";
 import {removeFolderAction} from "../store/foldersReducer";
-import {deleteFolderFromStore, updateFolderFromStore} from "../util/http";
+import {deleteFolderFromStore} from "../util/http";
 import {Colors} from "../assets/colors/Colors";
 import {useNavigation} from "@react-navigation/native";
 
@@ -36,7 +36,7 @@ const FolderItem = ({id, title, image, onSelect }) => {
                 style: "cancel",
             },
             {
-                text: "Change name or/and pic",
+                text: "Update",
                 onPress: () => onChangeFolderAction(id),
                 style: "default"
             },

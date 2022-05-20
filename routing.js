@@ -10,6 +10,7 @@ import NewFolder from "./screens/NewFolder";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import Profile from "./screens/profile/Profile";
 import {Colors} from "./assets/colors/Colors";
+import ProfileUpdate from "./screens/profile/ProfileUpdate";
 
 const Stack = createNativeStackNavigator()
 const AuthStack = createNativeStackNavigator()
@@ -49,6 +50,17 @@ export const useRoute = (isAuth) => {
                                 fontFamily: 'Qanelas-Regular'
                             },
                         }}
+                    />
+                    <Stack.Screen
+                        name='ProfileUpdate'
+                        component={ProfileUpdate}
+                        options={({route}) => ({
+                            title: `Update ${route.params.name} info`,
+                            headerStyle: {
+                                fontFamily: 'Qanelas-Bold',
+                                backgroundColor: Colors.fill
+                            },
+                        })}
                     />
                     <Stack.Screen
                         name='Folders'

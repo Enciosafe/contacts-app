@@ -106,7 +106,6 @@ const NewFolder = ({navigation, route}) => {
                           ? <OutlinedButton icon="folder-open-outline" onPress={createFolderHandler} >CREATE</OutlinedButton>
                           : <OutlinedButton icon="push-outline" onPress={updateFolderHandler} >UPDATE</OutlinedButton>
                 }
-                {/*<OutlinedButton icon="folder-open-outline" onPress={createFolderHandler} >CREATE</OutlinedButton>*/}
                 <OutlinedButton icon="cut-outline" onPress={cancelHandler} >CANCEL</OutlinedButton>
                 <OutlinedButton icon="image-outline" onPress={pickImageFromRollHandler}>PICTURE</OutlinedButton>
                     {image && <Image source={{ uri: image }} style={styles.image} />}

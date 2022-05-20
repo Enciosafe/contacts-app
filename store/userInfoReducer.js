@@ -1,9 +1,7 @@
-
-
 const defaultState = {
     userData: []
 }
-w
+
 const ADD_USERDATA = 'ADD_USERDATA'
 const SET_USERDATA = 'SET_USERDATA'
 const UPDATE_USERDATA = 'UPDATE_USERDATA'

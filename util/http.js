@@ -29,7 +29,6 @@ export const fetchFolders = async () => {
     const response = await axios.get(
         `${BASE_URL}/folders.json`
     )
-
     const foldersList = []
     for(const key in response.data) {
         const folderObj = {
@@ -40,7 +39,6 @@ export const fetchFolders = async () => {
         }
         foldersList.push(folderObj)
     }
-
     return foldersList
 }
 
@@ -115,6 +113,13 @@ export const fetchUserData = async () => {
         userDataList.push(userDataObj)
     }
     return userDataList
+}
+
+export const updateUserDataToStore = (id, updatedUserData) => {
+    return axios.patch(
+        `${BASE_URL}/userData/${id}.json`,
+        updatedUserData
+    )
 }
 
 

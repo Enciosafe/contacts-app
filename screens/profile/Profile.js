@@ -53,6 +53,7 @@ const Profile = () => {
         <ScrollView style={styles.container}>
             {filteredUserData.map(user => (
                 <ProfileDetailsItem
+                    id={user.id}
                     key={user.id}
                     name={user.name}
                     description={user.description}
