@@ -1,13 +1,27 @@
 import React from 'react';
-import {View, Text, StyleSheet, Image, TextInput, Share} from 'react-native'
+import {View, Text, StyleSheet, Image, TextInput, Share, Alert} from 'react-native'
 import OutlinedButton from "../../Ui/OutlinedButton";
 import {Colors} from "../../assets/colors/Colors";
 import {useNavigation} from "@react-navigation/native";
+import {PROFILE} from "../../navigation/navigators";
+import type { CompositeNavigationProp } from '@react-navigation/native';
+import { IProfileDetailsItemProps } from '../../types/ProfileDetailsProps';
 
 
-export const ProfileDetailsItem = ({id, name, email, facebook, instagram, telegram, whatsUp, phone, photo}) => {
 
-        const navigation = useNavigation()
+export const ProfileDetailsItem: React.VFC<IProfileDetailsItemProps> = ({
+                                                                            id,
+                                                                            name,
+                                                                            email,
+                                                                            facebook,
+                                                                            instagram,
+                                                                            telegram,
+                                                                            whatsUp,
+                                                                            phone,
+                                                                            photo}) => {
+
+
+    const navigation = useNavigation<CompositeNavigationProp<any, any>>()
 
         const sharedStr = `
         NAME: ${name}
@@ -18,20 +32,49 @@ export const ProfileDetailsItem = ({id, name, email, facebook, instagram, telegr
         WHATSUP: ${whatsUp}
         `
 
+        const sharedStrWithoutPhone = `
+        NAME: ${name}
+        EMAIL: ${email}
+        INSTAGRAM: ${instagram}
+        TELEGRAMM: ${telegram}
+        WHATSUP: ${whatsUp}`
+
 
         const onShare = async () => {
-            try {
-                await Share.share({
-                    message:
-                        sharedStr,
-                });
-            } catch (error) {
-                alert(error.message);
-            }
+            Alert.alert('Warning', 'Add mobile phone number to share?',[
+                {
+                    text: "No",
+                    onPress: async () => {
+                        try {
+                            await Share.share({
+                                message:
+                                sharedStrWithoutPhone,
+                            });
+                        } catch (error) {
+                            alert(error.message);
+                        }
+                    },
+                    style: "cancel",
+                },
+                {
+                    text: "Yes",
+                    onPress: async () => {
+                        try {
+                            await Share.share({
+                                message:
+                                sharedStr,
+                            });
+                        } catch (error) {
+                            alert(error.message);
+                        }
+                    },
+                    style: "default"
+                },
+            ])
         };
 
-        const onChangeFolderAction = async (id) => {
-        navigation.navigate('ProfileUpdate', {
+        const onChangeFolderAction = (id) => {
+        navigation?.navigate(PROFILE.UPDATE, {
             id: id,
             name: name,
             email: email,

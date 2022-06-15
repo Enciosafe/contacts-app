@@ -5,21 +5,28 @@ import {
     Platform,
     KeyboardAvoidingView,
     TouchableWithoutFeedback,
-    Keyboard, Image, Alert, ScrollView
+    Keyboard, ScrollView,
 } from 'react-native'
 import OutlinedButton from "../../Ui/OutlinedButton";
 import * as ImagePicker from "expo-image-picker";
 import {useDispatch, useSelector} from "react-redux";
-import {useNavigation} from "@react-navigation/native";
+import {CompositeNavigationProp, useNavigation} from "@react-navigation/native";
 import {updateUserInfoAction} from "../../store/userInfoReducer";
 import {updateUserDataToStore} from "../../util/http";
 import {Colors} from "../../assets/colors/Colors";
 import FormInputItem from "../../components/FormInputItem";
+import {getUserId} from "../../store/selectors";
 
-const ProfileUpdate = ({route}) => {
+interface ImagePickerUri {
+    uri?: string,
+    cancelled: boolean,
+}
+
+
+const ProfileUpdate: ({route}: { route: any }) => JSX.Element = ({route}) => {
     const params = route.params
-    const {userId} = useSelector(state => state.auth)
-    const navigation = useNavigation()
+    const {userId} = useSelector(getUserId)
+    const navigation = useNavigation<CompositeNavigationProp<any, any>>()
     const dispatch = useDispatch()
     const [image, setImage] = useState('')
     const [oldInfo, setOldInfo] = useState({
@@ -32,23 +39,25 @@ const ProfileUpdate = ({route}) => {
         telegram: '',
         whatsUp: '',
         facebook: '',
-        image: ''
+        image: '',
+        photo: '',
     });
 
 
     useEffect(() => {
         if(params) {
             setOldInfo({
-                id: params.id,
-                name: params.name,
-                description: params.description,
-                phone: params.phone,
-                email: params.email,
-                instagram: params.instagram,
-                telegram: params.telegram,
-                whatsUp: params.whatsUp,
-                facebook: params.facebook,
-                image: params.image
+                id: params?.id,
+                name: params?.name,
+                description: params?.description,
+                phone: params?.phone,
+                email: params?.email,
+                instagram: params?.instagram,
+                telegram: params?.telegram,
+                whatsUp: params?.whatsUp,
+                facebook: params?.facebook,
+                image: params?.image,
+                photo: params?.photo
             })
         }
     }, [params]);
@@ -78,7 +87,7 @@ const ProfileUpdate = ({route}) => {
     }
 
     const pickImageFromRollHandler = async () => {
-        let result = await ImagePicker.launchImageLibraryAsync({
+        let result: ImagePickerUri = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
             allowsEditing: true
         })
@@ -107,7 +116,6 @@ const ProfileUpdate = ({route}) => {
         dispatch(updateUserInfoAction(updatedUserData))
         await updateUserDataToStore(oldInfo.id, updatedUserData)
         navigation.navigate('Start')
-        Alert.alert('User Information was updated')
     }
 
     return (
@@ -166,15 +174,12 @@ const ProfileUpdate = ({route}) => {
                         onChangeText={inputChangedHandler.bind(this, 'facebook')}
                         maxLength={250}
                     />
+                    <View style={styles.actions}>
+                        <OutlinedButton icon="close-circle-outline" onPress={cancelHandler} >[ CANCEL ]</OutlinedButton>
+                        <OutlinedButton icon="image-outline" onPress={pickImageFromRollHandler} >[GALLERY]</OutlinedButton>
+                        <OutlinedButton icon="caret-up-outline" onPress={updateInfoHandler} >[ CONFIRM ]</OutlinedButton>
+                    </View>
                 </ScrollView>
-                <View>
-                    {image && <Image source={{ uri: image }} style={styles.imagePreview} />}
-                    <OutlinedButton icon="image-outline" onPress={pickImageFromRollHandler}>TAKE FROM GALLERY</OutlinedButton>
-                </View>
-                <View style={[styles.actions, styles.text]}>
-                    <OutlinedButton icon="caret-up-outline" onPress={updateInfoHandler} >[ CONFIRM ]</OutlinedButton>
-                    <OutlinedButton icon="close-circle-outline" onPress={cancelHandler} >[ CANCEL ]</OutlinedButton>
-                </View>
             </KeyboardAvoidingView>
         </TouchableWithoutFeedback>
     );
@@ -187,40 +192,16 @@ const styles = StyleSheet.create({
         height: '100%',
         paddingTop: 10,
         paddingHorizontal: 20,
-        backgroundColor: Colors.fill
+        backgroundColor: Colors.fill,
     },
-    input: {
-        marginVertical: 8,
-        paddingHorizontal: 8,
-        paddingVertical: 8,
-        fontSize: 16,
-        backgroundColor: Colors.input,
-        borderRadius: 5,
+    actions: {
+        marginTop: 30,
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        alignItems: 'center',
     },
     text: {
         fontFamily: 'Qanelas-Regular',
         color: 'gray'
-    },
-    image: {
-        borderWidth: 1,
-        width: 200,
-        height: 200,
-        position: 'absolute',
-        top: '150%',
-        right: '25%'
-    },
-    imagePreview: {
-        width: 100,
-        height: 100,
-        marginVertical: 8,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: Colors.fill,
-        borderRadius: 4
-    },
-    actions: {
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        alignItems: 'center',
     },
 })

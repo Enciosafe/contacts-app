@@ -93,7 +93,7 @@ export const addUserDataToStore = (userData) => {
 export const fetchUserData = async () => {
     const response = await axios.get(
         `${BASE_URL}/userData.json`
-    )
+    ).catch(e => console.log(e.message))
 
     const userDataList = []
     for(const key in response.data) {

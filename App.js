@@ -6,6 +6,8 @@ import * as Font from 'expo-font'
 import {useEffect, useState} from "react";
 import 'react-native-gesture-handler'
 import Main from "./components/Main";
+import {LogBox} from "react-native";
+
 
 
 
@@ -15,6 +17,7 @@ let customFonts = {
 }
 
 export default function App() {
+    LogBox.ignoreLogs(['Warning: Async Storage has been extracted from react-native core']);
     const [isFontLoaded, setIsFontLoaded] = useState(false);
 
 

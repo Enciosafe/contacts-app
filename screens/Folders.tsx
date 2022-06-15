@@ -6,14 +6,15 @@ import {fetchFolders} from "../util/http";
 import {setFolderAction} from "../store/foldersReducer";
 import LoadingIndicator from "../components/LoadingIndicator";
 import {Colors} from "../assets/colors/Colors";
+import {getFolders, getUserId} from "../store/selectors";
 
 
 
 const Folders = ({navigation}) => {
-    const foldersState = useSelector(state => state.folders.folders)
+    const foldersState = useSelector(getFolders)
     const [isFetching, setIsFetching] = useState(false)
     const [fetchedFolders, setFetchedFolders] = useState([])
-    const {userId} = useSelector(state => state.auth)
+    const {userId} = useSelector(getUserId)
     const filteredFolders = fetchedFolders.filter(folder => folder.idFromUser === userId)
 
 
@@ -29,7 +30,7 @@ const Folders = ({navigation}) => {
             }
             setFolderAction(folders)
         }
-        getFolders()
+        getFolders().catch(e => console.log(e.message))
         setIsFetching(false)
         return () => {
             isMounted = false
@@ -47,10 +48,8 @@ const Folders = ({navigation}) => {
 
 
 
-
     const renderItem = (itemData) => {
         return <FolderItem
-            idFromUser={itemData.item.idFromUser}
             id={itemData.item.id}
             title={itemData.item.title}
             image={itemData.item.image}

@@ -11,6 +11,7 @@ import {Colors} from "../assets/colors/Colors";
 
 
 const NewFolder = ({navigation, route}) => {
+
     const params = route.params
     const {userId} = useSelector(state => state.auth)
     const dispatch = useDispatch()
@@ -23,6 +24,7 @@ const NewFolder = ({navigation, route}) => {
         });
 
 
+
     useEffect(() => {
         if(params) {
             setOldFolder({
@@ -32,6 +34,7 @@ const NewFolder = ({navigation, route}) => {
             })
         }
     }, [params]);
+
 
 
     const pickImageFromRollHandler = async () => {
@@ -53,7 +56,7 @@ const NewFolder = ({navigation, route}) => {
         navigation.navigate('Folders')
     }
 
-    const createFolderHandler = () => {
+    const createFolderHandler = async () => {
         const commonImg = require('../assets/img/switz.png')
         if(!image) {
             setImage(commonImg)
@@ -69,7 +72,8 @@ const NewFolder = ({navigation, route}) => {
             return
         }
         dispatch(addFolderAction(folder))
-        addFolderToStore(folder)
+        await addFolderToStore(folder)
+        await fetchFolders()
         navigation.navigate('Folders')
     }
 
@@ -87,7 +91,7 @@ const NewFolder = ({navigation, route}) => {
         await updateFolderToStore(oldFolder.id, folder)
         await fetchFolders()
         navigation.navigate('Folders')
-        Alert.alert('Folder was updated!')
+        await Alert.alert('Folder was updated!')
     }
 
 

@@ -6,16 +6,17 @@ import LoadingOverlay from "../../Ui/LoadingOverlay";
 import {fetchUserData} from "../../util/http";
 import {setUserInfoAction} from "../../store/userInfoReducer";
 import {ProfileDetailsItem} from "./ProfileDetailsItem";
+import {getUserData, getUserId} from "../../store/selectors";
+
 
 
 const Profile = () => {
-    const userDataState = useSelector(state => state.userData.userData)
+    const userDataState = useSelector(getUserData)
     const [fetchedUserData, setFetchedUserData] = useState([])
     const [isUser, setIsUser] = useState(false)
-    const {userId} = useSelector(state => state.auth)
+    const {userId} = useSelector(getUserId)
     const [isFetching, setIsFetching] = useState(false)
-    const filteredUserData = fetchedUserData.filter(data => data.idFromUser === userId)
-
+    const filteredUserData: any = fetchedUserData.filter(data => data.idFromUser === userId)
 
 
 
@@ -31,7 +32,7 @@ const Profile = () => {
                 setIsUser(true)
             }
         }
-        getUserInfo()
+        getUserInfo().catch(error => console.log(error))
         return () => {
            isMounted = false
         };
@@ -40,8 +41,6 @@ const Profile = () => {
     if(isFetching) {
         return <LoadingOverlay/>
     }
-
-
     if(!isUser || filteredUserData.length === 0) {
         return (
             <ProfileForm/>
@@ -56,7 +55,6 @@ const Profile = () => {
                     id={user.id}
                     key={user.id}
                     name={user.name}
-                    description={user.description}
                     email={user.email}
                     facebook={user.facebook}
                     instagram={user.instagram}
