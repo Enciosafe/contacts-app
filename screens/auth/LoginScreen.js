@@ -44,7 +44,7 @@ const LoginScreen = ({navigation}) => {
                             style={styles.input}
                             placeholder='EMAIL'
                             placeholderTextColor='gray'
-                            value={state.email}
+                            value={state.email.toLowerCase()}
                             onChangeText={(value) => setState((prevState) => ({...prevState, email: value }))}
                         />
                     </View>
@@ -61,7 +61,7 @@ const LoginScreen = ({navigation}) => {
                         <OutlinedButton
                             icon='arrow-forward-outline'
                             onPress={onSubmitHandle}
-                        >            [ LOGIN ]                   </OutlinedButton>
+                        >              LOGIN                     </OutlinedButton>
                     </View>
 
                     <Pressable onPress={() => navigation.navigate('Register')} >

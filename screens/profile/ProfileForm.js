@@ -72,6 +72,7 @@ const ProfileForm = () => {
             idFromUser: userId,
             name: inputValues['name'].toUpperCase(),
             description: inputValues['description'].toLowerCase(),
+            address: inputValues['address'],
             email: inputValues['email'],
             phone: inputValues['phone'],
             photo: photo || image,
@@ -169,6 +170,17 @@ const ProfileForm = () => {
                         placeholderTextColor='gray'
                         value={inputValues['facebook']}
                         onChangeText={inputChangedHandler.bind(this, 'facebook')}
+                        style={[styles.input, styles.text]}
+                    />
+                </View>
+                <View>
+                    <TextInput
+                        autocomplete={true}
+                        placeholder='ADDRESS'
+                        placeholderTextColor='gray'
+                        maxLength={200}
+                        value={inputValues['address']}
+                        onChangeText={inputChangedHandler.bind(this, 'address')}
                         style={[styles.input, styles.text]}
                     />
                 </View>

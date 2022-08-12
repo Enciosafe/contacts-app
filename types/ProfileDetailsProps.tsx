@@ -8,4 +8,5 @@ export interface IProfileDetailsItemProps {
     whatsUp: string
     phone: string;
     photo: string;
+    address: string;
 }

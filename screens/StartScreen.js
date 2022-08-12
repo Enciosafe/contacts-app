@@ -7,8 +7,10 @@ import {Colors} from "../assets/colors/Colors";
 
 
 
+
 const StartScreen = ({navigation}) => {
-   const dispatch =  useDispatch()
+   const dispatch = useDispatch()
+
 
     const enterHandler = () => {
         navigation.navigate('Folders')
@@ -23,15 +25,17 @@ const StartScreen = ({navigation}) => {
    }
 
 
+
     return (
-        <View style={styles.container}>
-            <OutlinedButton icon="enter-outline" onPress={enterHandler}  >[ FOLDERS ]</OutlinedButton>
-            <OutlinedButton icon="man-outline" onPress={profileHandler}  > [ PROFILE ]  </OutlinedButton>
-            <OutlinedButton icon="log-out-outline" onPress={signOutHandler}  > [ LOGOUT ] </OutlinedButton>
+            <View style={styles.container}>
+                <Text style={styles.title}>quickme</Text>
+                <OutlinedButton icon="enter-outline" onPress={enterHandler}  >  FOLDERS   </OutlinedButton>
+                <OutlinedButton icon="man-outline" onPress={profileHandler}  >   PROFILE    </OutlinedButton>
+                <OutlinedButton icon="log-out-outline" onPress={signOutHandler}  >   LOGOUT   </OutlinedButton>
 
-            <Text style={styles.version}>version 0.01</Text>
+                <Text style={styles.version}>version 1.01</Text>
 
-        </View>
+            </View>
     );
 };
 
@@ -44,9 +48,15 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: 'black'
     },
+    title: {
+        color: Colors.accent,
+        position: "absolute",
+        top: 100,
+        fontFamily: 'Qanelas-Regular',
+        fontSize: 56
+    },
     version: {
         color: Colors.accent,
-        // justifyContent: 'center'
         position: "absolute",
         bottom: 30
     }

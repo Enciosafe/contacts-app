@@ -50,7 +50,7 @@ const RegisterScreen = ({navigation}) => {
                         style={styles.input}
                         placeholder='EMAIL'
                         placeholderTextColor='gray'
-                        value={state.email}
+                        value={state.email.toLowerCase()}
                         onChangeText={(value) => setState((prevState) => ({...prevState, email: value }))}
                     />
                 </View>
@@ -64,7 +64,7 @@ const RegisterScreen = ({navigation}) => {
                         onChangeText={(value) => setState((prevState) => ({...prevState, password: value }))}/>
                 </View>
                 <View style={styles.btnContainer}>
-                    <OutlinedButton icon='happy-outline' onPress={onSubmitHandle}>     [ REGISTRATION ]      </OutlinedButton>
+                    <OutlinedButton icon='happy-outline' onPress={onSubmitHandle}>       REGISTRATION        </OutlinedButton>
                 </View>
                 <Pressable onPress={() => navigation.navigate('Login')} >
                     <Text style={styles.button}

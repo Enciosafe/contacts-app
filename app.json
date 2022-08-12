@@ -2,9 +2,9 @@
   "expo": {
     "name": "quickMe",
     "slug": "quickMe",
-    "version": "1.0.0",
+    "version": "1.0.2",
     "orientation": "portrait",
-    "icon": "./assets/logo.png",
+    "icon": "./assets/logo2.png",
     "splash": {
       "image": "./assets/logo.png",
       "resizeMode": "contain",
@@ -19,7 +19,7 @@
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "com.finnegan.creagram",
-      "buildNumber": "2"
+      "buildNumber": "3"
     },
     "android": {
       "adaptiveIcon": {

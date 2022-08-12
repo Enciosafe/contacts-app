@@ -41,6 +41,7 @@ const ProfileUpdate: ({route}: { route: any }) => JSX.Element = ({route}) => {
         facebook: '',
         image: '',
         photo: '',
+        address: '',
     });
 
 
@@ -57,7 +58,8 @@ const ProfileUpdate: ({route}: { route: any }) => JSX.Element = ({route}) => {
                 whatsUp: params?.whatsUp,
                 facebook: params?.facebook,
                 image: params?.image,
-                photo: params?.photo
+                photo: params?.photo,
+                address: params?.address
             })
         }
     }, [params]);
@@ -73,7 +75,8 @@ const ProfileUpdate: ({route}: { route: any }) => JSX.Element = ({route}) => {
         telegram: '',
         whatsUp: '',
         facebook: '',
-        image: ''
+        image: '',
+        address: '',
     })
 
 
@@ -111,7 +114,8 @@ const ProfileUpdate: ({route}: { route: any }) => JSX.Element = ({route}) => {
             instagram: inputValues['instagram'] !== '' ? inputValues['instagram'] : oldInfo.instagram,
             telegram: inputValues['telegram'] !== '' ? inputValues['telegram'].slice(1) : oldInfo.telegram,
             whatsUp: inputValues['whatsUp'] !== '' ? inputValues['whatsUp'] : oldInfo.whatsUp,
-            facebook: inputValues['facebook'] !== '' ? inputValues['facebook'] : oldInfo.facebook
+            facebook: inputValues['facebook'] !== '' ? inputValues['facebook'] : oldInfo.facebook,
+            address: inputValues['address'] !== '' ? inputValues['address']: oldInfo.address,
         }
         dispatch(updateUserInfoAction(updatedUserData))
         await updateUserDataToStore(oldInfo.id, updatedUserData)
@@ -172,6 +176,13 @@ const ProfileUpdate: ({route}: { route: any }) => JSX.Element = ({route}) => {
                         keyboardType='url'
                         value={!inputValues['facebook'] ? oldInfo.facebook : inputValues['facebook']}
                         onChangeText={inputChangedHandler.bind(this, 'facebook')}
+                        maxLength={250}
+                    />
+                    <FormInputItem
+                        title='ADDRESS'
+                        keyboardType='url'
+                        value={!inputValues['address'] ? oldInfo.address : inputValues['address']}
+                        onChangeText={inputChangedHandler.bind(this, 'address')}
                         maxLength={250}
                     />
                     <View style={styles.actions}>

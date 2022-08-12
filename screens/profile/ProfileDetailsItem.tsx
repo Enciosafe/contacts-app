@@ -18,7 +18,9 @@ export const ProfileDetailsItem: React.VFC<IProfileDetailsItemProps> = ({
                                                                             telegram,
                                                                             whatsUp,
                                                                             phone,
-                                                                            photo}) => {
+                                                                            photo,
+                                                                            address,
+}) => {
 
 
     const navigation = useNavigation<CompositeNavigationProp<any, any>>()
@@ -28,8 +30,10 @@ export const ProfileDetailsItem: React.VFC<IProfileDetailsItemProps> = ({
         EMAIL: ${email}
         PHONE: ${phone}
         INSTAGRAM: ${instagram}
+        FACEBOOK: ${facebook}
         TELEGRAMM: ${telegram}
         WHATSUP: ${whatsUp}
+        ADDRESS: ${address}
         `
 
         const sharedStrWithoutPhone = `
@@ -37,7 +41,10 @@ export const ProfileDetailsItem: React.VFC<IProfileDetailsItemProps> = ({
         EMAIL: ${email}
         INSTAGRAM: ${instagram}
         TELEGRAMM: ${telegram}
-        WHATSUP: ${whatsUp}`
+        FACEBOOK: ${facebook}
+        WHATSUP: ${whatsUp}
+        ADDRESS: ${address}
+        `
 
 
         const onShare = async () => {
@@ -83,7 +90,8 @@ export const ProfileDetailsItem: React.VFC<IProfileDetailsItemProps> = ({
             telegram: telegram,
             whatsUp: whatsUp,
             phone: phone,
-            photo: photo
+            photo: photo,
+            address: address,
         })
         }
 
@@ -115,12 +123,17 @@ export const ProfileDetailsItem: React.VFC<IProfileDetailsItemProps> = ({
                 <Text style={styles.title}>WHATSUP:</Text>
                 <TextInput style={styles.text} value={whatsUp}/>
             </View>
+            <View style={styles.row}>
+                <Text style={styles.title}>ADDRESS:</Text>
+                <TextInput style={styles.text} value={address}/>
+            </View>
+
             <View style={{flexDirection: 'row', marginTop: 80}}>
                 <View>
-                    <OutlinedButton onPress={onShare} icon={'send-outline'}>[ SHARED TO ]</OutlinedButton>
+                    <OutlinedButton onPress={onShare} icon={'send-outline'}>  SHARED TO  </OutlinedButton>
                 </View>
                 <View>
-                    <OutlinedButton onPress={() => onChangeFolderAction(id)} icon={'push-outline'}>  [ UPDATE ]   </OutlinedButton>
+                    <OutlinedButton onPress={() => onChangeFolderAction(id)} icon={'push-outline'}>    UPDATE     </OutlinedButton>
                 </View>
             </View>
         </View>
@@ -145,7 +158,7 @@ const styles = StyleSheet.create({
         fontSize: 18,
         marginTop: 10,
         marginLeft: 3,
-        color: 'white'
+        color: Colors.primal
     },
     name: {
         color: Colors.accent,
