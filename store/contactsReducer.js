@@ -1,14 +1,17 @@
+import { ADD_CONTACT, SET_CONTACT, REMOVE_CONTACT, UPDATE_CONTACT } from "./types/contact.types";
+import {UPDATE_FOLDER} from "./types/folder.types";
+
 const defaultState = {
     contacts: []
 }
 
-const ADD_CONTACT = "ADD_CONTACT"
-const SET_CONTACT = "SET_CONTACT"
-const REMOVE_CONTACT = "REMOVE_CONTACT"
+
 
 export const contactsReducer = (state = defaultState, action) => {
     switch (action.type) {
         case ADD_CONTACT:
+            return {...state, contacts: [...state.contacts, action.payload]}
+        case UPDATE_CONTACT:
             return {...state, contacts: [...state.contacts, action.payload]}
         case REMOVE_CONTACT:
             return {...state, contacts: state.contacts.filter(contact => contact.id !== action.payload)}
@@ -22,3 +25,4 @@ export const contactsReducer = (state = defaultState, action) => {
 export const addContactAction = (payload) => ({type: ADD_CONTACT, payload})
 export const setContactAction = (payload) => ({type: SET_CONTACT, payload})
 export const removeContactAction = (payload) => ({type: REMOVE_CONTACT, payload})
+export const updateContactAction = (payload) => ({type: UPDATE_CONTACT, payload})

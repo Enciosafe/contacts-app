@@ -77,6 +77,13 @@ export const addContactToStore = (newContact) => {
     )
 }
 
+export const updateContactToStore = (id, updatedContact) => {
+    return axios.patch(
+        `${BASE_URL}/contacts/${id}.json`,
+        updatedContact
+    )
+}
+
 export const deleteContactFromStore =(id) => {
     return axios.delete(
         `${BASE_URL}/contacts/${id}.json`,

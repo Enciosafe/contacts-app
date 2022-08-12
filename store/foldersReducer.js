@@ -1,11 +1,10 @@
+import {ADD_FOLDER, REMOVE_FOLDER, SET_FOLDER, UPDATE_FOLDER} from "./types/folder.types";
+
 const defaultState = {
     folders: []
 }
 
-const ADD_FOLDER = "ADD_FOLDER"
-const SET_FOLDER = "SET_FOLDER"
-const UPDATE_FOLDER = "UPDATE_FOLDER"
-const REMOVE_FOLDER = "REMOVE_FOLDER"
+
 
 export const foldersReducer = (state = defaultState, action) => {
     switch (action.type) {

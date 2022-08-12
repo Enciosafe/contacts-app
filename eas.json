@@ -1,0 +1,24 @@
+ {
+  "cli": {
+    "version": ">= 0.54.1"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal"
+    },
+    "preview": {
+      "distribution": "internal"
+    },
+    "production": {}
+  },
+  "submit": {
+    "production": {
+      "ios": {
+        "appleId": "quickme.app.mail@gmail.com",
+        "ascAppId": "1638995432",
+        "appleTeamId": "3Y7PPZFBNJ"
+      }
+    }
+  }
+}

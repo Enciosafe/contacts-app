@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import FolderItem from "../components/FolderItem";
-import {FlatList, StyleSheet, View} from "react-native";
+import {FlatList, RefreshControl, StyleSheet, View} from "react-native";
 import {useSelector} from "react-redux";
 import {fetchFolders} from "../util/http";
 import {setFolderAction} from "../store/foldersReducer";
@@ -11,13 +11,19 @@ import {getFolders, getUserId} from "../store/selectors";
 
 
 const Folders = ({navigation}) => {
+
     const foldersState = useSelector(getFolders)
+    const [refresh, setRefresh] = useState(false)
     const [isFetching, setIsFetching] = useState(false)
     const [fetchedFolders, setFetchedFolders] = useState([])
     const {userId} = useSelector(getUserId)
     const filteredFolders = fetchedFolders.filter(folder => folder.idFromUser === userId)
 
 
+    const handleRefresh = () => {
+        fetchFolders().catch(e => e.message())
+        setRefresh(false)
+    }
 
     useEffect(() => {
         let isMounted = true;
@@ -65,12 +71,19 @@ const Folders = ({navigation}) => {
 
 
     return (
-        <FlatList
-            data={filteredFolders}
-            renderItem={renderItem}
-            numColumns={2}
-            style={styles.container}
-        />
+                <FlatList
+                    refreshControl={
+                        <RefreshControl
+                            refreshing={refresh}
+                            onRefresh={() => handleRefresh}
+                            tintColor={Colors.accent}
+                        />
+                    }
+                    data={filteredFolders}
+                    renderItem={renderItem}
+                    numColumns={2}
+                    style={styles.container}
+                />
 
     );
 };
