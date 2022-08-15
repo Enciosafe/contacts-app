@@ -62,7 +62,7 @@ const NewContact = ({route, navigation}) => {
 
     const createContactHandler = () => {
         if(!photo) {
-            setPhoto(require('../assets/img/switz.png'))
+            setPhoto(require('../assets/img/logo2.png'))
         }
         const newContact = {
             folderId: foldId,

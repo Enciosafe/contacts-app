@@ -57,7 +57,7 @@ const NewFolder = ({navigation, route}) => {
     }
 
     const createFolderHandler = async () => {
-        const commonImg = require('../assets/img/switz.png')
+        const commonImg = require('../assets/img/logo2.png')
         if(!image) {
             setImage(commonImg)
         }
