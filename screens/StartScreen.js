@@ -33,7 +33,7 @@ const StartScreen = ({navigation}) => {
                 <OutlinedButton icon="man-outline" onPress={profileHandler}  >   PROFILE    </OutlinedButton>
                 <OutlinedButton icon="log-out-outline" onPress={signOutHandler}  >   LOGOUT   </OutlinedButton>
 
-                <Text style={styles.version}>version 1.01</Text>
+                <Text style={styles.version}>version 1.02</Text>
 
             </View>
     );
