@@ -4,9 +4,9 @@
     "slug": "quickMe",
     "version": "1.0.2",
     "orientation": "portrait",
-    "icon": "./assets/logo2.png",
+    "icon": "./assets/img/logo2.png",
     "splash": {
-      "image": "./assets/logo.png",
+      "image": "./assets/img/logo.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -23,7 +23,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/logo.png",
+        "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       }
     },
