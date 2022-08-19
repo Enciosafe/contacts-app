@@ -1,10 +1,8 @@
+import {ADD_USERDATA, SET_USERDATA, UPDATE_USERDATA} from "./types/userinfo.types";
+
 const defaultState = {
     userData: []
 }
-
-const ADD_USERDATA = 'ADD_USERDATA'
-const SET_USERDATA = 'SET_USERDATA'
-const UPDATE_USERDATA = 'UPDATE_USERDATA'
 
 export const userInfoReducer = (state = defaultState, action) => {
     switch (action.type) {

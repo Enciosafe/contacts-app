@@ -1,0 +1,3 @@
+export const ADD_USERDATA = 'ADD_USERDATA'
+export const SET_USERDATA = 'SET_USERDATA'
+export const UPDATE_USERDATA = 'UPDATE_USERDATA'

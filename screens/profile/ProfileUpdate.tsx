@@ -192,7 +192,7 @@ const ProfileUpdate: ({route}: { route: any }) => JSX.Element = ({route}) => {
                         keyboardType='url'
                         value={!inputValues['address'] ? oldInfo.address : inputValues['address']}
                         onChangeText={inputChangedHandler.bind(this, 'address')}
-                        maxLength={250}
+                        maxLength={200}
                     />
                     <View style={styles.actions}>
                         <OutlinedButton icon="close-circle-outline" onPress={cancelHandler} >[ CANCEL ]</OutlinedButton>

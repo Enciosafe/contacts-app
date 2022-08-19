@@ -62,6 +62,7 @@ const Profile = () => {
                     whatsUp={user.whatsUp}
                     phone={user.phone}
                     photo={user.photo}
+                    address={user.address}
                     />
             ))}
         </ScrollView>

@@ -25,6 +25,20 @@ export const updateFolderToStore = (id, updatedFolder) => {
     )
 }
 
+export const updateContactToStore = (id, updatedContact) => {
+    return axios.patch(
+        `${BASE_URL}/contacts/${id}.json`,
+        updatedContact
+    )
+}
+
+export const updateUserDataToStore = (id, updatedUserData) => {
+    return axios.patch(
+        `${BASE_URL}/userData/${id}.json`,
+        updatedUserData
+    )
+}
+
 export const fetchFolders = async () => {
     const response = await axios.get(
         `${BASE_URL}/folders.json`
@@ -62,7 +76,8 @@ export const fetchContacts = async () => {
             instagram: response.data[key].instagram,
             telegram: response.data[key].telegram,
             whatsUp: response.data[key].whatsUp,
-            facebook: response.data[key].facebook
+            facebook: response.data[key].facebook,
+            address: response.data[key].address
         }
         contactsList.push(contactObj)
     }
@@ -77,12 +92,6 @@ export const addContactToStore = (newContact) => {
     )
 }
 
-export const updateContactToStore = (id, updatedContact) => {
-    return axios.patch(
-        `${BASE_URL}/contacts/${id}.json`,
-        updatedContact
-    )
-}
 
 export const deleteContactFromStore =(id) => {
     return axios.delete(
@@ -115,18 +124,13 @@ export const fetchUserData = async () => {
             instagram: response.data[key].instagram,
             telegram: response.data[key].telegram,
             whatsUp: response.data[key].whatsUp,
-            facebook: response.data[key].facebook
+            facebook: response.data[key].facebook,
+            address: response.data[key].address,
         }
         userDataList.push(userDataObj)
     }
     return userDataList
 }
 
-export const updateUserDataToStore = (id, updatedUserData) => {
-    return axios.patch(
-        `${BASE_URL}/userData/${id}.json`,
-        updatedUserData
-    )
-}
 
 

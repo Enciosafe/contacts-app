@@ -14,14 +14,14 @@ export const PulsaringCircle = ({size}: {size: number}) => {
                 from={{
                     width: size,
                     height: size,
-                    borderWidth: 10,
+                    borderWidth: 1,
                     shadowOpacity: 0.5,
 
                 }}
                 animate={{
-                    width: size + 10,
-                    height: size + 10,
-                    borderWidth: size / 10,
+                    width: size + 5,
+                    height: size + 1,
+                    borderWidth: size / 5,
                     shadowOpacity: 1,
                 }}
                 transition={{
@@ -38,7 +38,7 @@ export const PulsaringCircle = ({size}: {size: number}) => {
                     shadowColor: 'white',
                     shadowOffset: {width: 0, height: 0},
                     shadowOpacity: 1,
-                    shadowRadius: 10
+                    shadowRadius: 20
                 }}>
             </MotiView>
         </View>
@@ -50,11 +50,11 @@ const styles = StyleSheet.create({
         height: 80,
         justifyContent: 'flex-end',
         alignItems: 'center',
-        backgroundColor: 'black',
+        backgroundColor: 'transparent',
         marginBottom: 100,
         position: 'absolute',
         top: 220,
-        left: -4.5
+        left: 0
 
     },
     imgContainer: {

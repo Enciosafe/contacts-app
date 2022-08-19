@@ -6,6 +6,7 @@ import {useNavigation} from "@react-navigation/native";
 import {deleteContactFromStore} from "../util/http";
 import {Colors} from "../assets/colors/Colors";
 import * as Haptics from 'expo-haptics';
+import {CONTACT} from "../navigation/navigators";
 
 
 
@@ -19,16 +20,36 @@ const ContactItem = ({props}) => {
         dispatch(removeContactAction(id))
     }
 
-    const onRemoveContact = (id) => {
+    const onChangeContactAction = async (id) => {
+        navigation?.navigate(CONTACT.UPDATE, {
+            id: id,
+            name: props.name,
+            email: props.email,
+            facebook: props.facebook,
+            instagram: props.instagram,
+            telegram: props.telegram,
+            whatsUp: props.whatsUp,
+            phone: props.phone,
+            photo: props.photo,
+            address: props.address,
+        })
+    }
+
+    const onChangeContact = (id) => {
         Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error).catch(e => console.log(e))
         Alert.alert('delete', 'Are u sure to remove this contact?',[
             {
-                text: "NO",
+                text: "Nothing",
                 onPress: () => {},
                 style: "default",
             },
             {
-                text: "REMOVE",
+                text: "Update",
+                onPress: () => onChangeContactAction(id),
+                style: "default"
+            },
+            {
+                text: "Remove",
                 onPress: () => onRemoveContactAction(id),
                 style: "default"
             }
@@ -46,7 +67,7 @@ const ContactItem = ({props}) => {
         <Pressable
             style={({pressed}) => [styles.container, pressed && styles.pressed]}
             onPress={contactDetailsHandler}
-            onLongPress={() => onRemoveContact(props.id)}
+            onLongPress={() => onChangeContact(props.id)}
         >
             <View style={styles.imagePreview}>
                 <Image style={styles.image} source={{uri: props.photo}}/>

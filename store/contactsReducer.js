@@ -1,5 +1,5 @@
 import { ADD_CONTACT, SET_CONTACT, REMOVE_CONTACT, UPDATE_CONTACT } from "./types/contact.types";
-import {UPDATE_FOLDER} from "./types/folder.types";
+
 
 const defaultState = {
     contacts: []

@@ -11,6 +11,7 @@ import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import Profile from "../screens/profile/Profile";
 import {Colors} from "../assets/colors/Colors";
 import ProfileUpdate from "../screens/profile/ProfileUpdate";
+import ContactUpdate from "../screens/ContactUpdate";
 
 const Stack = createNativeStackNavigator()
 const AuthStack = createNativeStackNavigator()
@@ -131,6 +132,17 @@ export const useRoute = (isAuth) => {
                             },
                             presentation: "modal",
                         }}
+                    />
+                    <Stack.Screen
+                        name='ContactUpdate'
+                        component={ContactUpdate}
+                        options={({route}) => ({
+                            title: `Update ${route.params.name}`,
+                            headerStyle: {
+                                fontFamily: 'Qanelas-Bold',
+                                backgroundColor: Colors.fill
+                            },
+                        })}
                     />
                     <Stack.Screen
                         name='NewFolder'

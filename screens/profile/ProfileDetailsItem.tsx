@@ -80,7 +80,7 @@ export const ProfileDetailsItem: React.VFC<IProfileDetailsItemProps> = ({
             ])
         };
 
-        const onChangeFolderAction = (id) => {
+        const onChangeProfileAction = (id) => {
         navigation?.navigate(PROFILE.UPDATE, {
             id: id,
             name: name,
@@ -133,7 +133,7 @@ export const ProfileDetailsItem: React.VFC<IProfileDetailsItemProps> = ({
                     <OutlinedButton onPress={onShare} icon={'send-outline'}>  SHARED TO  </OutlinedButton>
                 </View>
                 <View>
-                    <OutlinedButton onPress={() => onChangeFolderAction(id)} icon={'push-outline'}>    UPDATE     </OutlinedButton>
+                    <OutlinedButton onPress={() => onChangeProfileAction(id)} icon={'push-outline'}>    UPDATE     </OutlinedButton>
                 </View>
             </View>
         </View>

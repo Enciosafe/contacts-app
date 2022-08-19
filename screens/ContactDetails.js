@@ -1,5 +1,5 @@
-import React from 'react';
-import {View, Text, StyleSheet, Image, Pressable} from "react-native";
+import React, {useEffect, useState} from 'react';
+import {View, Text, StyleSheet, Image, Pressable, Alert} from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import * as Linking from 'expo-linking';
 import NeuMorph from "../Ui/NeuMorph";
@@ -7,21 +7,29 @@ import {Colors} from "../assets/colors/Colors";
 import {PulsaringCircle} from "../components/PulsaringCircle";
 
 const ContactDetails = ({route}) => {
-    const {email, name, photo, instagram, telegram, whatsUp, facebook, phone, description} = route.params.props
+    const {email, name, photo, instagram, telegram, whatsUp, facebook, phone, description, address} = route.params.props
+    const [noConnections, setNoConnections] = useState(false);
 
-
+    useEffect(() => {
+        if(instagram === '' && telegram === '' && whatsUp === '' && facebook === '') {
+            setNoConnections(true)
+        }
+    }, []);
 
 
     return (
         <View style={styles.container}>
             <Pressable style={styles.photoPlateContainer}>
-                <PulsaringCircle size={300}/>
-                <NeuMorph size={300}>
+                <NeuMorph size={305}>
+                    <PulsaringCircle size={300}/>
                     <Image style={styles.image} source={{uri: photo}}/>
                 </NeuMorph>
             </Pressable>
-            <Text style={[styles.text]}>{name}</Text>
+            <Text style={[styles.text, styles.name]}>{name}</Text>
             <Text style={[styles.text, styles.desc]}> {description} </Text>
+            <Pressable onPress={() => {Linking.openURL(`https://www.google.com/maps/place/${address}`)}}>
+                <Text style={[styles.text, styles.address]}>{address}</Text>
+            </Pressable>
             <Pressable onPress={() => {Linking.openURL(`tel:${phone}`)}}>
                 <Text style={[styles.text, styles.phone]}>{phone}</Text>
             </Pressable>
@@ -31,9 +39,11 @@ const ContactDetails = ({route}) => {
 
 
             <View style={styles.buttonContainer}>
-                <Pressable
-                    style={({ pressed }) => [styles.button, pressed && styles.pressed ]}
-                    onPress={() => {Linking.openURL(instagram);}}
+                {instagram !== '' && <Pressable
+                    style={({pressed}) => [styles.button, pressed && styles.pressed]}
+                    onPress={() => {
+                        Linking.openURL(instagram);
+                    }}
                 >
                     <View>
                         <Ionicons
@@ -43,9 +53,12 @@ const ContactDetails = ({route}) => {
                         />
                     </View>
                 </Pressable>
-                <Pressable
-                    style={({ pressed }) => [styles.button, pressed && styles.pressed ]}
-                    onPress={() => {Linking.openURL(`https://t.me/${telegram}`);}}
+                }
+                {telegram !== '' && <Pressable
+                    style={({pressed}) => [styles.button, pressed && styles.pressed]}
+                    onPress={() => {
+                        Linking.openURL(`https://t.me/${telegram}`);
+                    }}
                 >
                     <View>
                         <Ionicons
@@ -54,10 +67,12 @@ const ContactDetails = ({route}) => {
                             color={Colors.accent}
                         />
                     </View>
-                </Pressable>
-                <Pressable
-                    style={({ pressed }) => [styles.button, pressed && styles.pressed ]}
-                    onPress={() => {Linking.openURL(`https://wa.me/${whatsUp}`);}}
+                </Pressable>}
+                {whatsUp !== '' && <Pressable
+                    style={({pressed}) => [styles.button, pressed && styles.pressed]}
+                    onPress={() => {
+                        Linking.openURL(`https://wa.me/${whatsUp}`);
+                    }}
                 >
                     <View>
                         <Ionicons
@@ -66,10 +81,12 @@ const ContactDetails = ({route}) => {
                             color={Colors.accent}
                         />
                     </View>
-                </Pressable>
-                <Pressable
-                    style={({ pressed }) => [styles.button, pressed && styles.pressed ]}
-                    onPress={() => {Linking.openURL(facebook);}}
+                </Pressable>}
+                {facebook !== '' && <Pressable
+                    style={({pressed}) => [styles.button, pressed && styles.pressed]}
+                    onPress={() => {
+                        Linking.openURL(facebook);
+                    }}
                 >
                     <View>
                         <Ionicons
@@ -78,7 +95,22 @@ const ContactDetails = ({route}) => {
                             color={Colors.accent}
                         />
                     </View>
-                </Pressable>
+                </Pressable>}
+                {noConnections && <Pressable
+                    style={({pressed}) => [styles.button, pressed && styles.pressed]}
+                    onPress={() => {
+                        Alert.alert('NO CONNECTIONS FOUND');
+                    }}
+                >
+                    <View>
+                        <Ionicons
+                            name='bug-outline'
+                            size={40}
+                            color={Colors.accent}
+                        />
+                    </View>
+                </Pressable>}
+
             </View>
         </View>
     );
@@ -96,7 +128,7 @@ const styles = StyleSheet.create({
         marginTop: 50,
     },
     image: {
-        borderColor: Colors.primal,
+        borderColor: 'transparent',
         borderWidth: 1,
         width:  300,
         height: 300,
@@ -109,6 +141,10 @@ const styles = StyleSheet.create({
         fontSize: 27,
         color: Colors.primal
     },
+    name: {
+        fontFamily: 'Qanelas-Bold',
+        color: Colors.accent
+    },
     desc: {
         marginTop: 0,
         fontFamily: 'Qanelas-Regular',
@@ -117,17 +153,31 @@ const styles = StyleSheet.create({
         color: Colors.primal
     },
     phone: {
-        marginTop: 50,
+        marginTop: 5,
         fontFamily: 'Qanelas-Regular',
         fontSize: 30,
         color: Colors.accent
+    },
+    address: {
+        borderWidth: 1,
+        backgroundColor: Colors.accent,
+        borderColor: Colors.accent,
+        borderRadius: 10,
+        paddingVertical: 5,
+        paddingHorizontal: 20,
+        marginTop: 45,
+        fontFamily: 'Qanelas-Regular',
+        fontSize: 18,
+        color: Colors.primal,
+        overflow: "hidden"
+
     },
     email: {
         marginTop: 0,
         fontFamily: 'Qanelas-Regular',
         fontSize: 18,
         color: Colors.primal,
-        marginBottom: 100
+        marginBottom: 50
     },
     buttonContainer: {
         paddingBottom: 10,
@@ -140,7 +190,6 @@ const styles = StyleSheet.create({
         borderRightColor: Colors.primal,
         borderTopColor: Colors.fill,
         borderRadius: 15,
-
     },
     button: {
         marginHorizontal: 5,
