@@ -5,7 +5,7 @@ import {
     Platform,
     KeyboardAvoidingView,
     TouchableWithoutFeedback,
-    Keyboard, ScrollView,
+    Keyboard, ScrollView, Text,
 } from 'react-native'
 import OutlinedButton from "../../Ui/OutlinedButton";
 import * as ImagePicker from "expo-image-picker";
@@ -16,6 +16,7 @@ import {updateUserDataToStore} from "../../util/http";
 import {Colors} from "../../assets/colors/Colors";
 import FormInputItem from "../../components/FormInputItem";
 import {getUserId} from "../../store/selectors";
+import * as FileSystem from "expo-file-system";
 
 interface ImagePickerUri {
     uri?: string,
@@ -28,6 +29,7 @@ const ProfileUpdate: ({route}: { route: any }) => JSX.Element = ({route}) => {
     const {userId} = useSelector(getUserId)
     const navigation = useNavigation<CompositeNavigationProp<any, any>>()
     const dispatch = useDispatch()
+    const [imageUploaded, setImageUploaded] = useState(false)
     const [image, setImage] = useState('')
     const [oldInfo, setOldInfo] = useState({
         id:'',
@@ -89,6 +91,12 @@ const ProfileUpdate: ({route}: { route: any }) => JSX.Element = ({route}) => {
         })
     }
 
+    const getBase64 = async (path) => {
+        await FileSystem.readAsStringAsync(path, { encoding: 'base64' })
+            .then(base64 => setImage(base64))
+            .catch(err => console.log(err))
+    }
+
     const pickImageFromRollHandler = async () => {
         let result: ImagePickerUri = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -96,7 +104,8 @@ const ProfileUpdate: ({route}: { route: any }) => JSX.Element = ({route}) => {
         })
 
         if(!result.cancelled) {
-            setImage(result.uri)
+            await getBase64(result.uri)
+            setImageUploaded(true)
         }
     }
 
@@ -110,7 +119,7 @@ const ProfileUpdate: ({route}: { route: any }) => JSX.Element = ({route}) => {
             name: inputValues['name'] !== '' ? inputValues['name'].toUpperCase() : oldInfo.name,
             email: inputValues['email'] !== '' ? inputValues['email'] : oldInfo.email,
             phone: inputValues['phone'] !== '' ? inputValues['phone'] : oldInfo.phone,
-            photo: image !== '' ? image : oldInfo.photo,
+            photo: image !== '' ? `data:image/png;base64,${image}` : oldInfo.photo,
             instagram: inputValues['instagram'] !== '' ? inputValues['instagram'] : oldInfo.instagram,
             telegram: inputValues['telegram'] !== '' ? inputValues['telegram'].slice(1) : oldInfo.telegram,
             whatsUp: inputValues['whatsUp'] !== '' ? inputValues['whatsUp'] : oldInfo.whatsUp,
@@ -190,6 +199,9 @@ const ProfileUpdate: ({route}: { route: any }) => JSX.Element = ({route}) => {
                         <OutlinedButton icon="image-outline" onPress={pickImageFromRollHandler} >[GALLERY]</OutlinedButton>
                         <OutlinedButton icon="caret-up-outline" onPress={updateInfoHandler} >[ CONFIRM ]</OutlinedButton>
                     </View>
+                    <View style={styles.textContainer}>
+                        {imageUploaded && <Text style={styles.previewText}>image uploaded!!</Text>}
+                    </View>
                 </ScrollView>
             </KeyboardAvoidingView>
         </TouchableWithoutFeedback>
@@ -215,4 +227,12 @@ const styles = StyleSheet.create({
         fontFamily: 'Qanelas-Regular',
         color: 'gray'
     },
+    textContainer: {
+        marginVertical: 50,
+    },
+    previewText: {
+        fontFamily: 'Qanelas-Regular',
+        color: Colors.primal,
+        fontSize: 32
+    }
 })

@@ -6,6 +6,7 @@ import {addFolderAction, updateFolderAction} from "../store/foldersReducer";
 import * as ImagePicker from 'expo-image-picker';
 import {addFolderToStore, fetchFolders, updateFolderToStore} from "../util/http";
 import {Colors} from "../assets/colors/Colors";
+import * as FileSystem from 'expo-file-system';
 
 
 
@@ -17,6 +18,7 @@ const NewFolder = ({navigation, route}) => {
     const dispatch = useDispatch()
     const [title, setTitle] = useState('')
     const [image, setImage] = useState(null);
+    const [imageUploaded, setImageUploaded] = useState(false)
     const [oldFolder, setOldFolder] = useState({
             id:'',
             title: '',
@@ -35,7 +37,11 @@ const NewFolder = ({navigation, route}) => {
         }
     }, [params]);
 
-
+    const getBase64 = async (path) => {
+        await FileSystem.readAsStringAsync(path, { encoding: 'base64' })
+            .then(base64 => setImage(base64))
+            .catch(err => console.log(err))
+    }
 
     const pickImageFromRollHandler = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
@@ -44,7 +50,8 @@ const NewFolder = ({navigation, route}) => {
         })
 
         if(!result.cancelled) {
-            setImage(result.uri)
+          await getBase64(result.uri)
+            setImageUploaded(true)
         }
     }
 
@@ -65,7 +72,7 @@ const NewFolder = ({navigation, route}) => {
         const folder = {
             idFromUser: userId,
             title: title.toUpperCase(),
-            image: image
+            image: `data:image/png;base64,${image}`
         }
         if(!title) {
             Alert.alert('Please enter the name')
@@ -81,7 +88,7 @@ const NewFolder = ({navigation, route}) => {
         const folder = {
             idFromUser: userId,
             title: title !== '' ? title.toUpperCase() : oldFolder.title,
-            image: image !== null ? image : oldFolder.image
+            image: image !== null ? `data:image/png;base64,${image}` : oldFolder.image
         }
         if(!title && oldFolder.title === '') {
             Alert.alert('Please enter the name')
@@ -112,7 +119,9 @@ const NewFolder = ({navigation, route}) => {
                 }
                 <OutlinedButton icon="cut-outline" onPress={cancelHandler} >CANCEL</OutlinedButton>
                 <OutlinedButton icon="image-outline" onPress={pickImageFromRollHandler}>PICTURE</OutlinedButton>
-                    {image && <Image source={{ uri: image }} style={styles.image} />}
+            </View>
+            <View style={styles.textContainer}>
+                {imageUploaded && <Text style={styles.previewText}>image uploaded!!</Text>}
             </View>
         </View>
 
@@ -154,12 +163,12 @@ const styles = StyleSheet.create({
         color: 'gray',
         fontSize: 16
     },
-    image: {
-        borderWidth: 1,
-        width: 200,
-        height: 200,
-        position: 'absolute',
-        top: '150%',
-        right: '15%'
+    textContainer: {
+        marginVertical: 50,
+    },
+    previewText: {
+        fontFamily: 'Qanelas-Regular',
+        color: Colors.primal,
+        fontSize: 32
     }
 })

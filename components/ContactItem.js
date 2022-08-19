@@ -5,6 +5,7 @@ import {removeContactAction} from "../store/contactsReducer";
 import {useNavigation} from "@react-navigation/native";
 import {deleteContactFromStore} from "../util/http";
 import {Colors} from "../assets/colors/Colors";
+import * as Haptics from 'expo-haptics';
 
 
 
@@ -19,10 +20,11 @@ const ContactItem = ({props}) => {
     }
 
     const onRemoveContact = (id) => {
+        Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error).catch(e => console.log(e))
         Alert.alert('delete', 'Are u sure to remove this contact?',[
             {
                 text: "NO",
-                onPress: () => Alert.alert("Don't delete"),
+                onPress: () => {},
                 style: "default",
             },
             {
@@ -34,6 +36,7 @@ const ContactItem = ({props}) => {
     }
 
     const contactDetailsHandler = () => {
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium).catch(e => console.log(e))
         navigation.navigate('ContactDetails', {
             props: props
         })

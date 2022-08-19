@@ -8,6 +8,7 @@ import * as ImagePicker from 'expo-image-picker';
 import MyImagePicker from "../components/MyImagePicker";
 import {addContactToStore} from "../util/http";
 import {Colors} from "../assets/colors/Colors";
+import * as FileSystem from "expo-file-system";
 
 
 
@@ -18,7 +19,7 @@ const NewContact = ({route, navigation}) => {
     const [foldId, setFoldId] = useState('')
 
     const [photo, setPhoto] = useState(null);
-    const [image, setImage] = useState(null)
+    const [image, setImage] = useState(null);
     const [inputValues, setInputValues] = useState({
         name: '',
         description: '',
@@ -45,6 +46,18 @@ const NewContact = ({route, navigation}) => {
        setFoldId(incomeFolderId)
     }, [incomeFolderId]);
 
+    const getBase64 = async (path) => {
+        await FileSystem.readAsStringAsync(path, { encoding: 'base64' })
+            .then(base64 => setImage(base64))
+            .catch(err => console.log(err))
+    }
+
+    const getBase64Camera = async (path) => {
+        await FileSystem.readAsStringAsync(path, { encoding: 'base64' })
+            .then(base64 => setPhoto(base64))
+            .catch(err => console.log(err))
+    }
+
     const pickImageFromRollHandler = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -52,12 +65,12 @@ const NewContact = ({route, navigation}) => {
         })
 
         if(!result.cancelled) {
-            setImage(result.uri)
+            await getBase64(result.uri)
         }
     }
 
-    const changePhotoHandler = (enteredUrl) => {
-        setPhoto(enteredUrl)
+    const changePhotoHandler = async (enteredUrl) => {
+        await getBase64Camera(enteredUrl)
     }
 
     const createContactHandler = () => {
@@ -70,7 +83,7 @@ const NewContact = ({route, navigation}) => {
             description: inputValues['description'].toLowerCase(),
             email: inputValues['email'],
             phone: inputValues['phone'],
-            photo: photo || image,
+            photo: image ? `data:image/png;base64,${image}` : `data:image/png;base64,${photo}`,
             instagram: inputValues['instagram'],
             telegram: inputValues['telegram'].slice(1),
             whatsUp: inputValues['whatsUp'],

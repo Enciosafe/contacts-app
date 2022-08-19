@@ -5,6 +5,7 @@ import {removeFolderAction} from "../store/foldersReducer";
 import {deleteFolderFromStore} from "../util/http";
 import {Colors} from "../assets/colors/Colors";
 import {useNavigation} from "@react-navigation/native";
+import * as Haptics from "expo-haptics";
 
 
 
@@ -29,10 +30,11 @@ const FolderItem = ({id, title, image, onSelect }) => {
 
 
     const onChangeFolder = (id) => {
+        Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error).catch(e => console.log(e))
         Alert.alert('Change folder', 'How are u want to change this folder?',[
             {
                 text: "Nothing",
-                onPress: () => Alert.alert("OKAY"),
+                onPress: () => {},
                 style: "cancel",
             },
             {
@@ -70,7 +72,8 @@ export default FolderItem;
 
 const styles = StyleSheet.create({
     container: {
-        marginHorizontal: 15
+        marginHorizontal: 5,
+        marginTop: 20
     },
     text: {
         fontFamily: 'Qanelas-Bold',
@@ -79,10 +82,9 @@ const styles = StyleSheet.create({
         color: Colors.accent
     },
     folderContainer: {
-        width: 150,
-        height: 150,
-        marginHorizontal: 10,
-        marginVertical: 8,
+        width: 120,
+        height: 120,
+        marginVertical: 5,
         backgroundColor: Colors.primal,
         borderRadius: 20,
         borderWidth: 1,
@@ -101,5 +103,6 @@ const styles = StyleSheet.create({
     },
     pressed: {
         opacity: .7,
+        borderColor: Colors.primal
     }
 })

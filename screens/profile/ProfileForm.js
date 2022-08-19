@@ -16,6 +16,7 @@ import {useNavigation} from "@react-navigation/native";
 import {addUserInfoAction} from "../../store/userInfoReducer";
 import {addUserDataToStore} from "../../util/http";
 import {Colors} from "../../assets/colors/Colors";
+import * as FileSystem from "expo-file-system";
 
 const ProfileForm = () => {
 
@@ -48,6 +49,12 @@ const ProfileForm = () => {
         })
     }
 
+    const getBase64 = async (path) => {
+        await FileSystem.readAsStringAsync(path, { encoding: 'base64' })
+            .then(base64 => setImage(base64))
+            .catch(err => console.log(err))
+    }
+
     const pickImageFromRollHandler = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -55,7 +62,7 @@ const ProfileForm = () => {
         })
 
         if(!result.cancelled) {
-            setImage(result.uri)
+            await getBase64(result.uri)
         }
     }
 
@@ -75,7 +82,7 @@ const ProfileForm = () => {
             address: inputValues['address'],
             email: inputValues['email'],
             phone: inputValues['phone'],
-            photo: photo || image,
+            photo: `data:image/png;base64,${photo}` || `data:image/png;base64,${image}`,
             instagram: inputValues['instagram'],
             telegram: inputValues['telegram'].slice(1),
             whatsUp: inputValues['whatsUp'],
@@ -126,7 +133,7 @@ const ProfileForm = () => {
                         placeholder='EMAIL'
                         placeholderTextColor='gray'
                         maxLength={25}
-                        value={inputValues['email']}
+                        value={inputValues['email'].toLowerCase()}
                         onChangeText={inputChangedHandler.bind(this, 'email')}
                         style={[styles.input, styles.text]}
                     />

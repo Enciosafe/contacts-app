@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useCallback} from 'react';
 import FolderItem from "../components/FolderItem";
 import {FlatList, RefreshControl, StyleSheet, View} from "react-native";
 import {useSelector} from "react-redux";
@@ -7,6 +7,7 @@ import {setFolderAction} from "../store/foldersReducer";
 import LoadingIndicator from "../components/LoadingIndicator";
 import {Colors} from "../assets/colors/Colors";
 import {getFolders, getUserId} from "../store/selectors";
+import * as Haptics from 'expo-haptics';
 
 
 
@@ -20,10 +21,27 @@ const Folders = ({navigation}) => {
     const filteredFolders = fetchedFolders.filter(folder => folder.idFromUser === userId)
 
 
-    const handleRefresh = () => {
-        fetchFolders().catch(e => e.message())
-        setRefresh(false)
-    }
+    const handleRefresh = useCallback(
+        () => {
+            let isMounted = true;
+            const getFolders = async () => {
+                setIsFetching(true)
+                const folders =  await fetchFolders()
+
+                if(isMounted) {
+                    setFetchedFolders(folders)
+                }
+                setFolderAction(folders)
+            }
+            getFolders().catch(e => console.log(e.message))
+            setIsFetching(false)
+            setRefresh(false)
+            return () => {
+                isMounted = false
+            }
+        },
+        [foldersState],
+    );
 
     useEffect(() => {
         let isMounted = true;
@@ -60,6 +78,7 @@ const Folders = ({navigation}) => {
             title={itemData.item.title}
             image={itemData.item.image}
             onSelect={() => {
+                Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success)
                 navigation.navigate('ContactsList', {
                         contactId: itemData.item.id,
                         contactTitle: itemData.item.title,
@@ -75,13 +94,13 @@ const Folders = ({navigation}) => {
                     refreshControl={
                         <RefreshControl
                             refreshing={refresh}
-                            onRefresh={() => handleRefresh}
+                            onRefresh={handleRefresh}
                             tintColor={Colors.accent}
                         />
                     }
                     data={filteredFolders}
                     renderItem={renderItem}
-                    numColumns={2}
+                    numColumns={3}
                     style={styles.container}
                 />
 

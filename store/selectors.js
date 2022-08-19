@@ -8,3 +8,6 @@ export const getUserId = (state) =>
 
 export const getFolders = (state) =>
     state.folders.folders
+
+export const getContacts = (state) =>
+    state.contacts.contacts
