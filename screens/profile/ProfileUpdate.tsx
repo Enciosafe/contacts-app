@@ -16,7 +16,7 @@ import {updateUserDataToStore} from "../../util/http";
 import {Colors} from "../../assets/colors/Colors";
 import FormInputItem from "../../components/FormInputItem";
 import {getUserId} from "../../store/selectors";
-import * as FileSystem from "expo-file-system";
+import {resizeImg} from "../../util/resizeImg";
 
 interface ImagePickerUri {
     uri?: string,
@@ -91,22 +91,15 @@ const ProfileUpdate: ({route}: { route: any }) => JSX.Element = ({route}) => {
         })
     }
 
-    const getBase64 = async (path) => {
-        await FileSystem.readAsStringAsync(path, { encoding: 'base64' })
-            .then(base64 => setImage(base64))
-            .catch(err => console.log(err))
-    }
-
     const pickImageFromRollHandler = async () => {
         let result: ImagePickerUri = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
             allowsEditing: true
         })
 
-        if(!result.cancelled) {
-            await getBase64(result.uri)
-            setImageUploaded(true)
-        }
+        resizeImg(result.uri, setImage, 800)
+        setImageUploaded(true)
+
     }
 
     const cancelHandler = () => {

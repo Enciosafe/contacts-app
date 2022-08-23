@@ -1,7 +1,9 @@
 import axios from "axios";
 
 
-const BASE_URL = 'https://swizzcontactapp-default-rtdb.europe-west1.firebasedatabase.app'
+// const BASE_URL = 'https://swizzcontactapp-default-rtdb.europe-west1.firebasedatabase.app'
+const BASE_URL = 'https://quickme-8da9a-default-rtdb.europe-west1.firebasedatabase.app/'
+
 
 
 

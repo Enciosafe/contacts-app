@@ -8,7 +8,7 @@ import * as ImagePicker from 'expo-image-picker';
 import MyImagePicker from "../components/MyImagePicker";
 import {addContactToStore} from "../util/http";
 import {Colors} from "../assets/colors/Colors";
-import * as FileSystem from "expo-file-system";
+import {resizeImg} from "../util/resizeImg";
 
 
 
@@ -42,22 +42,10 @@ const NewContact = ({route, navigation}) => {
         })
     }
 
-
     useEffect(() => {
        setFoldId(incomeFolderId)
     }, [incomeFolderId]);
 
-    const getBase64 = async (path) => {
-        await FileSystem.readAsStringAsync(path, { encoding: 'base64' })
-            .then(base64 => setImage(base64))
-            .catch(err => console.log(err))
-    }
-
-    const getBase64Camera = async (path) => {
-        await FileSystem.readAsStringAsync(path, { encoding: 'base64' })
-            .then(base64 => setPhoto(base64))
-            .catch(err => console.log(err))
-    }
 
     const pickImageFromRollHandler = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
@@ -65,13 +53,12 @@ const NewContact = ({route, navigation}) => {
             allowsEditing: true
         })
 
-        if(!result.cancelled) {
-            await getBase64(result.uri)
-        }
+        await resizeImg(result.uri, setImage, 600)
+
     }
 
     const changePhotoHandler = async (enteredUrl) => {
-        await getBase64Camera(enteredUrl)
+        await resizeImg(enteredUrl, setPhoto, 600)
     }
 
     const createContactHandler = () => {

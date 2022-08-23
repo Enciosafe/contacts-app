@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import {View, TextInput, StyleSheet, Text, Image, Alert} from "react-native";
+import {View, TextInput, StyleSheet, Text, Alert} from "react-native";
 import OutlinedButton from "../Ui/OutlinedButton";
 import {useDispatch, useSelector} from "react-redux";
 import {addFolderAction, updateFolderAction} from "../store/foldersReducer";
 import * as ImagePicker from 'expo-image-picker';
 import {addFolderToStore, fetchFolders, updateFolderToStore} from "../util/http";
 import {Colors} from "../assets/colors/Colors";
-import * as FileSystem from 'expo-file-system';
+import {resizeImg} from "../util/resizeImg";
 
 
 
@@ -37,22 +37,15 @@ const NewFolder = ({navigation, route}) => {
         }
     }, [params]);
 
-    const getBase64 = async (path) => {
-        await FileSystem.readAsStringAsync(path, { encoding: 'base64' })
-            .then(base64 => setImage(base64))
-            .catch(err => console.log(err))
-    }
-
     const pickImageFromRollHandler = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
             allowsEditing: false
         })
 
-        if(!result.cancelled) {
-          await getBase64(result.uri)
-            setImageUploaded(true)
-        }
+        await resizeImg(result.uri, setImage, 300)
+        setImageUploaded(true)
+
     }
 
     const changeTitleHandler = (enteredText) => {
@@ -114,8 +107,8 @@ const NewFolder = ({navigation, route}) => {
             </View>
             <View style={[styles.actions, styles.text]}>
                 {oldFolder.id === ''
-                          ? <OutlinedButton icon="folder-open-outline" onPress={createFolderHandler} >CREATE</OutlinedButton>
-                          : <OutlinedButton icon="push-outline" onPress={updateFolderHandler} >UPDATE</OutlinedButton>
+                    ? <OutlinedButton icon="folder-open-outline" onPress={createFolderHandler} >CREATE</OutlinedButton>
+                    : <OutlinedButton icon="push-outline" onPress={updateFolderHandler} >UPDATE</OutlinedButton>
                 }
                 <OutlinedButton icon="cut-outline" onPress={cancelHandler} >CANCEL</OutlinedButton>
                 <OutlinedButton icon="image-outline" onPress={pickImageFromRollHandler}>PICTURE</OutlinedButton>

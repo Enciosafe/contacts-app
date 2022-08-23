@@ -16,7 +16,7 @@ import {useNavigation} from "@react-navigation/native";
 import {addUserInfoAction} from "../../store/userInfoReducer";
 import {addUserDataToStore} from "../../util/http";
 import {Colors} from "../../assets/colors/Colors";
-import * as FileSystem from "expo-file-system";
+import {resizeImg} from "../../util/resizeImg";
 
 const ProfileForm = () => {
 
@@ -49,11 +49,6 @@ const ProfileForm = () => {
         })
     }
 
-    const getBase64 = async (path) => {
-        await FileSystem.readAsStringAsync(path, { encoding: 'base64' })
-            .then(base64 => setImage(base64))
-            .catch(err => console.log(err))
-    }
 
     const pickImageFromRollHandler = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
@@ -61,9 +56,8 @@ const ProfileForm = () => {
             allowsEditing: true
         })
 
-        if(!result.cancelled) {
-            await getBase64(result.uri)
-        }
+        await resizeImg(result.uri, setImage, 800)
+
     }
 
     const changePhotoHandler = (enteredUrl) => {

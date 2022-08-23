@@ -8,8 +8,8 @@ import * as ImagePicker from 'expo-image-picker';
 import MyImagePicker from "../components/MyImagePicker";
 import {updateContactToStore} from "../util/http";
 import {Colors} from "../assets/colors/Colors";
-import * as FileSystem from "expo-file-system";
 import {CompositeNavigationProp, useNavigation} from "@react-navigation/native";
+import {resizeImg} from "../util/resizeImg";
 
 
 
@@ -82,26 +82,17 @@ const UpdateContact = ({route}) => {
     }
 
 
-    const getBase64 = async (path) => {
-        await FileSystem.readAsStringAsync(path, { encoding: 'base64' })
-            .then(base64 => setImage(base64))
-            .catch(err => console.log(err))
-    }
-
     const pickImageFromRollHandler = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
             allowsEditing: true
         })
-
-        if(!result.cancelled) {
-            // @ts-ignore
-            await getBase64(result.uri)
-        }
+        // @ts-ignore
+        resizeImg(result?.uri, setImage, 800)
     }
 
     const changePhotoHandler = async (enteredUrl) => {
-        await getBase64(enteredUrl)
+        await resizeImg(enteredUrl, setImage, 800)
     }
 
     const updateContactHandler = async () => {
