@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {View, Text, StyleSheet, TextInput, Image, Alert, Platform, KeyboardAvoidingView, Keyboard, TouchableWithoutFeedback} from "react-native";
 import OutlinedButton from "../Ui/OutlinedButton";
 import 'react-native-get-random-values';
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {addContactAction} from "../store/contactsReducer";
 import * as ImagePicker from 'expo-image-picker';
 import MyImagePicker from "../components/MyImagePicker";
@@ -17,6 +17,7 @@ const NewContact = ({route, navigation}) => {
     const incomeFolderId = route.params.folderId
     const dispatch = useDispatch()
     const [foldId, setFoldId] = useState('')
+    const {userId} = useSelector(state => state.auth)
 
     const [photo, setPhoto] = useState(null);
     const [image, setImage] = useState(null);
@@ -66,6 +67,7 @@ const NewContact = ({route, navigation}) => {
             setPhoto(require('../assets/img/logo2.png'))
         }
         const newContact = {
+            idFromUser: userId,
             folderId: foldId,
             name: inputValues['name'].toUpperCase(),
             description: inputValues['description'].toLowerCase(),

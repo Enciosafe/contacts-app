@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {View, Text, StyleSheet, TextInput, Image, Alert, Platform, KeyboardAvoidingView, Keyboard, TouchableWithoutFeedback} from "react-native";
 import OutlinedButton from "../Ui/OutlinedButton";
 import 'react-native-get-random-values';
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {updateContactAction} from "../store/contactsReducer";
 import * as ImagePicker from 'expo-image-picker';
 import MyImagePicker from "../components/MyImagePicker";
@@ -17,6 +17,8 @@ import {resizeImg} from "../util/resizeImg";
 const UpdateContact = ({route}) => {
     const navigation = useNavigation<CompositeNavigationProp<any, any>>()
     const params = route.params
+    // @ts-ignore
+    const {userId} = useSelector(state => state.auth)
 
     const incomeFolderId = route.params.id
     const dispatch = useDispatch()

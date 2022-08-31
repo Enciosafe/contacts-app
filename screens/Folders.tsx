@@ -1,6 +1,15 @@
 import React, {useEffect, useState, useCallback} from 'react';
 import FolderItem from "../components/FolderItem";
-import {FlatList, RefreshControl, StyleSheet, View} from "react-native";
+import {
+    FlatList,
+    RefreshControl,
+    StyleSheet,
+    View,
+    Text,
+    TextInput,
+    Platform,
+    TouchableWithoutFeedback, KeyboardAvoidingView, Keyboard
+} from "react-native";
 import {useSelector} from "react-redux";
 import {fetchFolders} from "../util/http";
 import {setFolderAction} from "../store/foldersReducer";
@@ -17,6 +26,7 @@ const Folders = ({navigation}) => {
     const [refresh, setRefresh] = useState(false)
     const [isFetching, setIsFetching] = useState(false)
     const [fetchedFolders, setFetchedFolders] = useState([])
+    const [filterFolders, setFilterFolders] = useState('');
     const {userId} = useSelector(getUserId)
     const filteredFolders = fetchedFolders.filter(folder => folder.idFromUser === userId)
 
@@ -70,6 +80,15 @@ const Folders = ({navigation}) => {
 
     }
 
+    const keyboardDismissHandler = () => {
+        Keyboard.dismiss
+        setFilterFolders('')
+    }
+
+    const upperFilterFolders = filterFolders.toUpperCase()
+    const foundFolders = filteredFolders.filter(folder =>
+        folder.title.includes(upperFilterFolders))
+
 
 
     const renderItem = (itemData) => {
@@ -90,19 +109,41 @@ const Folders = ({navigation}) => {
 
 
     return (
-                <FlatList
-                    refreshControl={
-                        <RefreshControl
-                            refreshing={refresh}
-                            onRefresh={handleRefresh}
-                            tintColor={Colors.accent}
-                        />
-                    }
-                    data={filteredFolders}
-                    renderItem={renderItem}
-                    numColumns={3}
-                    style={styles.container}
-                />
+                <>
+                    <FlatList
+                        refreshControl={
+                            <RefreshControl
+                                refreshing={refresh}
+                                onRefresh={handleRefresh}
+                                tintColor={Colors.accent}
+                            />
+                        }
+                        data={filterFolders === '' ? filteredFolders : foundFolders}
+                        renderItem={renderItem}
+                        numColumns={3}
+                        style={styles.container}
+                    />
+                    <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+                        <TouchableWithoutFeedback onPress={keyboardDismissHandler}>
+                            <View style={styles.searchContainer}>
+                                <TextInput
+                                    placeholder='SEARCH'
+                                    placeholderTextColor='gray'
+                                    maxLength={25}
+                                    value={filterFolders}
+                                    onChangeText={value => setFilterFolders(value)}
+                                    style={[styles.input, styles.text]}
+                                />
+                            </View>
+                        </TouchableWithoutFeedback>
+                        <View>
+                            {filterFolders !== '' && foundFolders.map(item =>
+                                <Text key={item.title}>{item.title}</Text>
+                            )}
+                        </View>
+                    </KeyboardAvoidingView>
+                </>
+
 
     );
 };
@@ -114,7 +155,25 @@ const styles = StyleSheet.create({
     container: {
         marginTop: 90,
         backgroundColor: 'black',
-    }
+    },
+    searchContainer: {
+        padding: 30,
+        backgroundColor: 'black',
+        borderWidth: 1,
+        borderTopColor: Colors.accent,
+    },
+    input: {
+        marginVertical: 8,
+        paddingHorizontal: 8,
+        paddingVertical: 8,
+        fontSize: 16,
+        backgroundColor: Colors.input,
+        borderRadius: 5,
+    },
+    text: {
+        fontFamily: 'Qanelas-Regular',
+        color: 'black'
+    },
 })
 
 

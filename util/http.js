@@ -69,6 +69,7 @@ export const fetchContacts = async () => {
     for(const key in response.data) {
         const contactObj = {
             folderId: response.data[key].folderId,
+            idFromUser: response.data[key].idFromUser,
             id: key,
             name: response.data[key].name,
             description: response.data[key].description,
