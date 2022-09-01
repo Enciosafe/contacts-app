@@ -40,7 +40,11 @@ const StartScreen = ({navigation}) => {
                     style={[styles.button, styles.version]}
                     onPress={() => {
                         Alert.alert('NEW!! \n' +
-                            '  1. Поиск по файлам и папкам  ');
+                            '  1. Поиск по файлам и папкам' +
+                            '  Папки ищет по названию' +
+                            '  Контакты - по имени,' +
+                            '  описанию и номеру телефона ' +
+                            '  2. Уменьшил шрифт названия папки ');
                     }}
                 >
                     <Text style={styles.versionText}>version 1.3.0</Text>

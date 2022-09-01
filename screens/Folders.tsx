@@ -136,11 +136,6 @@ const Folders = ({navigation}) => {
                                 />
                             </View>
                         </TouchableWithoutFeedback>
-                        <View>
-                            {filterFolders !== '' && foundFolders.map(item =>
-                                <Text key={item.title}>{item.title}</Text>
-                            )}
-                        </View>
                     </KeyboardAvoidingView>
                 </>
 
@@ -154,7 +149,7 @@ export default Folders;
 const styles = StyleSheet.create({
     container: {
         marginTop: 90,
-        backgroundColor: 'black',
+        backgroundColor: Colors.fill
     },
     searchContainer: {
         padding: 30,

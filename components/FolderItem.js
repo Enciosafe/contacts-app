@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
     text: {
         fontFamily: 'Qanelas-Bold',
         textAlign: 'center',
-        fontSize: 16,
+        fontSize: 11,
         color: Colors.accent
     },
     folderContainer: {
@@ -93,9 +93,9 @@ const styles = StyleSheet.create({
     },
     textContainer: {
         backgroundColor: Colors.fill,
-        paddingBottom: 10,
+        paddingBottom: 15,
         opacity: .8,
-        bottom: 30,
+        bottom: 26,
     },
     image: {
         width: '100%',

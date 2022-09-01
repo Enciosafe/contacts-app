@@ -1,12 +1,21 @@
 import React, {useEffect, useState, useCallback} from 'react';
-import {StyleSheet, FlatList, RefreshControl} from "react-native";
+import {
+    StyleSheet,
+    FlatList,
+    RefreshControl,
+    Platform,
+    TouchableWithoutFeedback,
+    View,
+    TextInput,
+    KeyboardAvoidingView, Keyboard, Text
+} from "react-native";
 import ContactItem from "../components/ContactItem";
 import {useSelector} from "react-redux";
 import {fetchContacts} from "../util/http";
 import {setContactAction} from "../store/contactsReducer";
 import LoadingOverlay from "../Ui/LoadingOverlay";
 import {Colors} from "../assets/colors/Colors";
-import {getContacts} from "../store/selectors";
+import {getContacts, getUserId} from "../store/selectors";
 
 const ContactsList = ({route}) => {
     const insideFolderId = route.params.contactId
@@ -14,6 +23,12 @@ const ContactsList = ({route}) => {
     const [fetchedContacts, setFetchedContacts] = useState([]);
     const [isFetching, setIsFetching] = useState(true)
     const [refresh, setRefresh] = useState(false)
+    const {userId} = useSelector(getUserId)
+    const [filterContacts, setFilterContacts] = useState('');
+    const filteredContacts = fetchedContacts.filter((contact) => contact.folderId === insideFolderId)
+    const filteredWithUserContacts = fetchedContacts.filter((contact) => contact.idFromUser === userId)
+
+
 
 
     const handleRefresh = useCallback(
@@ -56,11 +71,22 @@ const ContactsList = ({route}) => {
     }, [fetchedContacts, contacts])
 
 
-    const filteredContacts = fetchedContacts.filter((contact) => contact.folderId === insideFolderId)
+    const keyboardDismissHandler = () => {
+        Keyboard.dismiss
+        setFilterContacts('')
+    }
+
+    const upperFilterContacts = filterContacts.toUpperCase()
+    const lowerFilterContacts = filterContacts.toLowerCase()
+    const foundContacts = filteredWithUserContacts.filter(contact =>
+         contact.description.includes(lowerFilterContacts) || contact.name.includes(upperFilterContacts) || contact.phone.includes(upperFilterContacts))
+
+
 
     if(isFetching) {
         return <LoadingOverlay/>
     }
+
 
 
     const renderItem = ({item}) => (
@@ -71,6 +97,7 @@ const ContactsList = ({route}) => {
 
     return (
         <>
+
             <FlatList
                 refreshControl={
                     <RefreshControl
@@ -79,11 +106,25 @@ const ContactsList = ({route}) => {
                         tintColor={Colors.accent}
                     />
                 }
-                data={filteredContacts}
+                data={filterContacts === '' ? filteredContacts : foundContacts}
                 renderItem={renderItem}
                 numColumns={2}
                 style={styles.container}
             />
+            <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} keyboardVerticalOffset={90}>
+                <TouchableWithoutFeedback onPress={keyboardDismissHandler}>
+                    <View style={styles.searchContainer}>
+                        <TextInput
+                            placeholder='SEARCH'
+                            placeholderTextColor='gray'
+                            maxLength={25}
+                            value={filterContacts}
+                            onChangeText={value => setFilterContacts(value)}
+                            style={[styles.input, styles.text]}
+                        />
+                    </View>
+                </TouchableWithoutFeedback>
+            </KeyboardAvoidingView>
         </>
 
     );
@@ -94,7 +135,24 @@ export default ContactsList;
 
 const styles = StyleSheet.create({
     container: {
-        width: '100%',
         backgroundColor: Colors.fill
-    }
+    },
+    searchContainer: {
+        padding: 30,
+        backgroundColor: 'black',
+        borderWidth: 1,
+        borderTopColor: Colors.accent,
+    },
+    input: {
+        marginVertical: 8,
+        paddingHorizontal: 8,
+        paddingVertical: 8,
+        fontSize: 16,
+        backgroundColor: Colors.input,
+        borderRadius: 5,
+    },
+    text: {
+        fontFamily: 'Qanelas-Regular',
+        color: 'black'
+    },
 })
