@@ -2,7 +2,7 @@
   "expo": {
     "name": "QUICKmE",
     "slug": "QUICKmE",
-    "version": "1.3.0",
+    "version": "1.3.1",
     "orientation": "portrait",
     "icon": "./assets/img/logo2.png",
     "splash": {

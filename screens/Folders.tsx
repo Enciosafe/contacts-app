@@ -5,7 +5,6 @@ import {
     RefreshControl,
     StyleSheet,
     View,
-    Text,
     TextInput,
     Platform,
     TouchableWithoutFeedback, KeyboardAvoidingView, Keyboard

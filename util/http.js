@@ -43,7 +43,7 @@ export const updateUserDataToStore = (id, updatedUserData) => {
 
 export const fetchFolders = async () => {
     const response = await axios.get(
-        `${BASE_URL}/folders.json`
+        `${BASE_URL}/folders.json`,
     )
     const foldersList = []
     for(const key in response.data) {

@@ -1,10 +1,10 @@
-import React from 'react';
-import {View, StyleSheet, Text, Pressable, Alert} from "react-native";
+import React, {useEffect} from 'react';
+import {View, StyleSheet, Text, Pressable, Alert, SafeAreaView} from "react-native";
 import OutlinedButton from "../Ui/OutlinedButton";
 import {useDispatch} from "react-redux";
 import {authSignOutUser} from "../store/auth/authOperations";
 import {Colors} from "../assets/colors/Colors";
-import Ionicons from "react-native-vector-icons/Ionicons";
+import RollingBar from "../Ui/RollingBar";
 
 
 
@@ -27,27 +27,26 @@ const StartScreen = ({navigation}) => {
 
 
 
-    return (
+   return (
             <View style={styles.container}>
                 <View style={styles.titleContainer} >
                     <Text style={styles.title}>QUICKmE</Text>
                 </View>
-                <OutlinedButton icon="enter-outline" onPress={enterHandler}  >  FOLDERS   </OutlinedButton>
-                <OutlinedButton icon="man-outline" onPress={profileHandler}  >   PROFILE    </OutlinedButton>
-                <OutlinedButton icon="log-out-outline" onPress={signOutHandler}  >   LOGOUT   </OutlinedButton>
-
+                <View style={{marginHorizontal: "25%"}}>
+                    <OutlinedButton icon="enter-outline" onPress={enterHandler}  >  FOLDERS   </OutlinedButton>
+                    <OutlinedButton icon="man-outline" onPress={profileHandler}  >   PROFILE    </OutlinedButton>
+                    <OutlinedButton icon="log-out-outline" onPress={signOutHandler}  >   LOGOUT   </OutlinedButton>
+                </View>
+                <SafeAreaView style={styles.rollingBar}>
+                    <RollingBar/>
+                </SafeAreaView>
                 <Pressable
                     style={[styles.button, styles.version]}
                     onPress={() => {
-                        Alert.alert('NEW!! \n' +
-                            '  1. Поиск по файлам и папкам' +
-                            '  Папки ищет по названию' +
-                            '  Контакты - по имени,' +
-                            '  описанию и номеру телефона ' +
-                            '  2. Уменьшил шрифт названия папки ');
+                        Alert.alert('small fixes');
                     }}
                 >
-                    <Text style={styles.versionText}>version 1.3.0</Text>
+                    <Text style={styles.versionText}>version 1.3.1</Text>
                 </Pressable>
 
             </View>
@@ -60,7 +59,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center',
         backgroundColor: 'black'
     },
     title: {
@@ -72,6 +70,7 @@ const styles = StyleSheet.create({
         color: Colors.accent,
         position: "absolute",
         bottom: 30,
+        left: '40%',
         borderWidth: 1,
         borderColor: Colors.accent,
         borderRadius: 10,
@@ -93,7 +92,11 @@ const styles = StyleSheet.create({
         borderRightColor: Colors.primal,
         borderTopColor: Colors.fill,
         borderRadius: 15,
-        position: "absolute",
-        top: 120
+        marginBottom: 200,
+        marginHorizontal: '14%'
     },
+    rollingBar: {
+        position: 'absolute',
+        bottom: 70
+    }
 })
